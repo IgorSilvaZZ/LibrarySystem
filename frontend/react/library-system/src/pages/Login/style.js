@@ -1,36 +1,5 @@
 import styled from "styled-components";
 
-export const ContainerLogin = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  height: 100vh;
-  width: 100vw;
-
-  background: #f9e9e8;
-`;
-
-export const BoxLogin = styled.div`
-  display: flex;
-
-  height: 80%;
-  width: 70%;
-
-  background: #ffffff;
-
-  border-radius: 20px;
-`;
-
-export const BoxInfoLogin = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 70%;
-  height: 100%;
-`;
-
 export const BoxBanner = styled.div`
   display: flex;
   align-items: center;
@@ -45,6 +14,14 @@ export const BoxBanner = styled.div`
 
   img {
     width: 90%;
+
+    cursor: pointer;
+
+    transition: all 0.3s;
+
+    &:hover {
+      width: 95%;
+    }
   }
 `;
 
@@ -72,44 +49,6 @@ export const SubTitleLogin = styled.p`
   margin-bottom: 40px;
 `;
 
-export const InputLogin = styled.input`
-  width: 60%;
-
-  padding: 12px;
-
-  font-size: 17px;
-
-  background: none;
-  outline: none;
-
-  border-radius: 5px;
-
-  margin-bottom: 20px;
-
-  color: #b2bec3;
-
-  border: 1px solid #b2bec3;
-`;
-
-export const ButtonLogin = styled.button`
-  width: 60%;
-
-  margin-top: 20px;
-  padding: 12px;
-
-  border: none;
-  outline: none;
-
-  background: #fea6b5;
-  color: white;
-
-  font-weight: 600;
-
-  border-radius: 5px;
-
-  cursor: pointer;
-`;
-
 export const SingInText = styled.p`
   font-size: 12px;
   font-weight: 500;
@@ -118,5 +57,11 @@ export const SingInText = styled.p`
 
   margin-top: 20px;
 
+  transition: color 0.3s;
+
   cursor: pointer;
+
+  &:hover {
+    color: #e84393;
+  }
 `;

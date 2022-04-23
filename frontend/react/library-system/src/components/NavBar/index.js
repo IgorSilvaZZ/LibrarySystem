@@ -1,8 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 import { NavBarContainer, LogoBook, OptionsMenu } from "./style";
 
 import logoBook from "../../assets/book-logo.png";
 
 export const NavBar = () => {
+  const navigate = useNavigate();
+
   return (
     <NavBarContainer>
       <LogoBook>
@@ -10,11 +14,11 @@ export const NavBar = () => {
         <span>Slibrary</span>
       </LogoBook>
       <OptionsMenu>
-        <p>Inicio</p>
+        <p onClick={() => navigate("/")}>Inicio</p>
         <p>Sobre</p>
         <p>Explorar</p>
         <p>Meus livros</p>
-        <p>Meu Perfil</p>
+        <p onClick={() => navigate("/login")}>Meu Perfil</p>
       </OptionsMenu>
     </NavBarContainer>
   );
