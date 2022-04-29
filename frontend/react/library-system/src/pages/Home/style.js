@@ -45,34 +45,6 @@ export const BannerInformation = styled.div`
   }
 `;
 
-export const InputContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 70%;
-  height: 10%;
-
-  background: #ebebeb;
-
-  border-radius: 10px;
-
-  img {
-    width: 10%;
-  }
-
-  input {
-    padding: 10px;
-
-    color: #b9b9b7;
-
-    border: none;
-    outline: none;
-
-    background: transparent;
-  }
-`;
-
 export const ContainerUse = styled.div`
   display: flex;
   justify-content: center;

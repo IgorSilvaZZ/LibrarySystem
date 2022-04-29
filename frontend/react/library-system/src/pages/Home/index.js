@@ -4,7 +4,6 @@ import {
   BannerContainer,
   BannerImage,
   BannerInformation,
-  InputContainer,
   ContainerUse,
   BoxStepsUse,
   ItemStep,
@@ -13,13 +12,13 @@ import {
 } from "./style";
 
 import banerImage from "../../assets/banner.png";
-import searchIcon from "../../assets/searchIcon.png";
 import userPlusIcon from "../../assets/user-plus.png";
 import searchIconStep from "../../assets/search-step.png";
 import bookIconStep from "../../assets/book-step.png";
 import libraryIconStep from "../../assets/library-step.png";
 import footerImageOne from "../../assets/footer-img1.png";
 import footerImageTwo from "../../assets/footer-img2.png";
+import { InputSearch } from "../../components/InputSearch";
 
 const Home = () => {
   return (
@@ -32,10 +31,16 @@ const Home = () => {
             Start collection your own library and read your first book for free
             now
           </p>
-          <InputContainer>
-            <img src={searchIcon} />
-            <input placeholder='Encontre seu livro' type='text' />
-          </InputContainer>
+          <InputSearch
+            colorInput={"#b9b9b7"}
+            widthContainer={"70%"}
+            heightContainer={"10%"}
+            backgroundContainer={"#ebebeb"}
+            widthImage={"10%"}
+            placeHolder='Encontre um livro'
+            justifyContainer='center'
+            alignItems='center'
+          />
         </BannerInformation>
         <BannerImage>
           <img src={banerImage} />

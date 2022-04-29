@@ -58,3 +58,19 @@ export const OptionsMenu = styled.div`
     }
   }
 `;
+
+export const ContainerIcons = styled.div`
+  display: flex;
+  align-items: center;
+
+  width: 30%;
+  height: 50%;
+
+  img {
+    width: 5%;
+
+    margin: 10px;
+
+    cursor: pointer;
+  }
+`;
