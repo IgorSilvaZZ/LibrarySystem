@@ -2,22 +2,25 @@ import styled from "styled-components";
 
 export const NavBarContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: ${(props) =>
+    props.isSearch ? "space-between" : "flex-start"};
   align-items: center;
 
   width: 95vw;
   height: 80px;
+
+  border-bottom: ${(props) => (props.isSearch ? "1px solid #bdc3c7" : "none")};
 `;
 
 export const LogoBook = styled.div`
   display: flex;
   align-items: center;
 
-  width: 20%;
+  width: ${(props) => (props.isSearch ? "40%" : "20%")};
   height: 100%;
 
   img {
-    width: 15%;
+    width: 50px;
   }
 
   span {
@@ -63,11 +66,11 @@ export const ContainerIcons = styled.div`
   display: flex;
   align-items: center;
 
-  width: 30%;
+  width: 10%;
   height: 50%;
 
   img {
-    width: 5%;
+    width: 15px;
 
     margin: 10px;
 

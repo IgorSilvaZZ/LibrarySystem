@@ -11,13 +11,14 @@ import {
 
 import logoBook from "../../assets/book-logo.png";
 import userIcon from "../../assets/user.png";
+import notificationIcon from "../../assets/bell.png";
 
 export const NavBar = ({ isNavSearch }) => {
   const navigate = useNavigate();
 
   return (
-    <NavBarContainer>
-      <LogoBook>
+    <NavBarContainer isSearch={isNavSearch}>
+      <LogoBook isSearch={isNavSearch}>
         <img src={logoBook} />
         <span>Slibrary</span>
       </LogoBook>
@@ -35,7 +36,7 @@ export const NavBar = ({ isNavSearch }) => {
           />
           <ContainerIcons>
             <img src={userIcon} />
-            <img src={userIcon} />
+            <img src={notificationIcon} />
           </ContainerIcons>
         </>
       ) : (
