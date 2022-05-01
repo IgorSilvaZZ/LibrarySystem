@@ -1,5 +1,7 @@
 import { NavBar } from "../../components/NavBar";
 
+import { Footer } from "../../components/Footer";
+
 import {
   ContainerExplore,
   TitleContainer,
@@ -15,6 +17,8 @@ import {
   TitleBook,
   AuthorBook,
   HandlePagesBox,
+  NewBookContainer,
+  NewBooksBox,
 } from "./style";
 
 import bookItem from "../../assets/book-item.png";
@@ -37,6 +41,11 @@ const Explore = () => {
             <FilterItem>Artes e Fotográfia</FilterItem>
             <FilterItem>Historia</FilterItem>
             <FilterItem>Biografias</FilterItem>
+          </SectionFilterMenu>
+          <TitleContainer>Disponibilidade</TitleContainer>
+          <SectionFilterMenu>
+            <FilterItem>Disponivel</FilterItem>
+            <FilterItem>Indisponivel</FilterItem>
           </SectionFilterMenu>
         </FilterMenuContainer>
         <ContainerBooks>
@@ -113,6 +122,17 @@ const Explore = () => {
           </HandlePagesBox>
         </ContainerBooks>
       </ContainerExplore>
+      <NewBookContainer>
+        <TitleContainer>Novos Livros</TitleContainer>
+        <span>Veja nossas novidades!</span>
+        <NewBooksBox>
+          <img src={bookItem} />
+          <img src={bookItem} />
+          <img src={bookItem} />
+          <img src={bookItem} />
+        </NewBooksBox>
+      </NewBookContainer>
+      <Footer />
     </>
   );
 };

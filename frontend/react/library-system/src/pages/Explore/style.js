@@ -34,7 +34,7 @@ export const SectionFilterMenu = styled.div`
   height: 90%;
   width: 90%;
 
-  margin: 0px 10px;
+  margin: 0 10px 30px 10px;
 `;
 
 export const FilterItem = styled.p`
@@ -167,6 +167,46 @@ export const HandlePagesBox = styled.div`
 
     &:hover {
       color: #fea6b5;
+    }
+  }
+`;
+
+export const NewBookContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 300px;
+  width: 95vw;
+
+  background: #f5f6fa;
+
+  span {
+    font-size: 15px;
+    font-weight: 700;
+
+    color: #a3a3a1;
+  }
+`;
+
+export const NewBooksBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  height: 90%;
+  width: 90%;
+
+  img {
+    width: 100px;
+
+    cursor: pointer;
+
+    transition: width 0.3s;
+
+    &:hover {
+      width: 130px;
     }
   }
 `;
