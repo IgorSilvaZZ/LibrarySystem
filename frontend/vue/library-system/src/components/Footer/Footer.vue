@@ -3,7 +3,7 @@
     <p class="footer-item">Slibary</p>
     <p class="footer-item">Endereço</p>
     <p class="footer-item">slibary@org.com.br</p>
-    <p class="footer-item">Suricas Devs</p>
+    <p class="footer-item">Igor´s Devs</p>
   </div>
 </template>
 

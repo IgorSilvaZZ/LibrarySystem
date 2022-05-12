@@ -5,116 +5,95 @@
       <div class="filter-menu-container">
         <p class="title-container">Categorias</p>
         <div class="section-filter-menu">
-          <p class="filter-item">Todos Generos</p>
-          <p class="filter-item">Aventura</p>
-          <p class="filter-item">Ficção</p>
-          <p class="filter-item">Ciencia</p>
-          <p class="filter-item">Infantil Juvenil</p>
-          <p class="filter-item">Misterio e Suspense</p>
-          <p class="filter-item">Romance</p>
-          <p class="filter-item">Artes e Fotográfia</p>
-          <p class="filter-item">Historia</p>
-          <p class="filter-item">Biografias</p>
+          <p class="filter-item" @click="filterCategory = 'all'">
+            Todos Generos
+          </p>
+          <p class="filter-item" @click="filterCategory = 'adventure'">
+            Aventura
+          </p>
+          <p class="filter-item" @click="filterCategory = 'fiction'">Ficção</p>
+          <p class="filter-item" @click="filterCategory = 'science'">Ciencia</p>
+          <p class="filter-item" @click="filterCategory = 'juvenile'">
+            Infantil Juvenil
+          </p>
+          <p class="filter-item" @click="filterCategory = 'thriller'">
+            Suspense
+          </p>
+          <p class="filter-item" @click="filterCategory = 'romance'">Romance</p>
+          <p class="filter-item" @click="filterCategory = 'art'">Artes</p>
+          <p class="filter-item" @click="filterCategory = 'history'">
+            Historia
+          </p>
+          <p class="filter-item" @click="filterCategory = 'biography'">
+            Biografias
+          </p>
         </div>
         <p class="title-container">Disponibilidade</p>
         <div class="section-filter-menu">
-          <p class="filter-item">Disponivel</p>
-          <p class="filter-item">Indisponivel</p>
+          <p class="filter-item" @click="filterCategory = 'available'">
+            Disponivel
+          </p>
+          <p class="filter-item" @click="filterCategory = 'notAvailable'">
+            Indisponivel
+          </p>
         </div>
       </div>
       <div class="container-books">
-        <div class="header-books">
-          <p class="title-container">Filtrar por</p>
-          <p style="color: #a3a3a1; font-weight: bold; font-size: 25px">
-            Mais Recentes
-          </p>
-        </div>
-        <section class="books-styled">
-          <BoxItemBook
-            widthBox="300px"
-            heightBox="300px"
-            marginBox="10px 10px 5px 10px"
-            widthImage="50%"
-            :isBorder="true"
-          >
-            <p slot="titleBook" class="title-book">Titulo Livro</p>
-            <p slot="authorBook" class="title-book author-book">Autor Livro</p>
-          </BoxItemBook>
-          <BoxItemBook
-            widthBox="300px"
-            heightBox="300px"
-            marginBox="10px 10px 5px 10px"
-            widthImage="50%"
-            :isBorder="true"
-          >
-            <p slot="titleBook" class="title-book">Titulo Livro</p>
-            <p slot="authorBook" class="title-book author-book">Autor Livro</p>
-          </BoxItemBook>
-          <BoxItemBook
-            widthBox="300px"
-            heightBox="300px"
-            marginBox="10px 10px 5px 10px"
-            widthImage="50%"
-            :isBorder="true"
-          >
-            <p slot="titleBook" class="title-book">Titulo Livro</p>
-            <p slot="authorBook" class="title-book author-book">Autor Livro</p>
-          </BoxItemBook>
-          <BoxItemBook
-            widthBox="300px"
-            heightBox="300px"
-            marginBox="10px 10px 5px 10px"
-            widthImage="50%"
-            :isBorder="true"
-          >
-            <p slot="titleBook" class="title-book">Titulo Livro</p>
-            <p slot="authorBook" class="title-book author-book">Autor Livro</p>
-          </BoxItemBook>
-          <BoxItemBook
-            widthBox="300px"
-            heightBox="300px"
-            marginBox="10px 10px 5px 10px"
-            widthImage="50%"
-            :isBorder="true"
-          >
-            <p slot="titleBook" class="title-book">Titulo Livro</p>
-            <p slot="authorBook" class="title-book author-book">Autor Livro</p>
-          </BoxItemBook>
-          <BoxItemBook
-            widthBox="300px"
-            heightBox="300px"
-            marginBox="10px 10px 5px 10px"
-            widthImage="50%"
-            :isBorder="true"
-          >
-            <p slot="titleBook" class="title-book">Titulo Livro</p>
-            <p slot="authorBook" class="title-book author-book">Autor Livro</p>
-          </BoxItemBook>
-        </section>
-        <div class="handle-pages-box">
-          <p>1</p>
-          <p>2</p>
-          <p>3</p>
-          <p>4</p>
-          <p>Proximo</p>
-        </div>
+        <template v-if="hasFilteredCategories.length">
+          <div class="header-books">
+            <p class="title-container">Filtrando por</p>
+            <span
+              style="
+                color: #a3a3a1;
+                font-weight: bold;
+                font-size: 25px;
+                border: none;
+                outline: none;
+              "
+            >
+              {{ filters[filterCategory] }}
+            </span>
+          </div>
+          <section class="books-styled">
+            <BoxItemBook
+              widthBox="300px"
+              heightBox="300px"
+              marginBox="10px 10px 5px 10px"
+              widthImage="50%"
+              :isBorder="true"
+              v-for="book in hasFilteredCategories"
+              :key="book.id"
+            >
+              <p slot="titleBook" class="title-book">{{ book.title }}</p>
+              <p slot="authorBook" class="title-book author-book">
+                {{ book.author }}
+              </p>
+            </BoxItemBook>
+          </section>
+        </template>
+        <template v-else>
+          <div class="not-found-books">
+            <span>Nenhum livro encontrado com essa categoria!</span>
+            <img src="../../assets/books-not-found.png" />
+          </div>
+        </template>
       </div>
     </div>
     <div class="new-book-container">
       <p class="title-container">Novos Livros</p>
       <span>Veja nossas novidades!</span>
       <div class="new-books-box">
-        <BoxItemBook widthBox="200px" heightBox="200px" widthImage="40%">
-          <p slot="titleBook" class="title-book">Titulo Livro</p>
-          <p slot="authorBook" class="title-book author-book">Autor Livro</p>
-        </BoxItemBook>
-        <BoxItemBook widthBox="200px" heightBox="200px" widthImage="40%">
-          <p slot="titleBook" class="title-book">Titulo Livro</p>
-          <p slot="authorBook" class="title-book author-book">Autor Livro</p>
-        </BoxItemBook>
-        <BoxItemBook widthBox="200px" heightBox="200px" widthImage="40%">
-          <p slot="titleBook" class="title-book">Titulo Livro</p>
-          <p slot="authorBook" class="title-book author-book">Autor Livro</p>
+        <BoxItemBook
+          v-for="book in books.slice(Math.max(books.length - 3, 1))"
+          :key="book.id"
+          widthBox="300px"
+          heightBox="250px"
+          widthImage="40%"
+        >
+          <p slot="titleBook" class="title-book">{{ book.title }}</p>
+          <p slot="authorBook" class="title-book author-book">
+            {{ book.author }}
+          </p>
         </BoxItemBook>
       </div>
     </div>
@@ -134,10 +113,179 @@ export default {
     BoxItemBook,
     Footer,
   },
+  data() {
+    return {
+      filterCategory: "all",
+      books: [
+        {
+          id: 1,
+          title: "Harry Potter E a Pedra Filosofal",
+          author: "JK.Rowling",
+          category: "adventure",
+          available: true,
+        },
+        {
+          id: 2,
+          title: "Mitologia Nórdica",
+          author: "Neil Gaiman",
+          category: "fiction",
+          available: true,
+        },
+        {
+          id: 3,
+          title: "A revolução dos bichos",
+          author: "George Orwell",
+          category: "fiction",
+          available: false,
+        },
+        {
+          id: 4,
+          title: "O Pequeno Príncipe",
+          author: "Antoine de Saint-Exupéry",
+          category: "Antoine de Saint-Exupéry",
+          available: true,
+        },
+        {
+          id: 5,
+          title: "Alice no País das Maravilhas",
+          author: "Lewis Carroll",
+          category: "juvenile",
+          available: true,
+        },
+        {
+          id: 6,
+          title: "A Garota do Lago",
+          author: "Charlie Donlea",
+          category: "thriller",
+          available: false,
+        },
+        {
+          id: 7,
+          title: "A Culpa É das Estrelas",
+          author: "John Green",
+          category: "romance",
+          available: true,
+        },
+        {
+          id: 8,
+          title: "Teto Para Dois",
+          author: "Beth O Leary",
+          category: "romance",
+          available: true,
+        },
+        {
+          id: 9,
+          title: "Eleanor & Park",
+          author: "Rainbow Rowell",
+          category: "romance",
+          available: false,
+        },
+        {
+          id: 10,
+          title: "A Seleção",
+          author: "Kiera Cass",
+          category: "romance",
+          available: true,
+        },
+        {
+          id: 11,
+          title: "A História da Arte",
+          author: "Ernst Gombrich",
+          category: "art",
+          available: true,
+        },
+        {
+          id: 12,
+          title: "História da Beleza",
+          author: "Umberto Eco",
+          category: "art",
+          available: false,
+        },
+        {
+          id: 13,
+          title: "Uma Breve História do Mundo",
+          author: "Geoffrey Blainey",
+          category: "history",
+          available: true,
+        },
+        {
+          id: 14,
+          title: "História do Brasil",
+          author: "Boris Fausto",
+          category: "history",
+          available: true,
+        },
+        {
+          id: 15,
+          title: "1808",
+          author: "Laurentino Gomes",
+          category: "history",
+          available: true,
+        },
+        {
+          id: 16,
+          title: "A Volta ao Mundo em 80 Dias",
+          author: "Júlio Verne",
+          category: "adventure",
+          available: false,
+        },
+        {
+          id: 17,
+          title: "A Ilha do Tesouro",
+          author: "Robert Louis Stevenson",
+          category: "adventure",
+          available: true,
+        },
+        {
+          id: 18,
+          title: "O Hobbit",
+          author: "J. R. R. Tolkien",
+          category: "adventure",
+          available: true,
+        },
+      ],
+      filters: {
+        all: "Todos Generos",
+        adventure: "Aventura",
+        fiction: "Ficção",
+        science: "Ciencia",
+        juvenile: "Infantil Juvenil",
+        thriller: "Suspense",
+        romance: "Romance",
+        art: "Artes",
+        history: "Historia",
+        biography: "Biografias",
+        available: "Disponivel",
+        notAvailable: "Indisponivel",
+      },
+    };
+  },
+  computed: {
+    hasFilteredCategories() {
+      if (this.filterCategory === "available") {
+        return this.books.filter((book) => book.available);
+      } else if (this.filterCategory === "notAvailable") {
+        return this.books.filter((book) => !book.available);
+      } else {
+        return this.filterCategory !== "all"
+          ? this.books.filter((book) => book.category == this.filterCategory)
+          : this.books;
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
+* ::-webkit-scrollbar {
+  width: 10px;
+  background: white;
+}
+* ::-webkit-scrollbar-thumb {
+  background: #fea6b5;
+  border-radius: 5px;
+}
+
 .container-explore {
   display: flex;
   align-items: flex-start;
@@ -198,6 +346,10 @@ export default {
 
   width: 80%;
   height: 900px;
+
+  margin-bottom: 50px;
+
+  overflow-y: auto;
 }
 
 .header-books {
@@ -264,7 +416,7 @@ export default {
   justify-content: center;
   align-items: center;
 
-  height: 300px;
+  height: 400px;
   width: 95vw;
 
   background: #f5f6fa;
@@ -284,5 +436,29 @@ export default {
 
   height: 90%;
   width: 90%;
+}
+
+.not-found-books {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  height: 90%;
+  width: 95%;
+
+  margin: 0px 10px;
+}
+
+.not-found-books span {
+  font-size: 30px;
+  font-weight: 700;
+
+  margin-bottom: 30px;
+
+  color: #a3a3a1;
+}
+
+.not-found-books img {
+  width: 70%;
 }
 </style>
