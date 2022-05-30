@@ -1,16 +1,16 @@
 <template>
   <div>
-    <Explore />
+    <Login />
   </div>
 </template>
 
 <script>
-import Explore from "./pages/Explore/Explore.vue";
+import Login from "./pages/Login/Login.vue";
 
 export default {
   name: "App",
   components: {
-    Explore,
+    Login,
   },
 };
 </script>
@@ -22,13 +22,13 @@ export default {
   box-sizing: border-box;
 }
 
-body {
+/* body {
   display: flex;
   justify-content: center;
   align-items: center;
 
   background: #ffffff;
-}
+} */
 
 body,
 input,

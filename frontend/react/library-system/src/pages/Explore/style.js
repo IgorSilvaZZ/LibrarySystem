@@ -85,13 +85,13 @@ export const BoxItemBook = styled.div`
   display: flex;
   flex-direction: column;
 
-  width: 300px;
-  height: 300px;
+  width: ${(props) => props.widthBox};
+  height: ${(props) => props.heightBox};
 
   border-radius: 10px;
-  border: 2px solid #ecf0f1;
+  border: ${(props) => (props.isBorder ? "2px solid #ecf0f1" : "none")};
 
-  margin: 10px 10px 5px 10px;
+  margin: ${(props) => props.marginBox};
 
   box-shadow: 10px 5px 5px #bdc3c7;
 `;
@@ -107,14 +107,14 @@ export const BookImageBox = styled.div`
   background: #ecf0f1;
 
   img {
-    width: 50%;
+    width: ${(props) => props.widthImage};
 
     cursor: pointer;
 
     transition: width 0.3s;
 
     &:hover {
-      width: 55%;
+      width: ${(props) => props.widthImageHover};
     }
   }
 `;
@@ -197,16 +197,4 @@ export const NewBooksBox = styled.div`
 
   height: 90%;
   width: 90%;
-
-  img {
-    width: 100px;
-
-    cursor: pointer;
-
-    transition: width 0.3s;
-
-    &:hover {
-      width: 130px;
-    }
-  }
 `;

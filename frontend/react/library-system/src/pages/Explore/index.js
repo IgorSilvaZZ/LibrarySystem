@@ -58,8 +58,13 @@ const Explore = () => {
             </p>
           </HeaderBooks>
           <BooksStyled>
-            <BoxItemBook>
-              <BookImageBox>
+            <BoxItemBook
+              widthBox={"300px"}
+              heightBox={"300px"}
+              marginBox={"10px 10px 5px 10px"}
+              isBorder
+            >
+              <BookImageBox widthImage={"50%"} widthImageHover={"55%"}>
                 <img src={bookItem} />
               </BookImageBox>
               <DescriptionBookBox>
@@ -67,8 +72,13 @@ const Explore = () => {
                 <AuthorBook>Autor Livro</AuthorBook>
               </DescriptionBookBox>
             </BoxItemBook>
-            <BoxItemBook>
-              <BookImageBox>
+            <BoxItemBook
+              widthBox={"300px"}
+              heightBox={"300px"}
+              marginBox={"10px 10px 5px 10px"}
+              isBorder
+            >
+              <BookImageBox widthImage={"50%"} widthImageHover={"55%"}>
                 <img src={bookItem} />
               </BookImageBox>
               <DescriptionBookBox>
@@ -76,8 +86,13 @@ const Explore = () => {
                 <AuthorBook>Autor Livro</AuthorBook>
               </DescriptionBookBox>
             </BoxItemBook>
-            <BoxItemBook>
-              <BookImageBox>
+            <BoxItemBook
+              widthBox={"300px"}
+              heightBox={"300px"}
+              marginBox={"10px 10px 5px 10px"}
+              isBorder
+            >
+              <BookImageBox widthImage={"50%"} widthImageHover={"55%"}>
                 <img src={bookItem} />
               </BookImageBox>
               <DescriptionBookBox>
@@ -85,8 +100,13 @@ const Explore = () => {
                 <AuthorBook>Autor Livro</AuthorBook>
               </DescriptionBookBox>
             </BoxItemBook>
-            <BoxItemBook>
-              <BookImageBox>
+            <BoxItemBook
+              widthBox={"300px"}
+              heightBox={"300px"}
+              marginBox={"10px 10px 5px 10px"}
+              isBorder
+            >
+              <BookImageBox widthImage={"50%"} widthImageHover={"55%"}>
                 <img src={bookItem} />
               </BookImageBox>
               <DescriptionBookBox>
@@ -94,8 +114,13 @@ const Explore = () => {
                 <AuthorBook>Autor Livro</AuthorBook>
               </DescriptionBookBox>
             </BoxItemBook>
-            <BoxItemBook>
-              <BookImageBox>
+            <BoxItemBook
+              widthBox={"300px"}
+              heightBox={"300px"}
+              marginBox={"10px 10px 5px 10px"}
+              isBorder
+            >
+              <BookImageBox widthImage={"50%"} widthImageHover={"55%"}>
                 <img src={bookItem} />
               </BookImageBox>
               <DescriptionBookBox>
@@ -103,8 +128,13 @@ const Explore = () => {
                 <AuthorBook>Autor Livro</AuthorBook>
               </DescriptionBookBox>
             </BoxItemBook>
-            <BoxItemBook>
-              <BookImageBox>
+            <BoxItemBook
+              widthBox={"300px"}
+              heightBox={"300px"}
+              marginBox={"10px 10px 5px 10px"}
+              isBorder
+            >
+              <BookImageBox widthImage={"50%"} widthImageHover={"55%"}>
                 <img src={bookItem} />
               </BookImageBox>
               <DescriptionBookBox>
@@ -126,10 +156,33 @@ const Explore = () => {
         <TitleContainer>Novos Livros</TitleContainer>
         <span>Veja nossas novidades!</span>
         <NewBooksBox>
-          <img src={bookItem} />
-          <img src={bookItem} />
-          <img src={bookItem} />
-          <img src={bookItem} />
+          <BoxItemBook widthBox={"200px"} heightBox={"200px"}>
+            <BookImageBox widthImage={"40%"} widthImageHover={"50%"}>
+              <img src={bookItem} />
+            </BookImageBox>
+            <DescriptionBookBox>
+              <TitleBook>Titulo Livro</TitleBook>
+              <AuthorBook>Autor Livro</AuthorBook>
+            </DescriptionBookBox>
+          </BoxItemBook>
+          <BoxItemBook widthBox={"200px"} heightBox={"200px"} r>
+            <BookImageBox widthImage={"40%"} widthImageHover={"50%"}>
+              <img src={bookItem} />
+            </BookImageBox>
+            <DescriptionBookBox>
+              <TitleBook>Titulo Livro</TitleBook>
+              <AuthorBook>Autor Livro</AuthorBook>
+            </DescriptionBookBox>
+          </BoxItemBook>
+          <BoxItemBook widthBox={"200px"} heightBox={"200px"} r>
+            <BookImageBox widthImage={"40%"} widthImageHover={"50%"}>
+              <img src={bookItem} />
+            </BookImageBox>
+            <DescriptionBookBox>
+              <TitleBook>Titulo Livro</TitleBook>
+              <AuthorBook>Autor Livro</AuthorBook>
+            </DescriptionBookBox>
+          </BoxItemBook>
         </NewBooksBox>
       </NewBookContainer>
       <Footer />
