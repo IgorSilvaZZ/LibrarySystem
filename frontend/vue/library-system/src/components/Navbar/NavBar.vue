@@ -7,7 +7,7 @@
     ]"
   >
     <div class="logo-book" :style="[{ width: isSearch ? '40%' : '20%' }]">
-      <img src="../../assets/book-logo.png" />
+      <img @click="handleHome" src="../../assets/book-logo.png" />
       <span>Slibrary</span>
     </div>
     <template v-if="isSearch">
@@ -28,11 +28,11 @@
     </template>
     <template v-else>
       <div class="options-menu">
-        <p>Inicio</p>
-        <p>Sobre</p>
-        <p>Explorar</p>
-        <p>Meus livros</p>
-        <p>Meu Perfil</p>
+        <router-link to="/">Inicio</router-link>
+        <a>Sobre</a>
+        <router-link to="/explore">Explorar</router-link>
+        <a>Meus livros</a>
+        <router-link to="/login">Meu Perfil</router-link>
       </div>
     </template>
   </div>
@@ -50,6 +50,11 @@ export default {
     isSearch: {
       type: Boolean,
       default: false,
+    },
+  },
+  methods: {
+    handleHome() {
+      this.$router.push("/");
     },
   },
 };
@@ -72,6 +77,8 @@ export default {
   align-items: center;
 
   height: 100%;
+
+  cursor: pointer;
 }
 
 .logo-book img {
@@ -96,10 +103,12 @@ export default {
   height: 100%;
 }
 
-.options-menu p {
+.options-menu a {
   font-weight: 500;
 
   color: #a3a3a1;
+
+  text-decoration: none;
 
   cursor: pointer;
 
@@ -108,7 +117,7 @@ export default {
   transition: all 0.3s;
 }
 
-.options-menu p:hover {
+.options-menu a:hover {
   border-radius: 5px;
 
   color: #fea6b5;
