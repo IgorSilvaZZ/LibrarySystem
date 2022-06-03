@@ -5,27 +5,13 @@
       <div class="filter-menu-container">
         <p class="title-container">Categorias</p>
         <div class="section-filter-menu">
-          <p class="filter-item" @click="filterCategory = 'all'">
-            Todos Generos
-          </p>
-          <p class="filter-item" @click="filterCategory = 'adventure'">
-            Aventura
-          </p>
-          <p class="filter-item" @click="filterCategory = 'fiction'">Ficção</p>
-          <p class="filter-item" @click="filterCategory = 'science'">Ciencia</p>
-          <p class="filter-item" @click="filterCategory = 'juvenile'">
-            Infantil Juvenil
-          </p>
-          <p class="filter-item" @click="filterCategory = 'thriller'">
-            Suspense
-          </p>
-          <p class="filter-item" @click="filterCategory = 'romance'">Romance</p>
-          <p class="filter-item" @click="filterCategory = 'art'">Artes</p>
-          <p class="filter-item" @click="filterCategory = 'history'">
-            Historia
-          </p>
-          <p class="filter-item" @click="filterCategory = 'biography'">
-            Biografias
+          <p
+            v-for="(item, index) in optionsFilters"
+            :key="index"
+            class="filter-item"
+            @click="filterCategory = `${item.filter}`"
+          >
+            {{ item.name }}
           </p>
         </div>
         <p class="title-container">Disponibilidade</p>
@@ -116,6 +102,20 @@ export default {
   data() {
     return {
       filterCategory: "all",
+      optionsFilters: [
+        { name: "Todos Generos", filter: "all" },
+        { name: "Aventura", filter: "adventure" },
+        { name: "Ficção", filter: "fiction" },
+        { name: "Ciencia", filter: "science" },
+        { name: "Infantil Juvenil", filter: "juvenile" },
+        { name: "Suspense", filter: "thriller" },
+        { name: "Romance", filter: "romance" },
+        { name: "Artes", filter: "art" },
+        { name: "Historia", filter: "history" },
+        { name: "Biografias", filter: "biography" },
+        { name: "Disponivel", filter: "available" },
+        { name: "Indisponivel", filter: "notAvailable" },
+      ],
       books: [
         {
           id: 1,
