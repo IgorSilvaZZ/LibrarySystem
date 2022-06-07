@@ -1,5 +1,27 @@
 <template>
   <div>
+    <Modal :isOpen="isOpenModalBook">
+      <template slot="header">
+        <span @click="isOpenModalBook = !isOpenModalBook">&times;</span>
+      </template>
+      <template slot="body">
+        <div class="info-image">
+          <img src="../../assets/book-item.png" />
+          <button>Ver mais</button>
+        </div>
+        <div class="info-book">
+          <h2>{{ selectedBook.title }}</h2>
+          <p>Quantidade Disponiveis: {{ selectedBook.quantity }}</p>
+          <p>Categoria: {{ filters[selectedBook.category] }}</p>
+          <span
+            >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut,
+            dignissimos. Consectetur totam quae inventore quos recusandae dolore
+            aliquam culpa, autem, distinctio, consequuntur deserunt corporis eos
+            a labore officiis. Molestias, esse!</span
+          >
+        </div>
+      </template>
+    </Modal>
     <NavBar :isSearch="true" />
     <div class="container-explore">
       <div class="filter-menu-container">
@@ -50,7 +72,9 @@
               v-for="book in hasFilteredCategories"
               :key="book.id"
             >
-              <p slot="titleBook" class="title-book">{{ book.title }}</p>
+              <p slot="titleBook" class="title-book" @click="openModal(book)">
+                {{ book.title }}
+              </p>
               <p slot="authorBook" class="title-book author-book">
                 {{ book.author }}
               </p>
@@ -91,6 +115,9 @@
 import NavBar from "@/components/Navbar/NavBar.vue";
 import BoxItemBook from "@/components/BoxItemBook/BoxItemBook.vue";
 import Footer from "@/components/Footer/Footer.vue";
+import Modal from "@/components/Modal/Modal.vue";
+
+import { api } from "../../services/api";
 
 export default {
   name: "ExploreApp",
@@ -98,10 +125,13 @@ export default {
     NavBar,
     BoxItemBook,
     Footer,
+    Modal,
   },
   data() {
     return {
       filterCategory: "all",
+      isOpenModalBook: false,
+      selectedBook: {},
       optionsFilters: [
         { name: "Todos Generos", filter: "all" },
         { name: "Aventura", filter: "adventure" },
@@ -116,134 +146,7 @@ export default {
         { name: "Disponivel", filter: "available" },
         { name: "Indisponivel", filter: "notAvailable" },
       ],
-      books: [
-        {
-          id: 1,
-          title: "Harry Potter E a Pedra Filosofal",
-          author: "JK.Rowling",
-          category: "adventure",
-          available: true,
-        },
-        {
-          id: 2,
-          title: "Mitologia Nórdica",
-          author: "Neil Gaiman",
-          category: "fiction",
-          available: true,
-        },
-        {
-          id: 3,
-          title: "A revolução dos bichos",
-          author: "George Orwell",
-          category: "fiction",
-          available: false,
-        },
-        {
-          id: 4,
-          title: "O Pequeno Príncipe",
-          author: "Antoine de Saint-Exupéry",
-          category: "Antoine de Saint-Exupéry",
-          available: true,
-        },
-        {
-          id: 5,
-          title: "Alice no País das Maravilhas",
-          author: "Lewis Carroll",
-          category: "juvenile",
-          available: true,
-        },
-        {
-          id: 6,
-          title: "A Garota do Lago",
-          author: "Charlie Donlea",
-          category: "thriller",
-          available: false,
-        },
-        {
-          id: 7,
-          title: "A Culpa É das Estrelas",
-          author: "John Green",
-          category: "romance",
-          available: true,
-        },
-        {
-          id: 8,
-          title: "Teto Para Dois",
-          author: "Beth O Leary",
-          category: "romance",
-          available: true,
-        },
-        {
-          id: 9,
-          title: "Eleanor & Park",
-          author: "Rainbow Rowell",
-          category: "romance",
-          available: false,
-        },
-        {
-          id: 10,
-          title: "A Seleção",
-          author: "Kiera Cass",
-          category: "romance",
-          available: true,
-        },
-        {
-          id: 11,
-          title: "A História da Arte",
-          author: "Ernst Gombrich",
-          category: "art",
-          available: true,
-        },
-        {
-          id: 12,
-          title: "História da Beleza",
-          author: "Umberto Eco",
-          category: "art",
-          available: false,
-        },
-        {
-          id: 13,
-          title: "Uma Breve História do Mundo",
-          author: "Geoffrey Blainey",
-          category: "history",
-          available: true,
-        },
-        {
-          id: 14,
-          title: "História do Brasil",
-          author: "Boris Fausto",
-          category: "history",
-          available: true,
-        },
-        {
-          id: 15,
-          title: "1808",
-          author: "Laurentino Gomes",
-          category: "history",
-          available: true,
-        },
-        {
-          id: 16,
-          title: "A Volta ao Mundo em 80 Dias",
-          author: "Júlio Verne",
-          category: "adventure",
-          available: false,
-        },
-        {
-          id: 17,
-          title: "A Ilha do Tesouro",
-          author: "Robert Louis Stevenson",
-          category: "adventure",
-          available: true,
-        },
-        {
-          id: 18,
-          title: "O Hobbit",
-          author: "J. R. R. Tolkien",
-          category: "adventure",
-          available: true,
-        },
-      ],
+      books: [],
       filters: {
         all: "Todos Generos",
         adventure: "Aventura",
@@ -260,6 +163,12 @@ export default {
       },
     };
   },
+  methods: {
+    openModal(book) {
+      this.isOpenModalBook = true;
+      this.selectedBook = book;
+    },
+  },
   computed: {
     hasFilteredCategories() {
       if (this.filterCategory === "available") {
@@ -272,6 +181,16 @@ export default {
           : this.books;
       }
     },
+  },
+  mounted() {
+    api
+      .get("/api/books")
+      .then(({ data }) => {
+        this.books = data.books;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 };
 </script>
@@ -378,6 +297,8 @@ export default {
   font-weight: 600;
 
   margin-bottom: 2px;
+
+  cursor: pointer;
 }
 
 .author-book {
@@ -460,5 +381,67 @@ export default {
 
 .not-found-books img {
   width: 70%;
+}
+
+.info-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  width: 30%;
+  height: 95%;
+
+  margin: 10px;
+}
+
+.info-image img {
+  width: 50%;
+}
+
+.info-image button {
+  width: 70%;
+
+  padding: 10px;
+
+  background: #e84393;
+
+  color: white;
+  font-weight: 700;
+
+  border-radius: 10px;
+
+  border: none;
+  outline: none;
+
+  cursor: pointer;
+}
+
+.info-book {
+  display: flex;
+  flex-direction: column;
+
+  width: 60%;
+  height: 95%;
+
+  margin: 10px;
+}
+
+.info-book h2 {
+  color: #fea6b5;
+
+  margin-bottom: 10px;
+}
+
+.info-book p {
+  font-size: 15px;
+
+  margin-bottom: 15px;
+}
+
+.info-book span {
+  font-size: 15px;
+
+  color: #a3a3a1;
 }
 </style>

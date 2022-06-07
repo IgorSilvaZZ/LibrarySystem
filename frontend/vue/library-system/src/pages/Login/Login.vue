@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { api } from "../../services/api";
+
 export default {
   name: "LoginPage",
   data() {
@@ -54,11 +56,28 @@ export default {
         return;
       }
 
-      this.$toast.success("Usuario Logado!");
+      const data = {
+        email: this.email,
+        password: this.password,
+      };
 
-      setTimeout(() => {
-        this.$router.push("/");
-      }, 1000);
+      api
+        .post("/auth", data)
+        .then((res) => {
+          console.log(res);
+          this.$toast.success("Login feito com sucesso!");
+
+          setTimeout(() => {
+            this.$router.push("/");
+          }, 1000);
+        })
+        .catch((error) => {
+          if (error.response.status == 400) {
+            this.$toast.error("Email/Senha Ivalidos!");
+          } else {
+            this.$toast.error("Erro ao se logar tente novamente!");
+          }
+        });
     },
   },
 };
