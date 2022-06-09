@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { api } from "../../services/api";
+import { mapActions } from "vuex";
 
 export default {
   name: "LoginPage",
@@ -42,6 +42,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions("auth", ["ActionHandleLogin"]),
     handleRegisterPage() {
       this.$router.push("/register");
     },
@@ -61,21 +62,16 @@ export default {
         password: this.password,
       };
 
-      api
-        .post("/auth", data)
+      this.ActionHandleLogin(data)
+        // eslint-disable-next-line no-unused-vars
         .then((res) => {
-          console.log(res);
           this.$toast.success("Login feito com sucesso!");
-
-          setTimeout(() => {
-            this.$router.push("/");
-          }, 1000);
         })
         .catch((error) => {
-          if (error.response.status == 400) {
-            this.$toast.error("Email/Senha Ivalidos!");
+          if (error.response) {
+            this.$toast.error(error.response.data.error);
           } else {
-            this.$toast.error("Erro ao se logar tente novamente!");
+            this.$toast.error("Erro ao realizar login, tente novamente!");
           }
         });
     },

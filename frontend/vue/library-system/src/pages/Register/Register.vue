@@ -82,7 +82,6 @@ export default {
           }, 1000);
         })
         .catch((error) => {
-          console.log();
           if (error.response) {
             this.$toast.error(error.response.data.error);
           } else {
