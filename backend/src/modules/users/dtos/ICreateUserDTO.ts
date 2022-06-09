@@ -6,4 +6,5 @@ export interface ICreateUserDTO {
   rg: string;
   password: string;
   isAdmin: boolean;
+  library_id?: string;
 }

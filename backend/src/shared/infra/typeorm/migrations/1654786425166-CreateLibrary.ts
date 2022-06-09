@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateUser1654616071253 implements MigrationInterface {
+export class CreateLibrary1654786425166 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "users",
+        name: "libraries",
         columns: [
           {
             name: "id",
@@ -16,51 +16,47 @@ export class CreateUser1654616071253 implements MigrationInterface {
             type: "varchar",
           },
           {
-            name: "email",
+            name: "street",
             type: "varchar",
           },
           {
-            name: "cpf",
+            name: "city",
             type: "varchar",
           },
           {
-            name: "rg",
+            name: "state",
             type: "varchar",
           },
           {
-            name: "indentificacao",
-            type: "varchar",
-            isNullable: true,
-          },
-          {
-            name: "password",
+            name: "cep",
             type: "varchar",
           },
           {
-            name: "isAdmin",
-            type: "boolean",
+            name: "uf",
+            type: "varchar",
           },
           {
-            name: "library_id",
-            type: "uuid",
-            isNullable: true,
+            name: "neighborhood",
+            type: "varchar",
+          },
+          {
+            name: "number",
+            type: "varchar",
+          },
+          {
+            name: "hourOpen",
+            type: "varchar",
+          },
+          {
+            name: "hourClose",
+            type: "varchar",
           },
         ],
-        foreignKeys: [
-          {
-            name: "FKLibrary",
-            referencedTableName: "libraries",
-            referencedColumnNames: ["id"],
-            columnNames: ["library_id"],
-            onDelete: "SET NULL",
-            onUpdate: "SET NULL",
-          }
-        ]
       })
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("users");
+    await queryRunner.dropTable("libraries");
   }
 }

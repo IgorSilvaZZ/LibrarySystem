@@ -14,6 +14,7 @@ export class CreateUserUseCase {
     rg,
     password,
     isAdmin,
+    library_id,
   }: ICreateUserDTO): Promise<User> {
     const userAlreadyExists = await this.usersRepository.findByEmailOrCpf(
       email,
@@ -33,6 +34,7 @@ export class CreateUserUseCase {
       rg,
       password: passwordHash,
       isAdmin,
+      library_id,
     };
 
     const user = await this.usersRepository.create(data);
