@@ -3,8 +3,11 @@
     <div class="box-container" style="height: 90%">
       <div class="box-info-container">
         <div class="box-choose-register" v-show="type === 'initial'">
-          <ArrowLeftIcon size="25" class="icon-back" @click="backToLogin" />
-          <span class="title-box-choose">Escolha um tipo de conta</span>
+          <div class="hedear-choose-register">
+            <ArrowLeftIcon size="25" class="icon-back" @click="backToLogin" />
+            <span class="title-box-choose">Escolha um tipo de conta</span>
+          </div>
+
           <div class="items-register-choose">
             <div
               class="item-choose-register"
@@ -87,7 +90,10 @@ export default {
   width: 100%;
 }
 
-.title-box-choose {
+.hedear-choose-register {
+  display: flex;
+  flex-direction: column;
+
   padding: 0 50px;
 
   font-size: 30px;

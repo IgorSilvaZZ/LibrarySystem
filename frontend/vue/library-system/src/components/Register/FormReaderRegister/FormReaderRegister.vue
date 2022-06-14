@@ -13,8 +13,20 @@
       type="text"
       placeholder="Email"
     />
-    <input class="input-submit" v-model="cpf" type="text" placeholder="CPF" />
-    <input class="input-submit" v-model="rg" type="text" placeholder="RG" />
+    <input
+      class="input-submit"
+      v-model="cpf"
+      v-mask="'###.###.###-##'"
+      type="text"
+      placeholder="CPF"
+    />
+    <input
+      class="input-submit"
+      v-model="rg"
+      v-mask="'##.###.###-#'"
+      type="text"
+      placeholder="RG"
+    />
     <input
       class="input-submit"
       v-model="password"

@@ -1,5 +1,5 @@
 <template>
-  <div class="box-info" style="height: 90%; width: 95%">
+  <div class="box-info" style="height: 90%; width: 90%">
     <ArrowLeftIcon size="25" class="icon-back" @click="backToInitial" />
     <input
       class="input-submit"
@@ -10,14 +10,25 @@
     <input
       class="input-submit"
       v-model="email"
-      type="text"
+      type="email"
       placeholder="Email"
     />
     <div class="input-container">
-      <input class="input-submit" type="text" placeholder="Identificação" />
-      <input class="input-submit" v-model="rg" type="text" placeholder="RG" />
+      <input
+        class="input-submit"
+        type="text"
+        v-model="identification"
+        placeholder="Identificação"
+      />
+      <input
+        class="input-submit"
+        v-mask="'##.###.###-#'"
+        v-model="rg"
+        type="text"
+        placeholder="RG"
+      />
     </div>
-    <select class="input-submit">
+    <select class="input-submit" v-model="library_id">
       <option
         v-for="library in libraries"
         :key="library.id"
@@ -26,7 +37,13 @@
         {{ library.name }}
       </option>
     </select>
-    <input class="input-submit" v-model="cpf" type="text" placeholder="CPF" />
+    <input
+      class="input-submit"
+      v-mask="'###.###.###-##'"
+      v-model="cpf"
+      type="text"
+      placeholder="CPF"
+    />
     <input
       class="input-submit"
       v-model="password"
@@ -53,6 +70,8 @@ export default {
       cpf: "",
       rg: "",
       password: "",
+      library_id: null,
+      identification: "",
       libraries: [],
     };
   },
@@ -75,16 +94,16 @@ export default {
         cpf: this.cpf,
         rg: this.rg,
         password: this.password,
-        identification: null,
-        isAdmin: false,
-        library_id: null,
+        identification: this.identification,
+        isAdmin: true,
+        library_id: this.library_id,
       };
 
       api
         .post("/users", data)
         // eslint-disable-next-line no-unused-vars
         .then((res) => {
-          this.$toast.success("Usuario cadastrado com sucesso!");
+          this.$toast.success("Bibliotecario cadastrado com sucesso!");
           setTimeout(() => {
             this.$router.push("/login");
           }, 1000);

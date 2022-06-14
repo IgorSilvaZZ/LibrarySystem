@@ -3,6 +3,7 @@
     <div class="box-container">
       <div class="box-info-container">
         <div class="box-info">
+          <ArrowLeftIcon size="25" class="icon-back" @click="backToHome" />
           <span>Slibrary</span>
           <p class="sub-title-login">Entrar na Conta</p>
           <input
@@ -32,9 +33,13 @@
 
 <script>
 import { mapActions } from "vuex";
+import { ArrowLeftIcon } from "vue-feather-icons";
 
 export default {
   name: "LoginPage",
+  components: {
+    ArrowLeftIcon,
+  },
   data() {
     return {
       email: "",
@@ -74,6 +79,9 @@ export default {
             this.$toast.error("Erro ao realizar login, tente novamente!");
           }
         });
+    },
+    backToHome() {
+      this.$router.push("/");
     },
   },
 };

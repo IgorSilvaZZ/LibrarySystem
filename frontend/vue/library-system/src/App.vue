@@ -17,14 +17,6 @@ export default {
   box-sizing: border-box;
 }
 
-/* body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background: #ffffff;
-} */
-
 body,
 input,
 textarea,
