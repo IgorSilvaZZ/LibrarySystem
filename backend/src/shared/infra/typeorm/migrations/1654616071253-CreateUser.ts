@@ -28,7 +28,7 @@ export class CreateUser1654616071253 implements MigrationInterface {
             type: "varchar",
           },
           {
-            name: "indentificacao",
+            name: "identification",
             type: "varchar",
             isNullable: true,
           },
@@ -54,8 +54,8 @@ export class CreateUser1654616071253 implements MigrationInterface {
             columnNames: ["library_id"],
             onDelete: "SET NULL",
             onUpdate: "SET NULL",
-          }
-        ]
+          },
+        ],
       })
     );
   }

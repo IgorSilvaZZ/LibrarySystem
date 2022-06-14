@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-import { Library } from "./Library";
+import { Library } from "@modules/libraries/infra/typeorm/entities/Library";
 
 @Entity("users")
 export class User {
@@ -19,6 +19,9 @@ export class User {
 
   @Column()
   rg: string;
+
+  @Column()
+  identification: string;
 
   @Column()
   password: string;

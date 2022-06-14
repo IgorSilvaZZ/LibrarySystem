@@ -13,6 +13,7 @@ export class CreateUserUseCase {
     cpf,
     rg,
     password,
+    identification,
     isAdmin,
     library_id,
   }: ICreateUserDTO): Promise<User> {
@@ -33,6 +34,7 @@ export class CreateUserUseCase {
       cpf,
       rg,
       password: passwordHash,
+      identification,
       isAdmin,
       library_id,
     };

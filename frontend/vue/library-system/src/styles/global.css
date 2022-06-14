@@ -79,3 +79,11 @@ body {
 .button-submit:hover {
   background: #e84393;
 }
+
+.icon-back {
+  color: #fea6b5;
+
+  margin-bottom: 10px;
+
+  cursor: pointer;
+}

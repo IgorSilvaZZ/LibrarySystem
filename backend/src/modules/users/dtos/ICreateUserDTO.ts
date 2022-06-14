@@ -1,10 +1,11 @@
 export interface ICreateUserDTO {
   id?: string;
-  name: string;
-  email: string;
-  cpf: string;
-  rg: string;
-  password: string;
-  isAdmin: boolean;
+  name?: string;
+  email?: string;
+  cpf?: string;
+  rg?: string;
+  identification?: string;
+  password?: string;
+  isAdmin?: boolean;
   library_id?: string;
 }
