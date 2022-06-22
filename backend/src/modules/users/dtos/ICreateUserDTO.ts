@@ -7,5 +7,4 @@ export interface ICreateUserDTO {
   identification?: string;
   password?: string;
   isAdmin?: boolean;
-  library_id?: string;
 }

@@ -36,6 +36,10 @@ export class CreateBook1655241072232 implements MigrationInterface {
             type: "varchar",
           },
           {
+            name: "quantity",
+            type: "number",
+          },
+          {
             name: "category_id",
             type: "uuid",
           },

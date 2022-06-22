@@ -40,21 +40,6 @@ export class CreateUser1654616071253 implements MigrationInterface {
             name: "isAdmin",
             type: "boolean",
           },
-          {
-            name: "library_id",
-            type: "uuid",
-            isNullable: true,
-          },
-        ],
-        foreignKeys: [
-          {
-            name: "FKLibrary",
-            referencedTableName: "libraries",
-            referencedColumnNames: ["id"],
-            columnNames: ["library_id"],
-            onDelete: "SET NULL",
-            onUpdate: "SET NULL",
-          },
         ],
       })
     );
