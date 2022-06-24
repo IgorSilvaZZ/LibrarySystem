@@ -11,10 +11,19 @@ export class CreateBookUseCase {
     );
 
     if (bookAlreadyExists) {
-      throw new Error("Livro já existente!");
+      bookAlreadyExists.quantity += 1;
+
+      await this.booksRepository.create(bookAlreadyExists);
+
+      return bookAlreadyExists;
     }
 
-    const book = await this.booksRepository.create(data);
+    const newBook = {
+      ...data,
+      quantity: 1,
+    };
+
+    const book = await this.booksRepository.create(newBook);
 
     return book;
   }

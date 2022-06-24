@@ -28,15 +28,6 @@
         placeholder="RG"
       />
     </div>
-    <select class="input-submit" v-model="library_id">
-      <option
-        v-for="library in libraries"
-        :key="library.id"
-        :value="library.id"
-      >
-        {{ library.name }}
-      </option>
-    </select>
     <input
       class="input-submit"
       v-mask="'###.###.###-##'"
@@ -72,19 +63,7 @@ export default {
       password: "",
       library_id: null,
       identification: "",
-      libraries: [],
     };
-  },
-  mounted() {
-    api
-      .get("/libraries/")
-      .then(({ data }) => {
-        this.libraries = data;
-      })
-      // eslint-disable-next-line no-unused-vars
-      .catch((error) => {
-        this.$toast.error("Erro ao carregar as bibliotecas!");
-      });
   },
   methods: {
     handleSubmit() {

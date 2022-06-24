@@ -57,7 +57,7 @@
         </span>
         <p>
           Faça seu emprestimo agora mesmo, tudo na sua casa e vá retirar o o
-          livro na biblioteca mais proxima da sua casa!
+          livro na biblioteca!
         </p>
         <button>Começe agora!</button>
       </div>

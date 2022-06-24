@@ -16,10 +16,6 @@ export class CreateBook1655241072232 implements MigrationInterface {
             type: "varchar",
           },
           {
-            name: "author",
-            type: "varchar",
-          },
-          {
             name: "description",
             type: "text",
           },
@@ -43,6 +39,10 @@ export class CreateBook1655241072232 implements MigrationInterface {
             name: "category_id",
             type: "uuid",
           },
+          {
+            name: "author_id",
+            type: "uuid",
+          },
         ],
         foreignKeys: [
           {
@@ -50,6 +50,14 @@ export class CreateBook1655241072232 implements MigrationInterface {
             referencedTableName: "categories",
             referencedColumnNames: ["id"],
             columnNames: ["category_id"],
+            onDelete: "SET NULL",
+            onUpdate: "SET NULL",
+          },
+          {
+            name: "FKAuthor",
+            referencedTableName: "authors",
+            referencedColumnNames: ["id"],
+            columnNames: ["author_id"],
             onDelete: "SET NULL",
             onUpdate: "SET NULL",
           },
