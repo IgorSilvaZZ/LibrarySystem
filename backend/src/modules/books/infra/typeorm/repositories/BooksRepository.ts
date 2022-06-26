@@ -19,7 +19,9 @@ export class BooksRepository implements IBooksRepository {
   }
 
   async list(): Promise<Book[]> {
-    const books = await this.repository.find();
+    const books = await this.repository.find({
+      relations: ["author", "category"],
+    });
 
     return books;
   }

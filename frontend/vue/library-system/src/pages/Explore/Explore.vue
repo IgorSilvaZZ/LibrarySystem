@@ -12,7 +12,7 @@
         <div class="info-book">
           <h2>{{ selectedBook.title }}</h2>
           <p>Quantidade Disponiveis: {{ selectedBook.quantity }}</p>
-          <p>Categoria: {{ filters[selectedBook.category] }}</p>
+          <p>Categoria: {{ filters[selectedBook.category.name] }}</p>
           <span
             >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut,
             dignissimos. Consectetur totam quae inventore quos recusandae dolore
@@ -76,7 +76,7 @@
                 {{ book.title }}
               </p>
               <p slot="authorBook" class="title-book author-book">
-                {{ book.author }}
+                {{ book.author.name }}
               </p>
             </BoxItemBook>
           </section>
@@ -143,8 +143,6 @@ export default {
         { name: "Artes", filter: "art" },
         { name: "Historia", filter: "history" },
         { name: "Biografias", filter: "biography" },
-        { name: "Disponivel", filter: "available" },
-        { name: "Indisponivel", filter: "notAvailable" },
       ],
       books: [],
       filters: {
@@ -158,8 +156,6 @@ export default {
         art: "Artes",
         history: "Historia",
         biography: "Biografias",
-        available: "Disponivel",
-        notAvailable: "Indisponivel",
       },
     };
   },
@@ -171,22 +167,16 @@ export default {
   },
   computed: {
     hasFilteredCategories() {
-      if (this.filterCategory === "available") {
-        return this.books.filter((book) => book.available);
-      } else if (this.filterCategory === "notAvailable") {
-        return this.books.filter((book) => !book.available);
-      } else {
-        return this.filterCategory !== "all"
-          ? this.books.filter((book) => book.category == this.filterCategory)
-          : this.books;
-      }
+      return this.filterCategory !== "all"
+        ? this.books.filter((book) => book.category.name == this.filterCategory)
+        : this.books;
     },
   },
   mounted() {
     api
-      .get("/api/books")
+      .get("/books")
       .then(({ data }) => {
-        this.books = data.books;
+        this.books = data;
       })
       .catch((error) => {
         console.log(error);
