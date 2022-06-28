@@ -5,6 +5,7 @@ import Home from "../pages/Home/Home.vue";
 import Login from "../pages/Login/Login.vue";
 import Explore from "../pages/Explore/Explore.vue";
 import Register from "../pages/Register/Register.vue";
+import Profile from "@/pages/Profile/Profile.vue";
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,11 @@ const routes = [
     name: "ExplorePage",
     path: "/explore",
     component: Explore,
+  },
+  {
+    name: "ProfilePage",
+    path: "/profile",
+    component: Profile,
   },
 ];
 

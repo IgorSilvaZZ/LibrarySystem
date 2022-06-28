@@ -22,7 +22,7 @@
         placeHolder="Pesquise um livro"
       />
       <div class="container-icons">
-        <img src="../../assets/user.png" />
+        <img src="../../assets/user.png" @click="handleProfilePage" />
         <img src="../../assets/bell.png" />
       </div>
     </template>
@@ -55,6 +55,9 @@ export default {
   methods: {
     handleHome() {
       this.$router.push("/");
+    },
+    handleProfilePage() {
+      this.$router.push(`/profile`);
     },
   },
 };

@@ -12,17 +12,14 @@
         <div class="info-book">
           <h2>{{ selectedBook.title }}</h2>
           <p>Quantidade Disponiveis: {{ selectedBook.quantity }}</p>
-          <p>Categoria: {{ filters[selectedBook.category.name] }}</p>
-          <span
-            >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut,
-            dignissimos. Consectetur totam quae inventore quos recusandae dolore
-            aliquam culpa, autem, distinctio, consequuntur deserunt corporis eos
-            a labore officiis. Molestias, esse!</span
-          >
+          <p>Categoria: {{ selectedBook.category.name }}</p>
+          <span>{{ selectedBook.description }}</span>
         </div>
       </template>
     </Modal>
+
     <NavBar :isSearch="true" />
+
     <div class="container-explore">
       <div class="filter-menu-container">
         <p class="title-container">Categorias</p>
@@ -36,7 +33,7 @@
             {{ item.name }}
           </p>
         </div>
-        <p class="title-container">Disponibilidade</p>
+        <!--  <p class="title-container">Principais Autores</p>
         <div class="section-filter-menu">
           <p class="filter-item" @click="filterCategory = 'available'">
             Disponivel
@@ -44,7 +41,7 @@
           <p class="filter-item" @click="filterCategory = 'notAvailable'">
             Indisponivel
           </p>
-        </div>
+        </div> -->
       </div>
       <div class="container-books">
         <template v-if="hasFilteredCategories.length">
@@ -131,7 +128,21 @@ export default {
     return {
       filterCategory: "all",
       isOpenModalBook: false,
-      selectedBook: {},
+      selectedBook: {
+        id: "",
+        title: "",
+        description: "",
+        numberPages: 0,
+        language: "",
+        code: "",
+        quantity: 0,
+        author: {
+          name: "",
+        },
+        category: {
+          name: "",
+        },
+      },
       optionsFilters: [
         { name: "Todos Generos", filter: "all" },
         { name: "Aventura", filter: "adventure" },
@@ -168,7 +179,9 @@ export default {
   computed: {
     hasFilteredCategories() {
       return this.filterCategory !== "all"
-        ? this.books.filter((book) => book.category.name == this.filterCategory)
+        ? this.books.filter(
+            (book) => book.category.name == this.filters[this.filterCategory]
+          )
         : this.books;
     },
   },
