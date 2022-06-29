@@ -33,15 +33,6 @@
             {{ item.name }}
           </p>
         </div>
-        <!--  <p class="title-container">Principais Autores</p>
-        <div class="section-filter-menu">
-          <p class="filter-item" @click="filterCategory = 'available'">
-            Disponivel
-          </p>
-          <p class="filter-item" @click="filterCategory = 'notAvailable'">
-            Indisponivel
-          </p>
-        </div> -->
       </div>
       <div class="container-books">
         <template v-if="hasFilteredCategories.length">
@@ -59,24 +50,10 @@
               {{ filters[filterCategory] }}
             </span>
           </div>
-          <section class="books-styled">
-            <BoxItemBook
-              widthBox="300px"
-              heightBox="300px"
-              marginBox="10px 10px 5px 10px"
-              widthImage="50%"
-              :isBorder="true"
-              v-for="book in hasFilteredCategories"
-              :key="book.id"
-            >
-              <p slot="titleBook" class="title-book" @click="openModal(book)">
-                {{ book.title }}
-              </p>
-              <p slot="authorBook" class="title-book author-book">
-                {{ book.author.name }}
-              </p>
-            </BoxItemBook>
-          </section>
+          <ItemsBooks
+            :books="hasFilteredCategories"
+            @openModal="openModalBook"
+          />
         </template>
         <template v-else>
           <div class="not-found-books">
@@ -111,18 +88,20 @@
 <script>
 import NavBar from "@/components/Navbar/NavBar.vue";
 import BoxItemBook from "@/components/BoxItemBook/BoxItemBook.vue";
-import Footer from "@/components/Footer/Footer.vue";
+import ItemsBooks from "@/components/ItemsBooks/ItemsBooks.vue";
 import Modal from "@/components/Modal/Modal.vue";
+import Footer from "@/components/Footer/Footer.vue";
 
 import { api } from "../../services/api";
 
 export default {
-  name: "ExploreApp",
+  name: "ExplorePage",
   components: {
     NavBar,
     BoxItemBook,
     Footer,
     Modal,
+    ItemsBooks,
   },
   data() {
     return {
@@ -171,7 +150,7 @@ export default {
     };
   },
   methods: {
-    openModal(book) {
+    openModalBook(book) {
       this.isOpenModalBook = true;
       this.selectedBook = book;
     },
@@ -280,34 +259,6 @@ export default {
 
   width: 100%;
   height: 40px;
-}
-
-.books-styled {
-  display: flex;
-  flex-wrap: wrap;
-  row-gap: 0%;
-
-  height: 90%;
-  width: 95%;
-
-  margin: 0px 10px;
-}
-
-.title-book {
-  color: white;
-
-  font-size: 17px;
-  font-weight: 600;
-
-  margin-bottom: 2px;
-
-  cursor: pointer;
-}
-
-.author-book {
-  color: #a3a3a1;
-
-  font-size: 13px;
 }
 
 .handle-pages-box {

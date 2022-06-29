@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="section-profile">
-        <Profile />
+        <BookEdit />
       </div>
     </div>
   </div>
@@ -24,13 +24,19 @@
 
 <script>
 import NavBar from "@/components/Navbar/NavBar.vue";
-import Profile from "@/components/Profile/General/Profile.vue";
+import General from "@/components/Profile/General/General.vue";
+import NewBook from "@/components/Profile/NewBook/NewBook.vue";
+import BookEdit from "@/components/Profile/BookEdit/BookEdit.vue";
 
 export default {
   name: "ProfilePage",
   components: {
     NavBar,
-    Profile,
+    // eslint-disable-next-line vue/no-unused-components
+    General,
+    // eslint-disable-next-line vue/no-unused-components
+    NewBook,
+    BookEdit,
   },
 };
 </script>

@@ -22,4 +22,10 @@ export class AuthorsRepository implements IAuthorsRepository {
 
     return author;
   }
+
+  async list(): Promise<Author[]> {
+    const authors = await this.repository.find();
+
+    return authors;
+  }
 }

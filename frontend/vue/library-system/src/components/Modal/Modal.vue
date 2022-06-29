@@ -16,6 +16,7 @@ export default {
   name: "ModalComponent",
   props: {
     isOpen: Boolean,
+    isAlign: Boolean,
   },
 };
 </script>
