@@ -10,13 +10,75 @@
       <template slot="body">
         <div class="info-image">
           <img src="../../../assets/book-item.png" />
-          <button>Ver mais</button>
         </div>
         <div class="info-book">
-          <h2>{{ selectedBook.title }}</h2>
-          <p>Quantidade Disponiveis: {{ selectedBook.quantity }}</p>
-          <p>Categoria: {{ selectedBook.category.name }}</p>
-          <span>{{ selectedBook.description }}</span>
+          <input
+            class="input-submit"
+            style="width: 100%"
+            type="text"
+            :value="selectedBook.title"
+          />
+          <div class="input-container">
+            <select
+              class="input-submit"
+              style="width: 50%"
+              v-model="selectedBook.author_id"
+            >
+              <option
+                v-for="author in authors"
+                :value="selectedBook.author_id"
+                :key="author.id"
+              >
+                {{ author.name }}
+              </option>
+            </select>
+            <input
+              class="input-submit"
+              type="text"
+              style="width: 45%"
+              v-model="selectedBook.quantity"
+            />
+          </div>
+          <div class="input-container">
+            <select
+              class="input-submit"
+              style="width: 50%"
+              v-model="selectedBook.category_id"
+            >
+              <option
+                v-for="category in categories"
+                :key="category.id"
+                :value="selectedBook.category_id"
+              >
+                {{ category.name }}
+              </option>
+            </select>
+            <select
+              class="input-submit"
+              style="width: 45%"
+              v-model="selectedBook.language"
+            >
+              <option
+                v-for="language in languages"
+                :key="language"
+                :value="selectedBook.language"
+              >
+                {{ language }}
+              </option>
+            </select>
+          </div>
+
+          <textarea
+            class="input-submit"
+            type="email"
+            placeholder="Descrição"
+            style="width: 100%"
+            :value="selectedBook.description"
+          ></textarea>
+          <div class="container-buttons-info">
+            <button>Editar</button>
+            <button>Excluir</button>
+          </div>
         </div>
       </template>
     </Modal>
@@ -53,6 +115,8 @@ export default {
         language: "",
         code: "",
         quantity: 0,
+        category_id: "",
+        author_id: "",
         author: {
           name: "",
         },
@@ -60,7 +124,10 @@ export default {
           name: "",
         },
       },
+      languages: ["Português", "Inglês", "Espanhol", "Francês"],
       books: [],
+      authors: [],
+      categories: [],
     };
   },
   methods: {
@@ -78,6 +145,26 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+
+    api
+      .get("/books/authors")
+      .then(({ data }) => {
+        this.authors = data;
+      })
+      // eslint-disable-next-line no-unused-vars
+      .catch((error) => {
+        this.$toast.error("Erro carregar a lista de autores!");
+      });
+
+    api
+      .get("/categories")
+      .then(({ data }) => {
+        this.categories = data;
+      })
+      // eslint-disable-next-line no-unused-vars
+      .catch((error) => {
+        this.$toast.error("Erro carregar a lista de categorias!");
+      });
   },
 };
 </script>
@@ -86,7 +173,7 @@ export default {
 .info-image {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
 
   width: 30%;
@@ -97,24 +184,6 @@ export default {
 
 .info-image img {
   width: 50%;
-}
-
-.info-image button {
-  width: 70%;
-
-  padding: 10px;
-
-  background: #e84393;
-
-  color: white;
-  font-weight: 700;
-
-  border-radius: 10px;
-
-  border: none;
-  outline: none;
-
-  cursor: pointer;
 }
 
 .info-book {
@@ -143,5 +212,37 @@ export default {
   font-size: 15px;
 
   color: #a3a3a1;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container-buttons-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  width: 80%;
+}
+
+.container-buttons-info button {
+  width: 40%;
+
+  padding: 10px;
+
+  background: #e84393;
+
+  color: white;
+  font-weight: 700;
+
+  border-radius: 10px;
+
+  border: none;
+  outline: none;
+
+  cursor: pointer;
 }
 </style>

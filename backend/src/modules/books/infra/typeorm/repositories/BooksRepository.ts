@@ -31,4 +31,14 @@ export class BooksRepository implements IBooksRepository {
 
     return book;
   }
+
+  async findById(id: string): Promise<Book> {
+    const book = await this.repository.findOne({ id });
+
+    return book;
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.repository.delete({ id });
+  }
 }

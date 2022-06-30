@@ -5,18 +5,24 @@
       <div class="menu-options-profile">
         <p class="title-container">Pessoal</p>
         <div class="box-menu-items">
-          <p class="menu-item">Geral</p>
+          <p class="menu-item" @click="optionProfile = 'general'">Geral</p>
           <p class="menu-item">Meus Livros</p>
           <p class="menu-item">Meus Emprestimos</p>
         </div>
         <p class="title-container">Livros</p>
         <div class="box-menu-items">
-          <p class="menu-item">Criar Novo Livro</p>
-          <p class="menu-item">Editar Livro & Deletar</p>
+          <p class="menu-item" @click="optionProfile = 'newBook'">
+            Criar Novo Livro
+          </p>
+          <p class="menu-item" @click="optionProfile = 'bookEdit'">
+            Editar Livro & Deletar
+          </p>
         </div>
       </div>
       <div class="section-profile">
-        <BookEdit />
+        <General v-show="optionProfile == 'general'" />
+        <NewBook v-show="optionProfile == 'newBook'" />
+        <BookEdit v-show="optionProfile == 'bookEdit'" />
       </div>
     </div>
   </div>
@@ -32,11 +38,14 @@ export default {
   name: "ProfilePage",
   components: {
     NavBar,
-    // eslint-disable-next-line vue/no-unused-components
     General,
-    // eslint-disable-next-line vue/no-unused-components
     NewBook,
     BookEdit,
+  },
+  data() {
+    return {
+      optionProfile: "general",
+    };
   },
 };
 </script>
