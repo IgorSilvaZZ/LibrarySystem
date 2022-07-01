@@ -70,7 +70,7 @@
           </select>
         </div>
         <div class="box-submit">
-          <button class="button-submit">Salvar</button>
+          <button class="button-submit" @click="saveBook">Salvar</button>
         </div>
       </div>
     </div>
@@ -126,6 +126,10 @@ export default {
         // eslint-disable-next-line no-unused-vars
         .then(({ data }) => {
           this.$toast.success("Livro cadastrado com sucesso!");
+
+          setTimeout(() => {
+            this.$router.push("/profile");
+          });
         })
         // eslint-disable-next-line no-unused-vars
         .catch((error) => {

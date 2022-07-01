@@ -73,10 +73,10 @@
             type="email"
             placeholder="Descrição"
             style="width: 100%"
-            :value="selectedBook.description"
+            v-model="selectedBook.description"
           ></textarea>
           <div class="container-buttons-info">
-            <button>Editar</button>
+            <button @click="updateBook">Editar</button>
             <button>Excluir</button>
           </div>
         </div>
@@ -117,12 +117,6 @@ export default {
         quantity: 0,
         category_id: "",
         author_id: "",
-        author: {
-          name: "",
-        },
-        category: {
-          name: "",
-        },
       },
       languages: ["Português", "Inglês", "Espanhol", "Francês"],
       books: [],
@@ -134,37 +128,61 @@ export default {
     openModalBook(book) {
       this.isOpenModalBook = true;
       this.selectedBook = book;
+
+      this.getAuthors();
+      this.getCategories();
+    },
+    getBooks() {
+      api
+        .get("/books")
+        .then(({ data }) => {
+          this.books = data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getAuthors() {
+      api
+        .get("/books/authors")
+        .then(({ data }) => {
+          this.authors = data;
+        })
+        // eslint-disable-next-line no-unused-vars
+        .catch((error) => {
+          this.$toast.error("Erro carregar a lista de autores!");
+        });
+    },
+    getCategories() {
+      api
+        .get("/categories")
+        .then(({ data }) => {
+          this.categories = data;
+        })
+        // eslint-disable-next-line no-unused-vars
+        .catch((error) => {
+          this.$toast.error("Erro carregar a lista de categorias!");
+        });
+    },
+    updateBook() {
+      api
+        .put(`/books/${this.selectedBook.id}`, this.selectedBook)
+        // eslint-disable-next-line no-unused-vars
+        .then(({ data }) => {
+          this.$toast.success("Livro atualizado com sucesso!");
+
+          this.isOpenModalBook = false;
+        })
+        // eslint-disable-next-line no-unused-vars
+        .catch((error) => {
+          this.$toast.error("Erro ao atualizar o livro!");
+
+          this.isOpenModalBook = false;
+        });
     },
   },
   mounted() {
-    api
-      .get("/books")
-      .then(({ data }) => {
-        this.books = data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    api
-      .get("/books/authors")
-      .then(({ data }) => {
-        this.authors = data;
-      })
-      // eslint-disable-next-line no-unused-vars
-      .catch((error) => {
-        this.$toast.error("Erro carregar a lista de autores!");
-      });
-
-    api
-      .get("/categories")
-      .then(({ data }) => {
-        this.categories = data;
-      })
-      // eslint-disable-next-line no-unused-vars
-      .catch((error) => {
-        this.$toast.error("Erro carregar a lista de categorias!");
-      });
+    this.getBooks();
   },
 };
 </script>
