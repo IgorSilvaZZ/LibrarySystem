@@ -41,4 +41,10 @@ export class BooksRepository implements IBooksRepository {
   async delete(id: string): Promise<void> {
     await this.repository.delete({ id });
   }
+
+  async findByIds(ids: string[]): Promise<Book[]> {
+    const books = await this.repository.findByIds(ids);
+
+    return books;
+  }
 }

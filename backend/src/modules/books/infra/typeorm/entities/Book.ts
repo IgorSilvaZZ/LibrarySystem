@@ -1,8 +1,16 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryColumn,
+} from "typeorm";
 import { v4 as uuid } from "uuid";
 
 import { Category } from "@modules/categories/infra/typeorm/entities/Category";
 import { Author } from "./Author";
+import { Loan } from "@modules/loans/infra/typeorm/entities/Loan";
 
 @Entity("books")
 export class Book {
@@ -40,6 +48,9 @@ export class Book {
   @ManyToOne(() => Author)
   @JoinColumn({ name: "author_id" })
   author: Author;
+
+  @OneToMany(() => Loan, (loan) => loan.book)
+  bookToLoans: Loan[];
 
   constructor() {
     if (!this.id) {

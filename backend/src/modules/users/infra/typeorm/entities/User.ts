@@ -1,4 +1,13 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
+import { Book } from "@modules/books/infra/typeorm/entities/Book";
+import { Loan } from "@modules/loans/infra/typeorm/entities/Loan";
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryColumn,
+} from "typeorm";
 import { v4 as uuid } from "uuid";
 
 @Entity("users")
@@ -26,6 +35,9 @@ export class User {
 
   @Column()
   isAdmin: boolean;
+
+  @OneToMany(() => Loan, (loan) => loan.user)
+  userToLoans: Loan[];
 
   constructor() {
     if (!this.id) {
