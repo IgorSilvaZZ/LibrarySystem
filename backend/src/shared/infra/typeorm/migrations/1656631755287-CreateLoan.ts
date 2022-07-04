@@ -27,6 +27,7 @@ export class CreateLoan1656631755287 implements MigrationInterface {
           {
             name: "end_date",
             type: "timestamp",
+            isNullable: true,
           },
           {
             name: "expected_return_date",

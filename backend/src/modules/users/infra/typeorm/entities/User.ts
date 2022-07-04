@@ -37,7 +37,7 @@ export class User {
   isAdmin: boolean;
 
   @OneToMany(() => Loan, (loan) => loan.user)
-  userToLoans: Loan[];
+  loans: Loan[];
 
   constructor() {
     if (!this.id) {
