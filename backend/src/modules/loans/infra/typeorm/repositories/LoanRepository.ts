@@ -26,4 +26,16 @@ export class LoanRepository implements ILoansRepository {
 
     return loansUser;
   }
+
+  async findByBookId(book_id: string): Promise<Loan> {
+    const loan = await this.repository.findOne({ book_id });
+
+    return loan;
+  }
+
+  async findById(id: string): Promise<Loan> {
+    const loan = await this.repository.findOne({ id });
+
+    return loan;
+  }
 }

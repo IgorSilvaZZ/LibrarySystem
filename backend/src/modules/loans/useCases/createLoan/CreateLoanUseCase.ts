@@ -28,6 +28,12 @@ export class CreateLoanUseCase {
       throw new Error("Não há quantidades disponiveis para esse livro!");
     }
 
+    const loanAlreadyExists = await this.loansRepository.findByBookId(book_id);
+
+    if (loanAlreadyExists) {
+      throw new Error("Emprestimos já feito pelo usuario!");
+    }
+
     const loansOpenUser = await this.loansRepository.findByLoansUser(user_id);
 
     if (loansOpenUser.length === 4) {
