@@ -83,9 +83,17 @@
       </template>
     </Modal>
 
-    <h2 class="title-container" style="font-size: 25px">
+    <h2
+      class="title-container"
+      style="font-size: 25px"
+      v-if="this.books.length > 0"
+    >
       Gerencie Todos os livros
     </h2>
+    <div class="not-found-books" v-else>
+      <span>Nenhum livro cadastrado!</span>
+      <img src="../../../assets/books-not-found.png" />
+    </div>
     <p class="subtitle-container">
       Edite todos os livros que contem na biblioteca
     </p>
@@ -236,31 +244,5 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.container-buttons-info {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-
-  width: 80%;
-}
-
-.container-buttons-info button {
-  width: 40%;
-
-  padding: 10px;
-
-  background: #e84393;
-
-  color: white;
-  font-weight: 700;
-
-  border-radius: 10px;
-
-  border: none;
-  outline: none;
-
-  cursor: pointer;
 }
 </style>

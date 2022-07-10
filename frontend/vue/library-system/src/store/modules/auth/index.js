@@ -1,6 +1,14 @@
-import { ActionSetToken, ActionSetUser, ActionHandleLogin } from "./actions";
+import {
+  ActionSetToken,
+  ActionSetUser,
+  ActionHandleLogin,
+  ActionCheckToken,
+  ActionCheckUser,
+  ActionLogout,
+} from "./actions";
 import state from "./state";
 import mutations from "./mutations";
+import { hasToken, hasUser } from "./getters";
 
 export default {
   state,
@@ -8,6 +16,13 @@ export default {
     ActionSetUser,
     ActionSetToken,
     ActionHandleLogin,
+    ActionCheckToken,
+    ActionCheckUser,
+    ActionLogout,
+  },
+  getters: {
+    hasToken,
+    hasUser,
   },
   mutations,
   namespaced: true,

@@ -87,3 +87,53 @@ body {
 
   cursor: pointer;
 }
+
+.not-found-books {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  height: 90%;
+  width: 95%;
+
+  margin: 0px 10px;
+}
+
+.not-found-books span {
+  font-size: 30px;
+  font-weight: 700;
+
+  margin-bottom: 30px;
+
+  color: #a3a3a1;
+}
+
+.not-found-books img {
+  width: 70%;
+}
+
+.container-buttons-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  width: 80%;
+}
+
+.container-buttons-info button {
+  width: 40%;
+
+  padding: 10px;
+
+  background: #e84393;
+
+  color: white;
+  font-weight: 700;
+
+  border-radius: 10px;
+
+  border: none;
+  outline: none;
+
+  cursor: pointer;
+}

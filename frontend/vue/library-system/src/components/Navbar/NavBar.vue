@@ -29,16 +29,18 @@
     <template v-else>
       <div class="options-menu">
         <router-link to="/">Inicio</router-link>
-        <a>Sobre</a>
         <router-link to="/explore">Explorar</router-link>
         <a>Meus livros</a>
-        <router-link to="/login">Meu Perfil</router-link>
+        <a @click="handlePageLogin">Meu Perfil</a>
+        <a v-if="hasToken && hasUser" @click="doLogout">Sair</a>
       </div>
     </template>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 import InputSearch from "../InputSearch/InputSearch.vue";
 
 export default {
@@ -52,12 +54,28 @@ export default {
       default: false,
     },
   },
+  computed: {
+    ...mapGetters("auth", ["hasToken", "hasUser"]),
+  },
   methods: {
+    ...mapActions("auth", ["ActionLogout"]),
     handleHome() {
       this.$router.push("/");
     },
     handleProfilePage() {
       this.$router.push(`/profile`);
+    },
+    handlePageLogin() {
+      if (this.hasToken && this.hasUser) {
+        this.$router.push(`/profile`);
+      } else {
+        this.$router.push(`/login`);
+      }
+    },
+    doLogout() {
+      this.ActionLogout();
+
+      this.$router.push("/");
     },
   },
 };

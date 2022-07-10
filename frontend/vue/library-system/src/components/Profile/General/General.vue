@@ -1,9 +1,9 @@
 <template>
   <div>
     <h2 class="title-container" style="font-size: 25px">Meu perfil</h2>
-    <p class="subtitle-container">Altere suas informações e troque de foto</p>
+    <p class="subtitle-container">Altere suas informações!</p>
     <div class="infos-profile-container">
-      <p class="subtitle-container" style="font-size: 18px; margin-bottom: 5px">
+      <!-- <p class="subtitle-container" style="font-size: 18px; margin-bottom: 5px">
         Troque sua foto de perfil
       </p>
       <div class="section-image-profile">
@@ -18,7 +18,7 @@
             <button style="background: #e84393">Excluir Foto</button>
           </div>
         </div>
-      </div>
+      </div> -->
       <p class="subtitle-container" style="font-size: 18px; margin-bottom: 5px">
         Atualize suas informações
       </p>
@@ -27,16 +27,17 @@
         style="height: 90%; width: 90%; margin-bottom: 20px"
       >
         <div class="input-container">
-          <input class="input-submit" type="text" placeholder="Nome Completo" />
-          <input class="input-submit" type="email" placeholder="Email" />
-        </div>
-        <div class="input-container">
-          <input class="input-submit" type="text" placeholder="Identificação" />
           <input
             class="input-submit"
-            v-mask="'##.###.###-#'"
             type="text"
-            placeholder="RG"
+            placeholder="Nome Completo"
+            v-model="userLoged.name"
+          />
+          <input
+            class="input-submit"
+            type="email"
+            placeholder="Email"
+            v-model="userLoged.email"
           />
         </div>
         <div class="input-container">
@@ -45,17 +46,74 @@
             v-mask="'###.###.###-##'"
             type="text"
             placeholder="CPF"
+            v-model="userLoged.cpf"
           />
-          <input class="input-submit" type="password" placeholder="Senha" />
+          <input
+            class="input-submit"
+            v-mask="'##.###.###-#'"
+            type="text"
+            placeholder="RG"
+            v-model="userLoged.rg"
+          />
         </div>
+        <div class="input-container">
+          <!-- <input  class="input-submit" type="password" placeholder="Senha" v-model="userLoged.password" /> -->
+          <!-- <input
+            class="input-submit"
+            v-if="user.isAdmin"
+            v-model="userloged.identification"
+            type="text"
+            placeholder="Identificação"
+          /> -->
+        </div>
+      </div>
+      <div class="container-buttons-info" style="width: 75%">
+        <button style="width: 50%">Atualizar</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
+import { api } from "@/services/api";
+
 export default {
   name: "ProfileComponent",
+  data() {
+    return {
+      userLoged: {
+        id: "",
+        name: "",
+        email: "",
+        cpf: "",
+        rg: "",
+        identification: "",
+        isAdmin: false,
+        isAvailable: true,
+      },
+    };
+  },
+  computed: mapState("auth", {
+    user: (state) => state.user,
+  }),
+  async mounted() {
+    const { data } = await api.get(`/users/${this.user.id}`);
+
+    this.userLoged = data;
+    /* try {
+      const { data } = await api.get(`/users/${this.user.id}`);
+
+      this.userLoged = data;
+    } catch (error) {
+      this.$toast.error("Erro ao carregar as informações! Tente novamente");
+
+      setTimeout(() => {
+        this.$router.push("/explore");
+      }, 1000);
+    } */
+  },
 };
 </script>
 

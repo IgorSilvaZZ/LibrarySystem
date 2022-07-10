@@ -71,6 +71,8 @@ export default {
         // eslint-disable-next-line no-unused-vars
         .then((res) => {
           this.$toast.success("Login feito com sucesso!");
+
+          this.$router.push("/");
         })
         .catch((error) => {
           if (error.response) {

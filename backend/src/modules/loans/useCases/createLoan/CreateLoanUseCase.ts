@@ -2,11 +2,13 @@ import { IBooksRepository } from "@modules/books/repositories/IBooksRepository";
 import { ICreateLoanDTO } from "@modules/loans/dtos/ICreateLoanDTO";
 import { Loan } from "@modules/loans/infra/typeorm/entities/Loan";
 import { ILoansRepository } from "@modules/loans/repositories/ILoansRepository";
+import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 
 export class CreateLoanUseCase {
   constructor(
     private booksRepository: IBooksRepository,
+    private usersRepository: IUsersRepository,
     private loansRepository: ILoansRepository,
     private dateProvider: IDateProvider
   ) {}
@@ -17,6 +19,12 @@ export class CreateLoanUseCase {
     expected_return_date,
   }: ICreateLoanDTO): Promise<Loan> {
     const minimumHour = 24;
+
+    const user = await this.usersRepository.findById(user_id);
+
+    if (!user.isAvailable) {
+      throw new Error("Usuario Indisponivel de realizar emprestimo!");
+    }
 
     const book = await this.booksRepository.findById(book_id);
 

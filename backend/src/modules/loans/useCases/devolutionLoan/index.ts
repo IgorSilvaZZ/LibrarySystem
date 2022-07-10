@@ -2,23 +2,28 @@ import { BooksRepository } from "@modules/books/infra/typeorm/repositories/Books
 import { LoanRepository } from "@modules/loans/infra/typeorm/repositories/LoanRepository";
 import { UsersRepository } from "@modules/users/infra/typeorm/repositories/UsersRepository";
 import { DayJsDateProvider } from "@shared/container/providers/DateProvider/implementations/DayJsDateProvider";
-import { CreateLoanController } from "./CreateLoanController";
-import { CreateLoanUseCase } from "./CreateLoanUseCase";
+import { DevolutionLoanController } from "./DevolutionLoanController";
+import { DevolutionLoanUseCase } from "./DevolutionLoanUseCase";
 
-export default (): CreateLoanController => {
-  const dateJsProvider = new DayJsDateProvider();
+export default (): DevolutionLoanController => {
+  const dateProvider = new DayJsDateProvider();
+
   const usersRepository = new UsersRepository();
+
   const booksRepository = new BooksRepository();
+
   const loansRepository = new LoanRepository();
 
-  const createLoanUseCase = new CreateLoanUseCase(
-    booksRepository,
+  const devolutionLoanUseCase = new DevolutionLoanUseCase(
+    dateProvider,
     usersRepository,
-    loansRepository,
-    dateJsProvider
+    booksRepository,
+    loansRepository
   );
 
-  const createLoanController = new CreateLoanController(createLoanUseCase);
+  const devolutionLoanController = new DevolutionLoanController(
+    devolutionLoanUseCase
+  );
 
-  return createLoanController;
+  return devolutionLoanController;
 };

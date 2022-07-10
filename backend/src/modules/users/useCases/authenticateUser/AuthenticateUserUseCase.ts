@@ -29,8 +29,14 @@ export class AuthenticateUserUseCase {
 
     const returnAuth: IResponseAuthenticateDTO = {
       user: {
+        id: user.id,
         name: user.name,
         email: user.email,
+        cpf: user.cpf,
+        rg: user.rg,
+        identification: user.identification,
+        isAdmin: user.isAdmin,
+        isAvailable: user.isAvailable,
       },
       token,
     };

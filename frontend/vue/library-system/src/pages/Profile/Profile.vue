@@ -7,32 +7,40 @@
         <div class="box-menu-items">
           <p class="menu-item" @click="optionProfile = 'general'">Geral</p>
           <p class="menu-item">Meus Livros</p>
-          <p class="menu-item">Meus Emprestimos</p>
-        </div>
-        <p class="title-container">Livros</p>
-        <div class="box-menu-items">
-          <p class="menu-item" @click="optionProfile = 'newBook'">
-            Criar Novo Livro
-          </p>
-          <p class="menu-item" @click="optionProfile = 'bookEdit'">
-            Editar Livro & Deletar
+          <p class="menu-item" @click="optionProfile = 'myLoans'">
+            Meus Emprestimos
           </p>
         </div>
+        <template v-if="user.isAdmin">
+          <p class="title-container">Livros</p>
+          <div class="box-menu-items">
+            <p class="menu-item" @click="optionProfile = 'newBook'">
+              Criar Novo Livro
+            </p>
+            <p class="menu-item" @click="optionProfile = 'bookEdit'">
+              Editar Livro & Deletar
+            </p>
+          </div>
+        </template>
       </div>
       <div class="section-profile">
         <General v-show="optionProfile == 'general'" />
         <NewBook v-show="optionProfile == 'newBook'" />
         <BookEdit v-show="optionProfile == 'bookEdit'" />
+        <MyLoans v-show="optionProfile == 'myLoans'" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import NavBar from "@/components/Navbar/NavBar.vue";
 import General from "@/components/Profile/General/General.vue";
 import NewBook from "@/components/Profile/NewBook/NewBook.vue";
 import BookEdit from "@/components/Profile/BookEdit/BookEdit.vue";
+import MyLoans from "@/components/Profile/MyLoans/MyLoansPage.vue";
 
 export default {
   name: "ProfilePage",
@@ -41,7 +49,11 @@ export default {
     General,
     NewBook,
     BookEdit,
+    MyLoans,
   },
+  computed: mapState("auth", {
+    user: (state) => state.user,
+  }),
   data() {
     return {
       optionProfile: "general",

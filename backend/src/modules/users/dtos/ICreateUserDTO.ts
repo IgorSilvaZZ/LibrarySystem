@@ -7,4 +7,5 @@ export interface ICreateUserDTO {
   identification?: string;
   password?: string;
   isAdmin?: boolean;
+  isAvailable?: boolean;
 }

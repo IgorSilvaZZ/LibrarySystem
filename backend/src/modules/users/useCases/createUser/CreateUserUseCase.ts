@@ -35,6 +35,7 @@ export class CreateUserUseCase {
       password: passwordHash,
       identification,
       isAdmin,
+      isAvailable: true,
     };
 
     const user = await this.usersRepository.create(data);

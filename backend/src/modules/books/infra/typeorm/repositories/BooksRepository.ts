@@ -33,7 +33,10 @@ export class BooksRepository implements IBooksRepository {
   }
 
   async findById(id: string): Promise<Book> {
-    const book = await this.repository.findOne({ id });
+    const book = await this.repository.findOne({
+      where: { id },
+      relations: ["author", "category"],
+    });
 
     return book;
   }

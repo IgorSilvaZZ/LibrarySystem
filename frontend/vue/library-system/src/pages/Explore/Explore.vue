@@ -7,7 +7,7 @@
       <template slot="body">
         <div class="info-image">
           <img src="../../assets/book-item.png" />
-          <button>Ver mais</button>
+          <button @click="handleLoanPage(selectedBook.id)">Ver mais</button>
         </div>
         <div class="info-book">
           <h2>{{ selectedBook.title }}</h2>
@@ -153,6 +153,9 @@ export default {
     openModalBook(book) {
       this.isOpenModalBook = true;
       this.selectedBook = book;
+    },
+    handleLoanPage(id) {
+      this.$router.push({ name: "LoanPage", params: { id } });
     },
   },
   computed: {
@@ -311,30 +314,6 @@ export default {
 
   height: 90%;
   width: 90%;
-}
-
-.not-found-books {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-
-  height: 90%;
-  width: 95%;
-
-  margin: 0px 10px;
-}
-
-.not-found-books span {
-  font-size: 30px;
-  font-weight: 700;
-
-  margin-bottom: 30px;
-
-  color: #a3a3a1;
-}
-
-.not-found-books img {
-  width: 70%;
 }
 
 .info-image {
