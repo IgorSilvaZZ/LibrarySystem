@@ -6,4 +6,5 @@ export interface ILoansRepository {
   findByLoansUser(user_id: string): Promise<Loan[]>;
   findByBookId(book_id: string): Promise<Loan>;
   findById(id: string): Promise<Loan>;
+  list(): Promise<Loan[]>;
 }

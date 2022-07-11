@@ -6,9 +6,18 @@
         <p class="title-container">Pessoal</p>
         <div class="box-menu-items">
           <p class="menu-item" @click="optionProfile = 'general'">Geral</p>
-          <p class="menu-item">Meus Livros</p>
-          <p class="menu-item" @click="optionProfile = 'myLoans'">
+          <p class="menu-item" @click="optionProfile = 'myBooks'">
+            Meus Livros
+          </p>
+          <p
+            class="menu-item"
+            @click="optionProfile = 'myLoans'"
+            v-if="!user.isAdmin"
+          >
             Meus Emprestimos
+          </p>
+          <p class="menu-item" @click="optionProfile = 'myLoans'" v-else>
+            Todos Emprestimos Realizados
           </p>
         </div>
         <template v-if="user.isAdmin">
@@ -28,6 +37,7 @@
         <NewBook v-show="optionProfile == 'newBook'" />
         <BookEdit v-show="optionProfile == 'bookEdit'" />
         <MyLoans v-show="optionProfile == 'myLoans'" />
+        <MyBooks v-show="optionProfile == 'myBooks'" />
       </div>
     </div>
   </div>
@@ -41,6 +51,7 @@ import General from "@/components/Profile/General/General.vue";
 import NewBook from "@/components/Profile/NewBook/NewBook.vue";
 import BookEdit from "@/components/Profile/BookEdit/BookEdit.vue";
 import MyLoans from "@/components/Profile/MyLoans/MyLoansPage.vue";
+import MyBooks from "@/components/Profile/MyBooks/MyBooks.vue";
 
 export default {
   name: "ProfilePage",
@@ -50,6 +61,7 @@ export default {
     NewBook,
     BookEdit,
     MyLoans,
+    MyBooks,
   },
   computed: mapState("auth", {
     user: (state) => state.user,

@@ -49,13 +49,14 @@
           </div>
           <div class="container-buttons-info">
             <button
-              :disabled="user.isAdmin"
+              :disabled="!user.isAdmin"
               :style="[
                 {
                   width: '50%',
                   background: user.isAdmin ? '#e84393' : '#b9b9b7',
                 },
               ]"
+              @click="devolutionLoan(loanSelected.id)"
             >
               Marcar como devolvido
             </button>
@@ -132,22 +133,44 @@ export default {
     user: (state) => state.user,
   }),
   async mounted() {
-    const { data } = await api.get("/users/loans", {
-      headers: {
-        authorization: `Bearer ${this.token}`,
-      },
-    });
-
-    if (data.loans.length > 0) {
-      this.loans = data.loans;
-
-      data.loans.map(async (loan) => {
-        const responseBook = await api.get(`/books/${loan.book_id}`);
-
-        if (responseBook) {
-          this.books.push(responseBook.data);
-        }
+    if (!this.user.isAdmin) {
+      const { data } = await api.get("/users/loans", {
+        headers: {
+          authorization: `Bearer ${this.token}`,
+        },
       });
+
+      if (data.loans.length > 0) {
+        this.loans = data.loans.filter((loan) => loan.end_date === null);
+
+        if (this.loans.length > 0) {
+          this.loans.map(async (loan) => {
+            const responseBook = await api.get(`/books/${loan.book_id}`);
+
+            if (responseBook) {
+              this.books.push(responseBook.data);
+            }
+          });
+        }
+      }
+    } else {
+      const { data } = await api.get("/loans", {
+        headers: {
+          authorization: `Bearer ${this.token}`,
+        },
+      });
+
+      if (data.loans.length > 0) {
+        data.map(async (loan) => {
+          const responseBook = await api.get(`/books/${loan.book_id}`);
+
+          if (responseBook) {
+            this.books.push(responseBook.data);
+          }
+        });
+
+        this.loans = data;
+      }
     }
   },
   methods: {
@@ -169,6 +192,23 @@ export default {
       ).format("YYYY-MM-DD");
 
       this.loanSelected = loanFilter;
+    },
+    async devolutionLoan(idLoan) {
+      try {
+        await api.post(`/loans/devolution/${idLoan}`, null, {
+          headers: {
+            authorization: `Bearer ${this.token}`,
+          },
+        });
+
+        this.$toast.success("Devolução realizada com sucesso!");
+
+        setTimeout(() => {
+          this.$router.push("/explore");
+        }, 1000);
+      } catch (error) {
+        this.$toast.error("Erro ao realizar a devolução!");
+      }
     },
   },
 };

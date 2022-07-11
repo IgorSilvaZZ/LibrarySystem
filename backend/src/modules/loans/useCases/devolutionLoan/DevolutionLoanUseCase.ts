@@ -47,7 +47,7 @@ export class DevolutionLoanUseCase {
       await this.usersRepository.create(user);
     }
 
-    loan.expected_return_date = this.dateProvider.dateNow();
+    loan.end_date = this.dateProvider.dateNow();
 
     book.quantity += 1;
 

@@ -3,11 +3,8 @@
     <NavBar />
     <div class="banner-container">
       <div class="banner-information">
-        <span>New platform with worldwide books</span>
-        <p>
-          Start collection your own library and read your first book for free
-          now
-        </p>
+        <span>Encontre seu livro agora mesmo!</span>
+        <p>Pesquise pelo nome do livro, logo abaixo e comece agora mesmo</p>
         <InputSearch
           colorInput="#b9b9b7"
           widthContainer="70%"

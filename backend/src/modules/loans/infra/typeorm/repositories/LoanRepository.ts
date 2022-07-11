@@ -38,4 +38,10 @@ export class LoanRepository implements ILoansRepository {
 
     return loan;
   }
+
+  async list(): Promise<Loan[]> {
+    const loans = await this.repository.find();
+
+    return loans;
+  }
 }

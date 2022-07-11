@@ -30,7 +30,6 @@
       <div class="options-menu">
         <router-link to="/">Inicio</router-link>
         <router-link to="/explore">Explorar</router-link>
-        <a>Meus livros</a>
         <a @click="handlePageLogin">Meu Perfil</a>
         <a v-if="hasToken && hasUser" @click="doLogout">Sair</a>
       </div>
