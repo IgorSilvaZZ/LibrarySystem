@@ -14,7 +14,7 @@ Vue.use(Toast, {});
 Vue.use(VueMask);
 
 new Vue({
-  store,
   router,
+  store,
   render: (h) => h(App),
 }).$mount("#app");

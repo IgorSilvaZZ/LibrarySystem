@@ -78,6 +78,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import { api } from "@/services/api";
 
 export default {
@@ -97,6 +99,9 @@ export default {
         author_id: "",
       },
     };
+  },
+  computed: {
+    ...mapGetters("auth", ["getToken"]),
   },
   mounted() {
     api
@@ -122,7 +127,11 @@ export default {
   methods: {
     saveBook() {
       api
-        .post("books", this.book)
+        .post("books", this.book, {
+          headers: {
+            authorization: `Bearer ${this.getToken}`,
+          },
+        })
         // eslint-disable-next-line no-unused-vars
         .then(({ data }) => {
           this.$toast.success("Livro cadastrado com sucesso!");

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 import { api } from "@/services/api";
 
@@ -34,14 +34,13 @@ export default {
       loans: [],
     };
   },
-  computed: mapState("auth", {
-    token: (state) => state.token,
-    user: (state) => state.user,
-  }),
+  computed: {
+    ...mapGetters("auth", ["getUser", "getToken"]),
+  },
   async mounted() {
     const { data } = await api.get("/users/loans", {
       headers: {
-        authorization: `Bearer ${this.token}`,
+        authorization: `Bearer ${this.getToken}`,
       },
     });
 

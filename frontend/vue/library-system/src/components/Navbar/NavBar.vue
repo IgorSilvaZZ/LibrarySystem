@@ -23,7 +23,7 @@
       />
       <div class="container-icons">
         <img src="../../assets/user.png" @click="handleProfilePage" />
-        <img src="../../assets/bell.png" />
+        <img src="../../assets/logout.png" @click="doLogout" />
       </div>
     </template>
     <template v-else>

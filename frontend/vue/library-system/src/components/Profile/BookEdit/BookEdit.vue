@@ -102,6 +102,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import { api } from "../../../services/api";
 import ItemsBooks from "@/components/ItemsBooks/ItemsBooks.vue";
 import Modal from "@/components/Modal/Modal.vue";
@@ -131,6 +133,9 @@ export default {
       authors: [],
       categories: [],
     };
+  },
+  computed: {
+    ...mapGetters("auth", ["getToken"]),
   },
   methods: {
     openModalBook(book) {
@@ -174,7 +179,11 @@ export default {
     },
     updateBook() {
       api
-        .put(`/books/${this.selectedBook.id}`, this.selectedBook)
+        .put(`/books/${this.selectedBook.id}`, this.selectedBook, {
+          headers: {
+            authorization: `Bearer ${this.getToken}`,
+          },
+        })
         // eslint-disable-next-line no-unused-vars
         .then(({ data }) => {
           this.$toast.success("Livro atualizado com sucesso!");

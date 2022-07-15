@@ -5,21 +5,8 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 export default {
   name: "App",
-  methods: {
-    ...mapActions("auth", ["ActionCheckToken", "ActionCheckUser"]),
-  },
-  async mounted() {
-    try {
-      await this.ActionCheckToken();
-      await this.ActionCheckUser();
-    } catch (error) {
-      this.$router.push("/");
-    }
-  },
 };
 </script>
 

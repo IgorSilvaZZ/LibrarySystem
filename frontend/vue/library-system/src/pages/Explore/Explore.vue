@@ -63,7 +63,7 @@
         </template>
       </div>
     </div>
-    <div class="new-book-container">
+    <!-- <div class="new-book-container">
       <p class="title-container">Novos Livros</p>
       <span>Veja nossas novidades!</span>
       <div class="new-books-box">
@@ -80,14 +80,13 @@
           </p>
         </BoxItemBook>
       </div>
-    </div>
+    </div> -->
     <Footer />
   </div>
 </template>
 
 <script>
 import NavBar from "@/components/Navbar/NavBar.vue";
-import BoxItemBook from "@/components/BoxItemBook/BoxItemBook.vue";
 import ItemsBooks from "@/components/ItemsBooks/ItemsBooks.vue";
 import Modal from "@/components/Modal/Modal.vue";
 import Footer from "@/components/Footer/Footer.vue";
@@ -98,7 +97,6 @@ export default {
   name: "ExplorePage",
   components: {
     NavBar,
-    BoxItemBook,
     Footer,
     Modal,
     ItemsBooks,
@@ -173,8 +171,9 @@ export default {
       .then(({ data }) => {
         this.books = data;
       })
+      // eslint-disable-next-line no-unused-vars
       .catch((error) => {
-        console.log(error);
+        this.$toast.error("Erro ao listar os livros!");
       });
   },
 };

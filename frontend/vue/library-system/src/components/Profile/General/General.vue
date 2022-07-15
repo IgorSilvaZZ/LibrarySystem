@@ -31,13 +31,13 @@
             class="input-submit"
             type="text"
             placeholder="Nome Completo"
-            v-model="userLoged.name"
+            v-model="user.name"
           />
           <input
             class="input-submit"
             type="email"
             placeholder="Email"
-            v-model="userLoged.email"
+            v-model="user.email"
           />
         </div>
         <div class="input-container">
@@ -46,22 +46,22 @@
             v-mask="'###.###.###-##'"
             type="text"
             placeholder="CPF"
-            v-model="userLoged.cpf"
+            v-model="user.cpf"
           />
           <input
             class="input-submit"
             v-mask="'##.###.###-#'"
             type="text"
             placeholder="RG"
-            v-model="userLoged.rg"
+            v-model="user.rg"
           />
         </div>
         <div class="input-container">
-          <!-- <input  class="input-submit" type="password" placeholder="Senha" v-model="userLoged.password" /> -->
+          <!-- <input  class="input-submit" type="password" placeholder="Senha" v-model="user.password" /> -->
           <!-- <input
             class="input-submit"
             v-if="user.isAdmin"
-            v-model="userloged.identification"
+            v-model="user.identification"
             type="text"
             placeholder="Identificação"
           /> -->
@@ -75,15 +75,16 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
+// eslint-disable-next-line no-unused-vars
 import { api } from "@/services/api";
 
 export default {
   name: "ProfileComponent",
   data() {
     return {
-      userLoged: {
+      user: {
         id: "",
         name: "",
         email: "",
@@ -95,24 +96,21 @@ export default {
       },
     };
   },
-  computed: mapState("auth", {
-    user: (state) => state.user,
-  }),
+  computed: {
+    ...mapGetters("auth", ["getUser", "getToken"]),
+  },
   async mounted() {
-    const { data } = await api.get(`/users/${this.user.id}`);
+    try {
+      const { data } = await api.get(`/users/${this.getUser.id}`);
 
-    this.userLoged = data;
-    /* try {
-      const { data } = await api.get(`/users/${this.user.id}`);
-
-      this.userLoged = data;
+      this.user = data;
     } catch (error) {
       this.$toast.error("Erro ao carregar as informações! Tente novamente");
 
       setTimeout(() => {
         this.$router.push("/explore");
       }, 1000);
-    } */
+    }
   },
 };
 </script>
