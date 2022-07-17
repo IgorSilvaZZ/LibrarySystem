@@ -38,7 +38,7 @@ export class CreateLoanUseCase {
 
     const loanAlreadyExists = await this.loansRepository.findByBookId(book_id);
 
-    if (loanAlreadyExists) {
+    if (loanAlreadyExists && loanAlreadyExists.end_date === null) {
       throw new Error("Emprestimos já feito pelo usuario!");
     }
 

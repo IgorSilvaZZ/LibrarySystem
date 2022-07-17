@@ -40,6 +40,7 @@
             v-model="book.numberPages"
           />
           <select class="input-submit" v-model="book.language">
+            <option value="" selected>Selecione uma Linguagem</option>
             <option
               v-for="language in languages"
               :key="language"
@@ -51,6 +52,7 @@
         </div>
         <div class="input-container">
           <select class="input-submit" v-model="book.category_id">
+            <option value="" selected>Selecione uma Categoria</option>
             <option
               v-for="category in categories"
               :key="category.id"
@@ -60,6 +62,7 @@
             </option>
           </select>
           <select class="input-submit" v-model="book.author_id">
+            <option value="" selected>Selecione um Autor</option>
             <option
               v-for="author in authors"
               :value="author.id"
@@ -80,7 +83,7 @@
 <script>
 import { mapGetters } from "vuex";
 
-import { api } from "@/services/api";
+import BooksServices from "@/services/BooksServices";
 
 export default {
   name: "NewBookComponent",
@@ -103,47 +106,80 @@ export default {
   computed: {
     ...mapGetters("auth", ["getToken"]),
   },
-  mounted() {
-    api
-      .get("/books/authors")
-      .then(({ data }) => {
-        this.authors = data;
-      })
-      // eslint-disable-next-line no-unused-vars
-      .catch((error) => {
-        this.$toast.error("Erro carregar a lista de autores!");
-      });
+  async mounted() {
+    try {
+      const { data } = await BooksServices.listAuthors();
 
-    api
-      .get("/categories")
-      .then(({ data }) => {
-        this.categories = data;
-      })
-      // eslint-disable-next-line no-unused-vars
-      .catch((error) => {
-        this.$toast.error("Erro carregar a lista de categorias!");
-      });
+      this.authors = data;
+    } catch (error) {
+      this.$toast.error("Erro carregar a lista de autores!");
+    }
+
+    try {
+      const { data } = await BooksServices.listCategories();
+
+      this.categories = data;
+    } catch (error) {
+      this.$toast.error("Erro carregar a lista de categorias!");
+    }
   },
   methods: {
-    saveBook() {
-      api
-        .post("books", this.book, {
-          headers: {
+    validation() {
+      if (this.book.title === "") {
+        this.$toast("Preencha o campo de titulo!");
+        return false;
+      }
+
+      if (this.book.description === "") {
+        this.$toast("Preencha o campo de descrição!");
+        return false;
+      }
+
+      if (this.book.numberPages === "") {
+        this.$toast("Preencha o campo de numero de paginas!");
+        return false;
+      }
+
+      if (this.book.language === "") {
+        this.$toast("Selecione uma Linguagem!");
+        return false;
+      }
+
+      if (this.book.code === "") {
+        this.$toast("Preencha o campo de codigo!");
+        return false;
+      }
+
+      if (this.book.category_id === "") {
+        this.$toast("Selecione uma Categoria!");
+        return false;
+      }
+
+      if (this.book.author_id === "") {
+        this.$toast("Selecione um Autor!");
+        return false;
+      }
+
+      return true;
+    },
+    async saveBook() {
+      if (this.validation()) {
+        try {
+          const headers = {
             authorization: `Bearer ${this.getToken}`,
-          },
-        })
-        // eslint-disable-next-line no-unused-vars
-        .then(({ data }) => {
+          };
+
+          await BooksServices.createBook(this.book, headers);
+
           this.$toast.success("Livro cadastrado com sucesso!");
 
           setTimeout(() => {
             this.$router.push("/profile");
-          });
-        })
-        // eslint-disable-next-line no-unused-vars
-        .catch((error) => {
+          }, 1000);
+        } catch (error) {
           this.$toast.error("Erro cadastrar livro!");
-        });
+        }
+      }
     },
   },
 };

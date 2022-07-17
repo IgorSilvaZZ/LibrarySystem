@@ -91,7 +91,7 @@ import ItemsBooks from "@/components/ItemsBooks/ItemsBooks.vue";
 import Modal from "@/components/Modal/Modal.vue";
 import Footer from "@/components/Footer/Footer.vue";
 
-import { api } from "../../services/api";
+import BooksServices from "@/services/BooksServices";
 
 export default {
   name: "ExplorePage",
@@ -165,16 +165,15 @@ export default {
         : this.books;
     },
   },
-  mounted() {
-    api
-      .get("/books")
-      .then(({ data }) => {
-        this.books = data;
-      })
-      // eslint-disable-next-line no-unused-vars
-      .catch((error) => {
-        this.$toast.error("Erro ao listar os livros!");
-      });
+  async mounted() {
+
+    try {
+      const { data } = await BooksServices.list();
+
+      this.books = data;
+    } catch (error) {
+      this.$toast.error("Erro ao listar os livros!");
+    }
   },
 };
 </script>

@@ -19,7 +19,8 @@
 <script>
 import { mapGetters } from "vuex";
 
-import { api } from "@/services/api";
+import LoansService from "@/services/LoansService";
+import BooksServices from "@/services/BooksServices";
 
 import ItemsBooks from "@/components/ItemsBooks/ItemsBooks.vue";
 
@@ -38,22 +39,24 @@ export default {
     ...mapGetters("auth", ["getUser", "getToken"]),
   },
   async mounted() {
-    const { data } = await api.get("/users/loans", {
-      headers: {
-        authorization: `Bearer ${this.getToken}`,
-      },
-    });
+    const headers = {
+      authorization: `Bearer ${this.getToken}`,
+    };
 
-    if (data.loans.length > 0) {
-      this.loans = data;
+    if (!this.getUser.isAdmin) {
+      const { data } = await LoansService.listLoansByUser(headers);
 
-      data.loans.map(async (loan) => {
-        const responseBook = await api.get(`/books/${loan.book_id}`);
+      if (data.loans.length > 0) {
+        this.loans = data;
 
-        if (responseBook) {
-          this.books.push(responseBook.data);
-        }
-      });
+        data.loans.map(async (loan) => {
+          const responseBook = await BooksServices.listById(loan.book_id);
+
+          if (responseBook) {
+            this.books.push(responseBook.data);
+          }
+        });
+      }
     }
   },
 };

@@ -36,8 +36,8 @@ export class DevolutionLoanUseCase {
 
     // Verificando se houve multa
     const fine = this.dateProvider.compareInDays(
-      dateNow,
-      loan.expected_return_date
+      loan.expected_return_date,
+      dateNow
     );
 
     // Caso devolva com atraso, desativando o usuario de realizar mais emprestimos

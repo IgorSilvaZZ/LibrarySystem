@@ -9,6 +9,7 @@ import listAuthorsController from "@modules/books/useCases/listAuthors";
 import updateBookController from "@modules/books/useCases/updateBook";
 import deleteBookController from "@modules/books/useCases/deleteBook";
 import findByIdBookController from "@modules/books/useCases/findById";
+import searchBooksController from "@modules/books/useCases/searchBooks";
 
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { ensureAdmin } from "../middlewares/ensureAdmin";
@@ -31,6 +32,10 @@ booksRoutes.get("/", (req, res) => {
 
 booksRoutes.get("/:id", (req, res) => {
   return findByIdBookController().handle(req, res);
+});
+
+booksRoutes.get("/search", (req, res) => {
+  return searchBooksController().handle(req, res);
 });
 
 booksRoutes.put("/:id", ensureAuthenticated, ensureAdmin, (req, res) => {

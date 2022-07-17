@@ -6,13 +6,17 @@
         <p class="title-container">Pessoal</p>
         <div class="box-menu-items">
           <p class="menu-item" @click="optionProfile = 'general'">Geral</p>
-          <p class="menu-item" @click="optionProfile = 'myBooks'">
+          <p
+            class="menu-item"
+            @click="optionProfile = 'myBooks'"
+            v-if="!getUser.isAdmin"
+          >
             Meus Livros
           </p>
           <p
             class="menu-item"
             @click="optionProfile = 'myLoans'"
-            v-if="!user.isAdmin"
+            v-if="!getUser.isAdmin"
           >
             Meus Emprestimos
           </p>
@@ -20,7 +24,7 @@
             Todos Emprestimos Realizados
           </p>
         </div>
-        <template v-if="user.isAdmin">
+        <template v-if="getUser.isAdmin">
           <p class="title-container">Livros</p>
           <div class="box-menu-items">
             <p class="menu-item" @click="optionProfile = 'newBook'">
@@ -44,7 +48,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 import NavBar from "@/components/Navbar/NavBar.vue";
 import General from "@/components/Profile/General/General.vue";
@@ -63,9 +67,9 @@ export default {
     MyLoans,
     MyBooks,
   },
-  computed: mapState("auth", {
-    user: (state) => state.user,
-  }),
+  computed: {
+    ...mapGetters("auth", ["getUser"]),
+  },
   data() {
     return {
       optionProfile: "general",

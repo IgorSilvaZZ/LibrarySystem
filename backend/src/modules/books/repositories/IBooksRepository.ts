@@ -8,4 +8,5 @@ export interface IBooksRepository {
   findById(id: string): Promise<Book>;
   delete(id: string): Promise<void>;
   findByIds(ids: string[]): Promise<Book[]>;
+  findByFilter(filter: string): Promise<Book[]>;
 }

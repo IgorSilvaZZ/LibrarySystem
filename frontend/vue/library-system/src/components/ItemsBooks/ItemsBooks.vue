@@ -7,14 +7,17 @@
         marginBox="10px 10px 5px 10px"
         widthImage="50%"
         :isBorder="true"
-        v-for="book in books"
-        :key="book.id"
+        v-for="(book, bookIndex) in books"
+        :key="bookIndex"
       >
         <p slot="titleBook" class="title-book" @click="openModal(book)">
           {{ book.title }}
         </p>
-        <p slot="authorBook" class="title-book author-book">
+        <p slot="authorBook" class="title-book author-book" v-if="!nameUser">
           {{ book.author.name }}
+        </p>
+        <p slot="authorBook" class="title-book author-book" v-else>
+          {{ book.user.name }}
         </p>
       </BoxItemBook>
     </section>
@@ -33,6 +36,10 @@ export default {
     books: {
       type: Array,
       required: true,
+    },
+    nameUser: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {

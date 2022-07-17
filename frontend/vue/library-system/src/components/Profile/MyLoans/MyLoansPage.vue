@@ -49,6 +49,7 @@
           </div>
           <div class="container-buttons-info">
             <button
+              v-if="loanSelected.end_date === null"
               :disabled="!getUser.isAdmin"
               :style="[
                 {
@@ -59,6 +60,13 @@
               @click="devolutionLoan(loanSelected.id)"
             >
               Marcar como devolvido
+            </button>
+            <button
+              v-else
+              disabled="true"
+              style="width: 50%; background: #b9b9b7"
+            >
+              Livro devolvido!
             </button>
           </div>
         </div>
@@ -75,7 +83,11 @@
     <template v-else>
       <p class="title-container">Gerencie seus emprestimos!</p>
       <div class="section-loan">
-        <ItemsBooks :books="books" @openModal="openModalBook" />
+        <ItemsBooks
+          :books="books"
+          @openModal="openModalBook"
+          :nameUser="true"
+        />
       </div>
     </template>
   </div>
@@ -85,7 +97,8 @@
 import { mapGetters } from "vuex";
 import moment from "moment";
 
-import { api } from "@/services/api";
+import LoansService from "@/services/LoansService";
+import BooksServices from "@/services/BooksServices";
 
 import Modal from "@/components/Modal/Modal.vue";
 import ItemsBooks from "@/components/ItemsBooks/ItemsBooks.vue";
@@ -119,10 +132,14 @@ export default {
         quantity: 0,
         category_id: "",
         author_id: "",
+        loanId: "",
         author: {
           name: "",
         },
         category: {
+          name: "",
+        },
+        user: {
           name: "",
         },
       },
@@ -132,19 +149,19 @@ export default {
     ...mapGetters("auth", ["getUser", "getToken"]),
   },
   async mounted() {
+    const headers = {
+      authorization: `Bearer ${this.getToken}`,
+    };
+
     if (!this.getUser.isAdmin) {
-      const { data } = await api.get("/users/loans", {
-        headers: {
-          authorization: `Bearer ${this.getToken}`,
-        },
-      });
+      const { data } = await LoansService.listLoansByUser(headers);
 
       if (data.loans.length && data.loans.length > 0) {
         this.loans = data.loans.filter((loan) => loan.end_date === null);
 
         if (this.loans.length > 0) {
           this.loans.map(async (loan) => {
-            const responseBook = await api.get(`/books/${loan.book_id}`);
+            const responseBook = await BooksServices.listById(loan.book_id);
 
             if (responseBook) {
               this.books.push(responseBook.data);
@@ -153,18 +170,18 @@ export default {
         }
       }
     } else {
-      const { data } = await api.get("/loans", {
-        headers: {
-          authorization: `Bearer ${this.getToken}`,
-        },
-      });
+      const { data } = await LoansService.list(headers);
 
       if (data.length > 0) {
         data.map(async (loan) => {
-          const responseBook = await api.get(`/books/${loan.book_id}`);
+          const responseBook = await BooksServices.listById(loan.book_id);
 
           if (responseBook) {
-            this.books.push(responseBook.data);
+            this.books.push({
+              ...responseBook.data,
+              user: loan.user,
+              loanId: loan.id,
+            });
           }
         });
 
@@ -179,7 +196,7 @@ export default {
     openModalBook(book) {
       this.isOpenModalBook = true;
 
-      const loanFilter = this.loans.find((loan) => loan.book_id == book.id);
+      const loanFilter = this.loans.find((loan) => loan.id == book.loanId);
 
       this.selectedBook = book;
 
@@ -194,10 +211,8 @@ export default {
     },
     async devolutionLoan(idLoan) {
       try {
-        await api.post(`/loans/devolution/${idLoan}`, null, {
-          headers: {
-            authorization: `Bearer ${this.getToken}`,
-          },
+        await LoansService.devolutionLoan(idLoan, {
+          authorization: `Bearer ${this.getToken}`,
         });
 
         this.$toast.success("Devolução realizada com sucesso!");
@@ -266,7 +281,7 @@ export default {
 }
 
 .section-loan {
-  width: 80%;
+  width: 100%;
 }
 
 .info-book {

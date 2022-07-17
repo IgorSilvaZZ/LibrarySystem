@@ -50,4 +50,15 @@ export class BooksRepository implements IBooksRepository {
 
     return books;
   }
+
+  async findByFilter(filter: string): Promise<Book[]> {
+    const books = await this.repository
+      .createQueryBuilder("books")
+      .where("title like :filter", {
+        filter: `%${filter}%`,
+      })
+      .getMany();
+
+    return books;
+  }
 }
