@@ -30,12 +30,12 @@ booksRoutes.get("/", (req, res) => {
   return listBooksController().handle(req, res);
 });
 
-booksRoutes.get("/:id", (req, res) => {
-  return findByIdBookController().handle(req, res);
-});
-
 booksRoutes.get("/search", (req, res) => {
   return searchBooksController().handle(req, res);
+});
+
+booksRoutes.get("/:id", (req, res) => {
+  return findByIdBookController().handle(req, res);
 });
 
 booksRoutes.put("/:id", ensureAuthenticated, ensureAdmin, (req, res) => {
