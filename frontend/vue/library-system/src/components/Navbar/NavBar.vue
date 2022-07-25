@@ -20,6 +20,7 @@
         justifyContainer="flex-start"
         alignItems="center"
         placeHolder="Pesquise um livro"
+        @searchBook="searchBook"
       />
       <div class="container-icons">
         <img src="../../assets/user.png" @click="handleProfilePage" />
@@ -75,6 +76,9 @@ export default {
       this.ActionLogout();
 
       this.$router.push("/");
+    },
+    searchBook(books) {
+      this.$emit("handleSearchBooks", books);
     },
   },
 };

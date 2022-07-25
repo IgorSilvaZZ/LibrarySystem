@@ -6,6 +6,6 @@ export interface ICreateBookDTO {
   language: string;
   code: string;
   quantity?: number;
-  category_id: string;
-  author_id: string;
+  category_id?: string;
+  author_id?: string;
 }

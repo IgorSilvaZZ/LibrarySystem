@@ -56,10 +56,26 @@ export class BooksRepository implements IBooksRepository {
       .createQueryBuilder("books")
       .leftJoinAndSelect("books.author", "author")
       .leftJoinAndSelect("books.category", "category")
-      .where("title like :filter or author.name like :filter or category.name like :filter", {
-        filter: `%${filter}%`,
-      })
+      .where(
+        "title like :filter or author.name like :filter or category.name like :filter",
+        {
+          filter: `%${filter}%`,
+        }
+      )
       .getMany();
+
+    return books;
+  }
+
+  async findByBookCategory(name: string): Promise<Book[]> {
+    const books = await this.repository.find({
+      relations: ["category", "author"],
+      where: {
+        category: {
+          name,
+        },
+      },
+    });
 
     return books;
   }

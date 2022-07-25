@@ -18,7 +18,7 @@
       </template>
     </Modal>
 
-    <NavBar :isSearch="true" />
+    <NavBar :isSearch="true" @handleSearchBooks="handleSearchBooks" />
 
     <div class="container-explore">
       <div class="filter-menu-container">
@@ -28,14 +28,14 @@
             v-for="(item, index) in optionsFilters"
             :key="index"
             class="filter-item"
-            @click="filterCategory = `${item.filter}`"
+            @click="handleCategory(item.filter)"
           >
             {{ item.name }}
           </p>
         </div>
       </div>
       <div class="container-books">
-        <template v-if="hasFilteredCategories.length">
+        <template v-if="books.length">
           <div class="header-books">
             <p class="title-container">Filtrando por</p>
             <span
@@ -50,10 +50,7 @@
               {{ filters[filterCategory] }}
             </span>
           </div>
-          <ItemsBooks
-            :books="hasFilteredCategories"
-            @openModal="openModalBook"
-          />
+          <ItemsBooks :books="books" @openModal="openModalBook" />
         </template>
         <template v-else>
           <div class="not-found-books">
@@ -147,7 +144,19 @@ export default {
       },
     };
   },
+  async mounted() {
+    try {
+     await this.getAllBooks()
+    } catch (error) {
+      this.$toast.error("Erro ao listar os livros!");
+    }
+  },
   methods: {
+    async getAllBooks() {
+      const { data } = await BooksServices.list();
+
+      this.books = data;
+    },
     openModalBook(book) {
       this.isOpenModalBook = true;
       this.selectedBook = book;
@@ -155,25 +164,22 @@ export default {
     handleLoanPage(id) {
       this.$router.push({ name: "LoanPage", params: { id } });
     },
-  },
-  computed: {
-    hasFilteredCategories() {
-      return this.filterCategory !== "all"
-        ? this.books.filter(
-            (book) => book.category.name == this.filters[this.filterCategory]
-          )
-        : this.books;
+    handleSearchBooks(books) {
+      this.books = books;
     },
-  },
-  async mounted() {
+    async handleCategory(name) {
+      this.filterCategory = name;
 
-    try {
-      const { data } = await BooksServices.list();
+      if (this.filterCategory !== "all") {
+        const { data } = await BooksServices.getBookCategory(
+          this.filters[this.filterCategory]
+        );
 
-      this.books = data;
-    } catch (error) {
-      this.$toast.error("Erro ao listar os livros!");
-    }
+        this.books = data;
+      } else {
+        await this.getAllBooks();
+      }
+    },
   },
 };
 </script>

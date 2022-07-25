@@ -1,7 +1,19 @@
 <template>
   <div>
-    <h2 class="title-container" style="font-size: 25px">Novo Livro</h2>
-    <p class="subtitle-container">Cadastre um novo livro para a bibilioteca</p>
+    <div class="section-title">
+      <h2 class="title-container" style="font-size: 25px">Novo Livro</h2>
+      <button @click="clickInput">Escolher arquivo CSV</button>
+      <input
+        @change="handleFile"
+        id="fileInput"
+        style="display: none"
+        type="file"
+      />
+    </div>
+    <p class="subtitle-container">
+      Cadastre um novo livro para a bibilioteca <br />
+      Ou escolha um arquivo csv para cadastrar novos livros
+    </p>
     <div class="container-new-book">
       <div
         class="box-info"
@@ -181,11 +193,40 @@ export default {
         }
       }
     },
+    clickInput() {
+      document.getElementById("fileInput").click();
+    },
+    handleFile(event) {
+      const files = event.target.files;
+      console.log(files);
+    },
   },
 };
 </script>
 
 <style scoped>
+.section-title {
+  display: flex;
+  justify-content: space-between;
+
+  width: 75%;
+}
+
+.section-title button {
+  padding: 8px;
+
+  background: #e84393;
+
+  color: white;
+
+  font-weight: 600;
+
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
 .input-submit {
   width: 40%;
 

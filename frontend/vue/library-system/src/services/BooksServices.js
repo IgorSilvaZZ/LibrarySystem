@@ -22,6 +22,22 @@ class BooksServices {
       headers,
     });
   }
+
+  async searchBook(filter) {
+    return await api.get("/books/search", {
+      params: {
+        filter,
+      },
+    });
+  }
+
+  async getBookCategory(name) {
+    return await api.get("/books/categories", {
+      params: {
+        name,
+      },
+    });
+  }
 }
 
 export default new BooksServices();

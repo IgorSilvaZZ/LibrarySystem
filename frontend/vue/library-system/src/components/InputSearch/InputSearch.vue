@@ -20,11 +20,15 @@
       :placeholder="placeHolder"
       :style="[{ color: colorInput }]"
       class="input-styled"
+      v-model="value"
+      @keyup.enter="search"
     />
   </div>
 </template>
 
 <script>
+import BooksServices from "@/services/BooksServices";
+
 export default {
   name: "InputSearchComponent",
   props: {
@@ -59,6 +63,20 @@ export default {
     colorInput: {
       type: String,
       required: true,
+    },
+  },
+  data() {
+    return {
+      value: "",
+    };
+  },
+  methods: {
+    async search() {
+      if (this.value !== "") {
+        const { data } = await BooksServices.searchBook(this.value);
+
+        this.$emit("searchBook", data);
+      }
     },
   },
 };
