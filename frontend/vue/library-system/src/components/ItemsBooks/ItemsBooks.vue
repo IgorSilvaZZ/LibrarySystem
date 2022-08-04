@@ -65,7 +65,7 @@ export default {
 .title-book {
   color: white;
 
-  font-size: 17px;
+  font-size: 13px;
   font-weight: 600;
 
   margin-bottom: 2px;

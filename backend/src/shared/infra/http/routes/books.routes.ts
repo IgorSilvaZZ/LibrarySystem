@@ -31,10 +31,6 @@ booksRoutes.post("/", ensureAuthenticated, ensureAdmin, (req, res) => {
   return createBookController().handle(req, res);
 });
 
-booksRoutes.get("/", (req, res) => {
-  return listBooksController().handle(req, res);
-});
-
 booksRoutes.post(
   "/file",
   ensureAuthenticated,
@@ -44,6 +40,10 @@ booksRoutes.post(
     return createBookFileController().handle(req, res);
   }
 );
+
+booksRoutes.get("/", (req, res) => {
+  return listBooksController().handle(req, res);
+});
 
 booksRoutes.get("/categories", (req, res) => {
   return listBookCategoryController().handle(req, res);

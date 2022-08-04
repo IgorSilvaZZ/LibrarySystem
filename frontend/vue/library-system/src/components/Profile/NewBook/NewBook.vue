@@ -196,9 +196,32 @@ export default {
     clickInput() {
       document.getElementById("fileInput").click();
     },
-    handleFile(event) {
+    async handleFile(event) {
       const files = event.target.files;
-      console.log(files);
+
+      const [file] = files;
+
+      try {
+        const headers = {
+          authorization: `Bearer ${this.getToken}`,
+        };
+
+        const data = new FormData();
+
+        data.append("file", file);
+
+        await BooksServices.createBookCsv(data, headers);
+
+        event.target.value = "";
+
+        this.$toast.success("Livros cadastrados com sucesso!");
+
+        setTimeout(() => {
+          this.$router.push("/profile");
+        }, 1000);
+      } catch (error) {
+        this.$toast.error("Erro cadastrar livros!");
+      }
     },
   },
 };

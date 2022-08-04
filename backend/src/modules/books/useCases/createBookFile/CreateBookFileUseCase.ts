@@ -37,10 +37,10 @@ export class CreateBookFileUseCase {
     for await (let line of booksLine) {
       const [
         title,
+        code,
         description,
         numberPages,
         language,
-        code,
         categoryName,
         authorName,
       ] = line.split(",");
@@ -64,6 +64,10 @@ export class CreateBookFileUseCase {
       }
     }
 
+    if (books.length === 0) {
+      throw new Error("Formato csv invalido!");
+    }
+
     for await (let {
       title,
       description,
@@ -81,6 +85,7 @@ export class CreateBookFileUseCase {
           description,
           numberPages,
           language,
+          quantity: 1,
           code,
           author_id,
           category_id,

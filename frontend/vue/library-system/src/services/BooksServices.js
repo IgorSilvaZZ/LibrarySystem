@@ -23,6 +23,12 @@ class BooksServices {
     });
   }
 
+  async createBookCsv(data, headers) {
+    return await api.post("/books/file", data, {
+      headers,
+    });
+  }
+
   async searchBook(filter) {
     return await api.get("/books/search", {
       params: {
