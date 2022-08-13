@@ -1,10 +1,14 @@
 import { Book } from "../Book";
 import { SectionBooks } from "./style";
 
-export const Books = () => {
+interface IBooks {
+  isLoan: boolean;
+}
+
+export const Books = ({ isLoan }: IBooks) => {
   return (
     <SectionBooks>
-      <Book />
+      <Book isLoan={isLoan} />
     </SectionBooks>
   );
 };

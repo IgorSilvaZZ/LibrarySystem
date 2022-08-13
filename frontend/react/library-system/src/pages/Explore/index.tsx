@@ -3,9 +3,13 @@ import { NavBar } from "../../components/NavBar";
 import {
   ExploreContainer,
   ItemCategory,
+  NameCategory,
   SectionCategory,
+  SectionsBooks,
   TitleContainer,
 } from "./style";
+
+import { categories } from "../../utils/categories";
 
 const Explore = () => {
   return (
@@ -15,19 +19,17 @@ const Explore = () => {
       <ExploreContainer>
         <SectionCategory>
           <TitleContainer>Categorias</TitleContainer>
-          <ItemCategory>Todos os Generos</ItemCategory>
-          <ItemCategory>Aventura</ItemCategory>
-          <ItemCategory>Ficção</ItemCategory>
-          <ItemCategory>Ciencia</ItemCategory>
-          <ItemCategory>Infantil Juvenil</ItemCategory>
-          <ItemCategory>Suspense</ItemCategory>
-          <ItemCategory>Romance</ItemCategory>
-          <ItemCategory>Artes</ItemCategory>
-          <ItemCategory>Historia</ItemCategory>
-          <ItemCategory>Biografias</ItemCategory>
+          {categories.map((category) => (
+            <ItemCategory key={category.name}>{category.name}</ItemCategory>
+          ))}
         </SectionCategory>
 
-        <Books />
+        <SectionsBooks>
+          <TitleContainer>
+            Filtrando por <NameCategory>Todos Generos</NameCategory>
+          </TitleContainer>
+          <Books isLoan={false} />
+        </SectionsBooks>
       </ExploreContainer>
     </div>
   );

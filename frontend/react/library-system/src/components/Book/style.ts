@@ -30,3 +30,31 @@ export const ImageStyled = styled.img`
 
   transition: width 0.3s;
 `;
+
+export const DescriptionSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 20%;
+
+  background: ${theme.light.pinKNormalSecundary};
+  border-radius: 0px 0px 10px 10px;
+`;
+
+export const TitleBook = styled.p`
+  color: white;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  margin-bottom: 2px;
+
+  cursor: pointer;
+`;
+
+export const AuthorBook = styled(TitleBook)`
+  color: ${theme.light.grayBold}
+`;

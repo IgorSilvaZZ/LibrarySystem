@@ -14,7 +14,7 @@ export const SectionCategory = styled.section`
   display: flex;
   flex-direction: column;
 
-  width: 30%;
+  width: 25%;
   height: fit-content;
 `;
 
@@ -23,6 +23,13 @@ export const TitleContainer = styled.span`
   font-weight: bold;
 
   color: ${theme.light.pinkNormal};
+`;
+
+export const NameCategory = styled.span`
+  font-weight: bold;
+  font-size: 25px;
+
+  color: ${theme.light.grayBold};
 `;
 
 export const ItemCategory = styled.span`
@@ -40,4 +47,9 @@ export const ItemCategory = styled.span`
   &:hover {
     color: ${theme.light.pinkNormal};
   }
+`;
+
+export const SectionsBooks = styled.section`
+  width: fit-content;
+  height: fit-content;
 `;
