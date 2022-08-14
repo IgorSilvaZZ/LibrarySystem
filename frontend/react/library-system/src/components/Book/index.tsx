@@ -9,18 +9,21 @@ import {
 
 import bookImg from "../../assets/book-item.png";
 
-interface IBook {
+import { IBook } from "../../pages/Explore";
+
+export interface IBookComponent {
   isLoan: boolean;
+  book: IBook;
 }
 
-export const Book = ({ isLoan }: IBook) => {
+export const Book = ({ isLoan, book }: IBookComponent) => {
   return (
     <BoxBook>
       <ImageSection>
         <ImageStyled src={bookImg} />
       </ImageSection>
       <DescriptionSection>
-        <TitleBook>Estamos bem</TitleBook>
+        <TitleBook>{book.title}</TitleBook>
         {isLoan ? (
           <AuthorBook>Igor Silva</AuthorBook>
         ) : (

@@ -49,7 +49,18 @@ export const ItemCategory = styled.span`
   }
 `;
 
-export const SectionsBooks = styled.section`
+export const BoxBooks = styled.div`
   width: fit-content;
   height: fit-content;
+`;
+
+export const SectionsBooks = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 0%;
+
+  height: 90%;
+  width: 95%;
+
+  margin: 0 10px;
 `;
