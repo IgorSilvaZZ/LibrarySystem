@@ -47,8 +47,28 @@ const Explore = () => {
     }
   }
 
+  async function getBooksCategory(category: string) {
+    try {
+      const { data } = await api.get<IBook[]>("/books/categories", {
+        params: {
+          name: category,
+        },
+      });
+
+      setBooks(data);
+    } catch (error) {
+      toast.error("Erro ao careggar livros!");
+    }
+  }
+
   async function handleCategory(filter: string) {
     setFilterCategory(filter);
+
+    if (filter !== "all") {
+      getBooksCategory(filters[filter]);
+    } else {
+      getAllBooks();
+    }
   }
 
   useEffect(() => {

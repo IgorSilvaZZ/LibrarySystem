@@ -50,7 +50,7 @@ export const ItemCategory = styled.span`
 `;
 
 export const BoxBooks = styled.div`
-  width: fit-content;
+  width: 75%;
   height: fit-content;
 `;
 
@@ -59,8 +59,8 @@ export const SectionsBooks = styled.section`
   flex-wrap: wrap;
   row-gap: 0%;
 
-  height: 90%;
-  width: 95%;
+  height: 100%;
+  width: 100%;
 
   margin: 0 10px;
 `;
