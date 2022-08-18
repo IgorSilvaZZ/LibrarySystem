@@ -7,6 +7,7 @@ import Explore from "../pages/Explore/Explore.vue";
 import Register from "../pages/Register/Register.vue";
 import Profile from "@/pages/Profile/Profile.vue";
 import Loan from "../pages/Loan/Loan.vue";
+import Book from "@/pages/Book/Book.vue";
 
 Vue.use(VueRouter);
 
@@ -35,6 +36,11 @@ const routes = [
     name: "ProfilePage",
     path: "/profile",
     component: Profile,
+  },
+  {
+    name: "BookPage",
+    path: "/book",
+    component: Book,
   },
   {
     name: "LoanPage",

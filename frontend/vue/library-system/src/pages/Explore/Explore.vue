@@ -146,7 +146,7 @@ export default {
   },
   async mounted() {
     try {
-     await this.getAllBooks()
+      await this.getAllBooks();
     } catch (error) {
       this.$toast.error("Erro ao listar os livros!");
     }
@@ -162,7 +162,8 @@ export default {
       this.selectedBook = book;
     },
     handleLoanPage(id) {
-      this.$router.push({ name: "LoanPage", params: { id } });
+      this.$router.push({ name: "BookPage", params: { id } });
+      //this.$router.push({ name: "LoanPage", params: { id } });
     },
     handleSearchBooks(books) {
       this.books = books;
