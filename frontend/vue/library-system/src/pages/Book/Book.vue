@@ -26,8 +26,8 @@
               <p>386</p>
             </div>
             <div class="item-info">
-              <span>Linguagem</span>
-              <p>Português</p>
+              <span>Categoria</span>
+              <p>Aventura</p>
             </div>
           </div>
 
@@ -70,6 +70,8 @@ export default {
 
 .container-info {
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 
   width: 95vw;
@@ -161,5 +163,15 @@ export default {
   color: #a3a3a1;
 
   font-weight: 300;
+}
+.box-books {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  width: 75%;
+  height: 250px;
+
+  border: 2px solid blue;
 }
 </style>
