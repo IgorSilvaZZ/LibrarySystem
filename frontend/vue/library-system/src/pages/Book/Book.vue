@@ -8,26 +8,23 @@
           <img src="../../assets/book-item.png" />
         </div>
         <div class="info-book">
-          <span class="title-book">Harry Potter e o Calice e Fogo</span>
-          <p class="author-book">J.K Rowling</p>
+          <span class="title-book">{{ book.title }}</span>
+          <p class="author-book">{{ book.author.name }}</p>
 
           <div class="description-book">
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente
-              cumque, accusamus architecto cum optio dicta ad! Optio quod
-              repellat dolorum facere ipsam, sit numquam amet laborum accusamus
-              debitis obcaecati? Dolor!
+              {{ book.description }}
             </p>
           </div>
 
           <div class="footer-info">
             <div class="item-info">
               <span>Números de Paginas</span>
-              <p>386</p>
+              <p>{{ book.numberPages }}</p>
             </div>
             <div class="item-info">
               <span>Categoria</span>
-              <p>Aventura</p>
+              <p>{{ book.category.name }}</p>
             </div>
           </div>
 
@@ -40,21 +37,71 @@
         </div>
       </div>
 
-      <div class="box-books"></div>
+      <div class="box-books">
+        <span class="title-book">Outros livros da mesma categoria</span>
+        <div class="section-books">
+          <BoxItemBook widthBox="250px" heightBox="250px" widthImage="40%">
+            <p slot="titleBook">Titulo Livro</p>
+            <span slot="authorBook">Autor Livro</span>
+          </BoxItemBook>
+          <BoxItemBook widthBox="250px" heightBox="250px" widthImage="40%">
+            <p slot="titleBook">Titulo Livro</p>
+            <span slot="authorBook">Autor Livro</span>
+          </BoxItemBook>
+          <BoxItemBook widthBox="250px" heightBox="250px" widthImage="40%">
+            <p slot="titleBook">Titulo Livro</p>
+            <span slot="authorBook">Autor Livro</span>
+          </BoxItemBook>
+          <BoxItemBook widthBox="250px" heightBox="250px" widthImage="40%">
+            <p slot="titleBook">Titulo Livro</p>
+            <span slot="authorBook">Autor Livro</span>
+          </BoxItemBook>
+        </div>
+      </div>
+
+      <Footer />
     </div>
   </div>
 </template>
 
 <script>
 import NavBar from "@/components/Navbar/NavBar.vue";
+import BoxItemBook from "@/components/BoxItemBook/BoxItemBook.vue";
+import Footer from "@/components/Footer/Footer.vue";
+
+import BooksServices from "@/services/BooksServices";
+
 export default {
   name: "BookPage",
   data() {
     return {
-      book: new Object(),
+      book: {
+        id: "",
+        title: "",
+        description: "",
+        numberPages: 0,
+        language: "",
+        code: "",
+        quantity: 0,
+        author: {
+          name: "",
+        },
+        category: {
+          name: "",
+        },
+      },
     };
   },
-  components: { NavBar },
+  async mounted() {
+    if (!this.$route.params.id) {
+      this.$router.push("/explore");
+    } else {
+      const { data } = await new BooksServices.listById(this.$route.params.id);
+
+      this.book = data;
+    }
+  },
+  components: { NavBar, BoxItemBook, Footer },
 };
 </script>
 
@@ -73,6 +120,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  gap: 20px;
 
   width: 95vw;
 }
@@ -170,8 +218,36 @@ export default {
   gap: 12px;
 
   width: 75%;
-  height: 250px;
+  height: 350px;
+}
 
-  border: 2px solid blue;
+.section-books {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  width: 100%;
+  height: 80%;
+}
+
+.section-books p {
+  color: white;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  margin-bottom: 2px;
+
+  cursor: pointer;
+}
+
+.section-books span {
+  font-weight: 600;
+  font-size: 13px;
+  color: #a3a3a1;
+
+  margin-bottom: 2px;
+
+  cursor: pointer;
 }
 </style>
