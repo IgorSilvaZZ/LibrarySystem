@@ -73,10 +73,10 @@
           </div>
         </div>
         <div class="container-submit">
-          <div class="container-buttons-info" style="width: 75%">
-            <button style="width: 50%" @click="createLoan">
-              Realizar Emprestimo
-            </button>
+          <div style="width: 75%">
+            <Button :width="50" @click="createLoan">
+              <span slot="text">Realizar Emprestimo</span>
+            </Button>
           </div>
         </div>
       </div>
@@ -93,12 +93,10 @@ import { api } from "@/services/api";
 
 import NavBar from "@/components/Navbar/NavBar.vue";
 
+import Button from "@/components/Button/Button.vue";
+
 export default {
   name: "LoanPage",
-  components: {
-    NavBar,
-    ArrowLeftIcon,
-  },
   data() {
     return {
       book: {
@@ -134,7 +132,8 @@ export default {
   },
   methods: {
     goToBack() {
-      this.$router.push("/explore");
+      // this.$router.push("/explore");
+      this.$router.go(-1);
     },
     setValueLoan(event) {
       const date = moment(event.target.value);
@@ -173,6 +172,11 @@ export default {
         this.$toast.error(err.message);
       }
     },
+  },
+  components: {
+    NavBar,
+    Button,
+    ArrowLeftIcon,
   },
 };
 </script>

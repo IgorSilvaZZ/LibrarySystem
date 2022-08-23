@@ -29,10 +29,16 @@
           </div>
 
           <div
-            class="container-buttons-info"
-            style="width: 100%; justify-content: flex-start"
+            style="
+              width: 100%;
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+            "
           >
-            <button style="width: 40%">Realizar Emprestimo</button>
+            <Button @click="handleLoanPage()">
+              <span slot="text">Realizar Emprestimo</span>
+            </Button>
           </div>
         </div>
       </div>
@@ -40,21 +46,15 @@
       <div class="box-books">
         <span class="title-book">Outros livros da mesma categoria</span>
         <div class="section-books">
-          <BoxItemBook widthBox="250px" heightBox="250px" widthImage="40%">
-            <p slot="titleBook">Titulo Livro</p>
-            <span slot="authorBook">Autor Livro</span>
-          </BoxItemBook>
-          <BoxItemBook widthBox="250px" heightBox="250px" widthImage="40%">
-            <p slot="titleBook">Titulo Livro</p>
-            <span slot="authorBook">Autor Livro</span>
-          </BoxItemBook>
-          <BoxItemBook widthBox="250px" heightBox="250px" widthImage="40%">
-            <p slot="titleBook">Titulo Livro</p>
-            <span slot="authorBook">Autor Livro</span>
-          </BoxItemBook>
-          <BoxItemBook widthBox="250px" heightBox="250px" widthImage="40%">
-            <p slot="titleBook">Titulo Livro</p>
-            <span slot="authorBook">Autor Livro</span>
+          <BoxItemBook
+            v-for="bookFilter in booksCategory"
+            :key="bookFilter.id"
+            widthBox="270px"
+            heightBox="250px"
+            widthImage="40%"
+          >
+            <p slot="titleBook">{{ bookFilter.title }}</p>
+            <span slot="authorBook">{{ bookFilter.author.name }}</span>
           </BoxItemBook>
         </div>
       </div>
@@ -70,6 +70,8 @@ import BoxItemBook from "@/components/BoxItemBook/BoxItemBook.vue";
 import Footer from "@/components/Footer/Footer.vue";
 
 import BooksServices from "@/services/BooksServices";
+
+import Button from "@/components/Button/Button.vue";
 
 export default {
   name: "BookPage",
@@ -90,18 +92,32 @@ export default {
           name: "",
         },
       },
+      booksCategory: new Array(),
     };
+  },
+  methods: {
+    handleLoanPage() {
+      this.$router.push({ name: "LoanPage", params: { id: this.book.id } });
+    },
   },
   async mounted() {
     if (!this.$route.params.id) {
       this.$router.push("/explore");
     } else {
-      const { data } = await new BooksServices.listById(this.$route.params.id);
+      const { data: dataBook } = await new BooksServices.listById(
+        this.$route.params.id
+      );
 
-      this.book = data;
+      this.book = dataBook;
+
+      const { data: booksCategory } = await new BooksServices.getBookCategory(
+        this.book.category.name
+      );
+
+      this.booksCategory = booksCategory.slice(0, 3);
     }
   },
-  components: { NavBar, BoxItemBook, Footer },
+  components: { NavBar, BoxItemBook, Footer, Button },
 };
 </script>
 
@@ -176,7 +192,7 @@ export default {
 
   margin-bottom: 15px;
 
-  text-overflow: ellipsis;
+  overflow-y: auto;
 }
 
 .description-book p {
