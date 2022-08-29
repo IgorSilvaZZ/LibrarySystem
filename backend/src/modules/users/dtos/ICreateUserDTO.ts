@@ -8,4 +8,5 @@ export interface ICreateUserDTO {
   password?: string;
   isAdmin?: boolean;
   isAvailable?: boolean;
+  avatar?: string;
 }

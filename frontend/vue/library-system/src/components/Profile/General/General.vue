@@ -3,7 +3,7 @@
     <h2 class="title-container" style="font-size: 25px">Meu perfil</h2>
     <p class="subtitle-container">Altere suas informações!</p>
     <div class="infos-profile-container">
-      <!-- <p class="subtitle-container" style="font-size: 18px; margin-bottom: 5px">
+      <p class="subtitle-container" style="font-size: 18px; margin-bottom: 5px">
         Troque sua foto de perfil
       </p>
       <div class="section-image-profile">
@@ -18,7 +18,7 @@
             <button style="background: #e84393">Excluir Foto</button>
           </div>
         </div>
-      </div> -->
+      </div>
       <p class="subtitle-container" style="font-size: 18px; margin-bottom: 5px">
         Atualize suas informações
       </p>
@@ -96,8 +96,8 @@ export default {
       },
     };
   },
-  computed: {
-    ...mapGetters("auth", ["getUser", "getToken"]),
+  methods: {
+    async updateAvatarUser() {},
   },
   async mounted() {
     try {
@@ -111,6 +111,9 @@ export default {
         this.$router.push("/explore");
       }, 1000);
     }
+  },
+  computed: {
+    ...mapGetters("auth", ["getUser", "getToken"]),
   },
 };
 </script>
