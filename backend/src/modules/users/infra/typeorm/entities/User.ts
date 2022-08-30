@@ -35,6 +35,9 @@ export class User {
   @OneToMany(() => Loan, (loan) => loan.user)
   loans: Loan[];
 
+  @Column()
+  avatar: string;
+
   constructor() {
     if (!this.id) {
       this.id = uuid();
