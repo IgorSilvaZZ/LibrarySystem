@@ -3,19 +3,31 @@
     <h2 class="title-container" style="font-size: 25px">Meu perfil</h2>
     <p class="subtitle-container">Altere suas informações!</p>
     <div class="infos-profile-container">
-      <p class="subtitle-container" style="font-size: 18px; margin-bottom: 5px">
-        Troque sua foto de perfil
-      </p>
       <div class="section-image-profile">
         <div class="box-change-image" style="width: 55%">
-          <img
-            class="box-change-icon"
-            src="../../../assets/user-icon-image.png"
-            alt="Profile Image Change"
-          />
+          <label for="file-input" style="width: 30%">
+            <img
+              v-if="!user.avatar"
+              class="box-change-icon"
+              src="../../../assets/user-icon-image.png"
+              alt="Profile Image Change"
+            />
+            <img
+              v-else
+              class="box-change-icon box-change-contain-icon"
+              :src="`http://localhost:3333/images/${user.avatar}`"
+              alt="Profile Image Change"
+            />
+          </label>
+          <input type="file" id="file-input" @change="updateAvatarUser" />
           <div class="container-buttons-change-image">
-            <button style="background: #fea6b5">Trocar de Foto</button>
-            <button style="background: #e84393">Excluir Foto</button>
+            <span class="text-name-profile">Olá, {{ user.name }}</span>
+            <p
+              class="subtitle-container"
+              style="font-size: 18px; margin-bottom: 5px"
+            >
+              Troque sua foto de perfil
+            </p>
           </div>
         </div>
       </div>
@@ -56,16 +68,6 @@
             v-model="user.rg"
           />
         </div>
-        <div class="input-container">
-          <!-- <input  class="input-submit" type="password" placeholder="Senha" v-model="user.password" /> -->
-          <!-- <input
-            class="input-submit"
-            v-if="user.isAdmin"
-            v-model="user.identification"
-            type="text"
-            placeholder="Identificação"
-          /> -->
-        </div>
       </div>
       <div class="container-buttons-info" style="width: 75%">
         <button style="width: 50%">Atualizar</button>
@@ -90,6 +92,7 @@ export default {
         email: "",
         cpf: "",
         rg: "",
+        avatar: undefined,
         identification: "",
         isAdmin: false,
         isAvailable: true,
@@ -97,20 +100,53 @@ export default {
     };
   },
   methods: {
-    async updateAvatarUser() {},
+    async getUserData() {
+      try {
+        const { data } = await api.get(`/users/${this.getUser.id}`);
+
+        this.user = data;
+      } catch (error) {
+        this.$toast.error("Erro ao carregar as informações! Tente novamente");
+
+        setTimeout(() => {
+          this.$router.push("/explore");
+        }, 1000);
+      }
+    },
+    async updateAvatarUser(event) {
+      const files = event.target.files;
+
+      if (files.length > 1) {
+        this.$toast.info("Nao é possivel selecionar mais que dois arquivos!");
+        return;
+      }
+
+      const [file] = files;
+
+      const bodyFormData = new FormData();
+
+      bodyFormData.append("avatar", file);
+
+      try {
+        await api.patch("/users/avatar", bodyFormData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${this.getToken}`,
+          },
+        });
+
+        this.$toast.success("Foto atualizada com sucesso!");
+
+        await this.getUserData();
+      } catch (error) {
+        this.$toast.error(
+          "Erro ao tentar atualizar sua foto! Tente novamente!"
+        );
+      }
+    },
   },
   async mounted() {
-    try {
-      const { data } = await api.get(`/users/${this.getUser.id}`);
-
-      this.user = data;
-    } catch (error) {
-      this.$toast.error("Erro ao carregar as informações! Tente novamente");
-
-      setTimeout(() => {
-        this.$router.push("/explore");
-      }, 1000);
-    }
+    await this.getUserData();
   },
   computed: {
     ...mapGetters("auth", ["getUser", "getToken"]),
@@ -135,39 +171,56 @@ export default {
 .box-change-image {
   display: flex;
   align-items: center;
+  gap: 30px;
 
   height: 100%;
 }
 
+.box-change-image > input {
+  width: 0;
+  height: 0;
+
+  visibility: hidden;
+}
+
 .box-change-icon {
-  width: 25%;
+  width: 100%;
+
+  opacity: 0.7;
+
+  cursor: pointer;
+
+  transition: opacity 0.2s;
+}
+
+.box-change-icon:hover {
+  opacity: 1;
+}
+
+.box-change-contain-icon {
+  height: 150px;
+
+  object-fit: contain;
+
+  border-radius: 50%;
 }
 
 .container-buttons-change-image {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  gap: 10px;
 
   width: 50%;
 }
 
-.container-buttons-change-image button {
-  width: 70%;
+.text-name-profile {
+  width: 100%;
 
-  padding: 10px;
-
-  margin-bottom: 10px;
+  color: #fea6b5;
 
   font-weight: 600;
-  color: white;
-
-  border-radius: 5px;
-
-  cursor: pointer;
-
-  border: none;
-  outline: none;
+  font-size: 30px;
 }
 
 .input-submit {
