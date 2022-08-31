@@ -79,7 +79,7 @@ const Explore = () => {
     <div>
       <NavBar isSearch={true} />
 
-      <ExploreContainer>
+      <div className='flex items-start w-[95vw] mx-10'>
         <SectionCategory>
           <TitleContainer>Categorias</TitleContainer>
           {categories.map(({ name, filter }) => (
@@ -99,7 +99,7 @@ const Explore = () => {
             ))}
           </SectionsBooks>
         </BoxBooks>
-      </ExploreContainer>
+      </div>
     </div>
   );
 };
