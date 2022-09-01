@@ -21,8 +21,9 @@ interface INavBar {
 
 const NavBar = ({ isSearch }: INavBar) => {
   return (
-    <Container
-      style={{ borderBottom: isSearch ? "1px solid #b9b9b7" : "none" }}
+    <div
+      className='flex justify-start items-center w-[95vw] h-[80px]'
+      /* style={{ borderBottom: isSearch ? "1px solid #b9b9b7" : "none" }} */
     >
       <BoxLogo width={isSearch ? "40%" : "30%"}>
         <ImageNavBar src={logo} />
@@ -41,7 +42,7 @@ const NavBar = ({ isSearch }: INavBar) => {
         <IconOption src={userIcon} />
         <IconOption src={logoutIcon} />
       </SectionIcons>
-    </Container>
+    </div>
   );
 };
 

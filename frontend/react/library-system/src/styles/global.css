@@ -2,7 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  @apply m-0 p-0 box-border;
+}
+
 body {
-  @apply bg-white flex justify-center items-center;
+  @apply bg-white;
   -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  @apply flex justify-center items-center flex-col;
 }

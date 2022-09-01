@@ -76,7 +76,7 @@ const Explore = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <NavBar isSearch={true} />
 
       <div className='flex items-start w-[95vw] mx-10'>
@@ -100,7 +100,7 @@ const Explore = () => {
           </SectionsBooks>
         </BoxBooks>
       </div>
-    </div>
+    </>
   );
 };
 
