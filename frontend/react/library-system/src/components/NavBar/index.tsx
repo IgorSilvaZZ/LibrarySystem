@@ -1,3 +1,5 @@
+import classNames from "classnames";
+
 import { InputSearch } from "../InputSearch";
 
 import {
@@ -22,13 +24,22 @@ interface INavBar {
 const NavBar = ({ isSearch }: INavBar) => {
   return (
     <div
-      className='flex justify-start items-center w-[95vw] h-[80px]'
-      /* style={{ borderBottom: isSearch ? "1px solid #b9b9b7" : "none" }} */
+      className={classNames(
+        "flex justify-start items-center w-[95vw] h-[80px]",
+        {
+          "border-y border-gray-300": isSearch,
+        }
+      )}
     >
-      <BoxLogo width={isSearch ? "40%" : "30%"}>
-        <ImageNavBar src={logo} />
+      <div
+        className={classNames("flex items-center", {
+          "w-[40%]": isSearch,
+          "w-[30%]": !isSearch,
+        })}
+      >
+        <img className='w-[50px] cursor-pointer' src={logo} />
         <LogoText>Slibrary</LogoText>
-      </BoxLogo>
+      </div>
       {isSearch ? (
         <InputSearch widhtContainer='50%' />
       ) : (

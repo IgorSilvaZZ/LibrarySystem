@@ -1,5 +1,4 @@
 import searchIcon from "../../assets/searchIcon.png";
-import { IconInputSearch, InputSearchSection, InputStyle } from "./style";
 
 interface IInputSearch {
   widhtContainer: string;
@@ -7,9 +6,14 @@ interface IInputSearch {
 
 export const InputSearch = ({ widhtContainer }: IInputSearch) => {
   return (
-    <InputSearchSection width={widhtContainer}>
-      <IconInputSearch src={searchIcon} />
-      <InputStyle placeholder='Pesquise um Livro' />
-    </InputSearchSection>
+    <div
+      className={`flex w-[${widhtContainer}] h-[50%] p-[10px] border border-solid border-gray-300 rounded-lg`}
+    >
+      <img className='w-auto' src={searchIcon} />
+      <input
+        className='p-3 w-full outline-none bg-none border-none'
+        placeholder='Pesquise um Livro'
+      />
+    </div>
   );
 };
