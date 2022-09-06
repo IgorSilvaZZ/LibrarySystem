@@ -3,10 +3,7 @@ import classNames from "classnames";
 import { InputSearch } from "../InputSearch";
 
 import {
-  Container,
-  BoxLogo,
   LogoText,
-  ImageNavBar,
   OptionsSection,
   TextOption,
   SectionIcons,
@@ -41,13 +38,15 @@ const NavBar = ({ isSearch }: INavBar) => {
         <LogoText>Slibrary</LogoText>
       </div>
       {isSearch ? (
-        <InputSearch widhtContainer='50%' />
+        <InputSearch widthContainer='50%' />
       ) : (
-        <OptionsSection>
-          <TextOption>Inicio</TextOption>
+        <div className='flex justify-evenly items-center w-[70%]'>
+          <a className='font-medium text-gray-400 decoration-0 cursor-pointer p-1 hover:text-pink-400 transition-colors'>
+            Inicio
+          </a>
           <TextOption>Explorar</TextOption>
           <TextOption>Meu Perfil</TextOption>
-        </OptionsSection>
+        </div>
       )}
       <SectionIcons>
         <IconOption src={userIcon} />

@@ -1,13 +1,13 @@
 import searchIcon from "../../assets/searchIcon.png";
 
 interface IInputSearch {
-  widhtContainer: string;
+  widthContainer: string;
 }
 
-export const InputSearch = ({ widhtContainer }: IInputSearch) => {
+export const InputSearch = ({ widthContainer }: IInputSearch) => {
   return (
     <div
-      className={`flex w-[${widhtContainer}] h-[50%] p-[10px] border border-solid border-gray-300 rounded-lg`}
+      className={`flex w-[${widthContainer}] h-[50%] p-[10px] border border-solid border-gray-300 rounded-lg`}
     >
       <img className='w-auto' src={searchIcon} />
       <input
