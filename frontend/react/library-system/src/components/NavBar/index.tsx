@@ -2,14 +2,6 @@ import classNames from "classnames";
 
 import { InputSearch } from "../InputSearch";
 
-import {
-  LogoText,
-  OptionsSection,
-  TextOption,
-  SectionIcons,
-  IconOption,
-} from "./style";
-
 import logo from "../../assets/book-logo.png";
 import userIcon from "../../assets/user.png";
 import logoutIcon from "../../assets/logout.png";
@@ -35,23 +27,29 @@ const NavBar = ({ isSearch }: INavBar) => {
         })}
       >
         <img className='w-[50px] cursor-pointer' src={logo} />
-        <LogoText>Slibrary</LogoText>
+        <span className='text-xl font-semibold mx-2 text-gray-400'>
+          Slibrary
+        </span>
       </div>
       {isSearch ? (
         <InputSearch widthContainer='50%' />
       ) : (
         <div className='flex justify-evenly items-center w-[70%]'>
-          <a className='font-medium text-gray-400 decoration-0 cursor-pointer p-1 hover:text-pink-400 transition-colors'>
+          <a className='font-medium text-gray-400 decoration-0 cursor-pointer p-1 hover:text-pink-300 transition-colors'>
             Inicio
           </a>
-          <TextOption>Explorar</TextOption>
-          <TextOption>Meu Perfil</TextOption>
+          <a className='font-medium text-gray-400 decoration-0 cursor-pointer p-1 hover:text-pink-300 transition-colors'>
+            Explorar
+          </a>
+          <a className='font-medium text-gray-400 decoration-0 cursor-pointer p-1 hover:text-pink-300 transition-colors'>
+            Meu Perfil
+          </a>
         </div>
       )}
-      <SectionIcons>
-        <IconOption src={userIcon} />
-        <IconOption src={logoutIcon} />
-      </SectionIcons>
+      <div className='flex items-center w-[10%] h-1/2'>
+        <img className='w-4 m-2 cursor-pointer' src={userIcon} />
+        <img className='w-4 m-2 cursor-pointer' src={logoutIcon} />
+      </div>
     </div>
   );
 };
