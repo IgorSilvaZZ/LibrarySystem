@@ -5,12 +5,14 @@ import { InputSearch } from "../InputSearch";
 import logo from "../../assets/book-logo.png";
 import userIcon from "../../assets/user.png";
 import logoutIcon from "../../assets/logout.png";
+import bagIcon from "../../assets/shopping-cart.png";
 
 interface INavBar {
   isSearch: boolean;
+  onClickBag: () => void;
 }
 
-const NavBar = ({ isSearch }: INavBar) => {
+const NavBar = ({ isSearch, onClickBag }: INavBar) => {
   return (
     <div
       className={classNames(
@@ -48,6 +50,11 @@ const NavBar = ({ isSearch }: INavBar) => {
       )}
       <div className='flex items-center w-[10%] h-1/2'>
         <img className='w-4 m-2 cursor-pointer' src={userIcon} />
+        <img
+          onClick={onClickBag}
+          className='w-4 m-2 cursor-pointer'
+          src={bagIcon}
+        />
         <img className='w-4 m-2 cursor-pointer' src={logoutIcon} />
       </div>
     </div>
