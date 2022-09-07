@@ -2,16 +2,6 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { NavBar } from "../../components/NavBar";
-import {
-  BoxBooks,
-  ExploreContainer,
-  ItemCategory,
-  NameCategory,
-  SectionCategory,
-  SectionsBooks,
-  TitleContainer,
-} from "./style";
-
 export interface IComplementBook {
   id: string;
   name: string;
