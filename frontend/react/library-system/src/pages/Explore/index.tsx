@@ -24,12 +24,16 @@ import { categories, filters } from "../../utils/categories";
 import { api } from "../../services/api";
 import { Book } from "../../components/Book";
 import { ModalBook } from "../../components/ModalBook";
+import { ModalBase } from "../../components/ModalBase";
 
 const Explore = () => {
-  const [openModalBook, setOpenModalBook] = useState(false);
   const [books, setBooks] = useState<IBook[]>([]);
   const [bookSelected, setBookSelected] = useState<IBook>();
+
   const [filterCategory, setFilterCategory] = useState<string>("all");
+
+  const [openModalBook, setOpenModalBook] = useState(false);
+  const [openModalBag, setOpenModalBag] = useState(false);
 
   function handleBook(book: IBook) {
     setOpenModalBook(true);
@@ -76,15 +80,19 @@ const Explore = () => {
 
   return (
     <>
-      <ModalBook
+      <ModalBase
         isOpen={openModalBook}
         onClickClose={() => {
           setOpenModalBook(!openModalBook);
         }}
-        book={bookSelected}
-      />
+      >
+        <ModalBook book={bookSelected} />
+      </ModalBase>
 
-      <NavBar isSearch={true} />
+      <NavBar
+        onClickBag={() => setOpenModalBag(!openModalBag)}
+        isSearch={true}
+      />
 
       <div className='flex items-start w-[95vw] my-5'>
         <section className='flex flex-col w-1/4 h-fit'>
