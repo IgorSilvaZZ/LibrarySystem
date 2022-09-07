@@ -2,16 +2,6 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { NavBar } from "../../components/NavBar";
-import {
-  BoxBooks,
-  ExploreContainer,
-  ItemCategory,
-  NameCategory,
-  SectionCategory,
-  SectionsBooks,
-  TitleContainer,
-} from "./style";
-
 export interface IComplementBook {
   id: string;
   name: string;
@@ -76,31 +66,38 @@ const Explore = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <NavBar isSearch={true} />
 
-      <ExploreContainer>
-        <SectionCategory>
-          <TitleContainer>Categorias</TitleContainer>
+      <div className='flex items-start w-[95vw] my-5'>
+        <section className='flex flex-col w-1/4 h-fit'>
+          <span className='text-2xl font-bold text-pink-300'>Categorias</span>
           {categories.map(({ name, filter }) => (
-            <ItemCategory key={name} onClick={() => handleCategory(filter)}>
+            <span
+              className='p-1 text-sm font-medium text-gray-400 cursor-pointer hover:text-pink-300 transition-colors'
+              key={name}
+              onClick={() => handleCategory(filter)}
+            >
               {name}
-            </ItemCategory>
+            </span>
           ))}
-        </SectionCategory>
+        </section>
 
-        <BoxBooks>
-          <TitleContainer>
-            Filtrando por <NameCategory>{filters[filterCategory]}</NameCategory>
-          </TitleContainer>
-          <SectionsBooks>
+        <div className='w-3/4 h-fit'>
+          <span className='text-2xl font-bold text-pink-300'>
+            Filtrando por{" "}
+            <span className='p-1 text-2xl font-medium text-gray-400'>
+              {filters[filterCategory]}
+            </span>
+          </span>
+          <section className='flex flex-wrap gap-0 h-full w-full my-2'>
             {books.map((book) => (
               <Book key={book.id} book={book} isLoan={false} />
             ))}
-          </SectionsBooks>
-        </BoxBooks>
-      </ExploreContainer>
-    </div>
+          </section>
+        </div>
+      </div>
+    </>
   );
 };
 

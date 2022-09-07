@@ -1,15 +1,6 @@
-import { InputSearch } from "../InputSearch";
+import classNames from "classnames";
 
-import {
-  Container,
-  BoxLogo,
-  LogoText,
-  ImageNavBar,
-  OptionsSection,
-  TextOption,
-  SectionIcons,
-  IconOption,
-} from "./style";
+import { InputSearch } from "../InputSearch";
 
 import logo from "../../assets/book-logo.png";
 import userIcon from "../../assets/user.png";
@@ -21,27 +12,45 @@ interface INavBar {
 
 const NavBar = ({ isSearch }: INavBar) => {
   return (
-    <Container
-      style={{ borderBottom: isSearch ? "1px solid #b9b9b7" : "none" }}
-    >
-      <BoxLogo width={isSearch ? "40%" : "30%"}>
-        <ImageNavBar src={logo} />
-        <LogoText>Slibrary</LogoText>
-      </BoxLogo>
-      {isSearch ? (
-        <InputSearch widhtContainer='50%' />
-      ) : (
-        <OptionsSection>
-          <TextOption>Inicio</TextOption>
-          <TextOption>Explorar</TextOption>
-          <TextOption>Meu Perfil</TextOption>
-        </OptionsSection>
+    <div
+      className={classNames(
+        "flex justify-start items-center w-[95vw] h-[80px]",
+        {
+          "border-y border-gray-300": isSearch,
+        }
       )}
-      <SectionIcons>
-        <IconOption src={userIcon} />
-        <IconOption src={logoutIcon} />
-      </SectionIcons>
-    </Container>
+    >
+      <div
+        className={classNames("flex items-center", {
+          "w-[40%]": isSearch,
+          "w-[30%]": !isSearch,
+        })}
+      >
+        <img className='w-[50px] cursor-pointer' src={logo} />
+        <span className='text-xl font-semibold mx-2 text-gray-400'>
+          Slibrary
+        </span>
+      </div>
+      {isSearch ? (
+        <InputSearch widthContainer='50%' />
+      ) : (
+        <div className='flex justify-evenly items-center w-[70%]'>
+          <a className='font-medium text-gray-400 decoration-0 cursor-pointer p-1 hover:text-pink-300 transition-colors'>
+            Inicio
+          </a>
+          <a className='font-medium text-gray-400 decoration-0 cursor-pointer p-1 hover:text-pink-300 transition-colors'>
+            Explorar
+          </a>
+          <a className='font-medium text-gray-400 decoration-0 cursor-pointer p-1 hover:text-pink-300 transition-colors'>
+            Meu Perfil
+          </a>
+        </div>
+      )}
+      <div className='flex items-center w-[10%] h-1/2'>
+        <img className='w-4 m-2 cursor-pointer' src={userIcon} />
+        <img className='w-4 m-2 cursor-pointer' src={logoutIcon} />
+      </div>
+    </div>
   );
 };
 
