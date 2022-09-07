@@ -10,6 +10,7 @@ export interface IBook {
   id: string;
   title: string;
   code: string;
+  description: string;
   language: string;
   numberPages: number;
   quantity: number;
@@ -22,10 +23,18 @@ export interface IBook {
 import { categories, filters } from "../../utils/categories";
 import { api } from "../../services/api";
 import { Book } from "../../components/Book";
+import { ModalBook } from "../../components/ModalBook";
 
 const Explore = () => {
+  const [openModalBook, setOpenModalBook] = useState(false);
   const [books, setBooks] = useState<IBook[]>([]);
+  const [bookSelected, setBookSelected] = useState<IBook>();
   const [filterCategory, setFilterCategory] = useState<string>("all");
+
+  function handleBook(book: IBook) {
+    setOpenModalBook(true);
+    setBookSelected(book);
+  }
 
   async function getAllBooks() {
     try {
@@ -67,6 +76,14 @@ const Explore = () => {
 
   return (
     <>
+      <ModalBook
+        isOpen={openModalBook}
+        onClickClose={() => {
+          setOpenModalBook(!openModalBook);
+        }}
+        book={bookSelected}
+      />
+
       <NavBar isSearch={true} />
 
       <div className='flex items-start w-[95vw] my-5'>
@@ -92,7 +109,9 @@ const Explore = () => {
           </span>
           <section className='flex flex-wrap gap-0 h-full w-full my-2'>
             {books.map((book) => (
-              <Book key={book.id} book={book} isLoan={false} />
+              <span key={book.id} onClick={() => handleBook(book)}>
+                <Book book={book} isLoan={false} />
+              </span>
             ))}
           </section>
         </div>
