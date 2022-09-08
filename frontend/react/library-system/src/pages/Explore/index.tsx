@@ -25,6 +25,7 @@ import { api } from "../../services/api";
 import { Book } from "../../components/Book";
 import { ModalBook } from "../../components/ModalBook";
 import { ModalBase } from "../../components/ModalBase";
+import { ModalBag } from "../../components/ModalBag";
 
 const Explore = () => {
   const [books, setBooks] = useState<IBook[]>([]);
@@ -87,6 +88,15 @@ const Explore = () => {
         }}
       >
         <ModalBook book={bookSelected} />
+      </ModalBase>
+
+      <ModalBase
+        isOpen={openModalBag}
+        onClickClose={() => {
+          setOpenModalBag(!openModalBag);
+        }}
+      >
+        <ModalBag />
       </ModalBase>
 
       <NavBar
