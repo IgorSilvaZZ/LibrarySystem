@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { IAuthContextType } from "../types/IAuthContextType";
 import { IBook } from "../pages/Explore";
+import { toast } from "react-toastify";
 
 export interface IAuthProvider {
   children: JSX.Element | JSX.Element[];
@@ -64,24 +65,26 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     localStorage.setItem("bag", JSON.stringify(updateBag));
 
     setBag(updateBag);
+
+    toast.info("Livro adicionado na bolsa!");
   }
 
   function deleteBookBag(bookId: string) {
-    const currenBag = bag;
+    const findIndex = bag.findIndex((book) => book.id === bookId);
 
-    const findIndex = currenBag.findIndex((book) => book.id === bookId);
+    bag.splice(findIndex, 1);
 
-    currenBag.splice(findIndex, 1);
+    setBag([...bag]);
 
-    setBag(currenBag);
-
-    localStorage.setItem("bag", JSON.stringify(currenBag));
+    localStorage.setItem("bag", JSON.stringify(bag));
   }
 
   function clearBag() {
+    setBag([]);
+
     localStorage.setItem("bag", JSON.stringify([]));
 
-    setBag([]);
+    toast.info("Bolsa esvaziada!");
   }
 
   useEffect(() => {

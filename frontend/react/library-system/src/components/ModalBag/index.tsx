@@ -43,9 +43,16 @@ export const ModalBag = () => {
           </div>
         </>
       ))}
-      <div className='w-3/4 h-1/5 flex items-center justify-center'>
+      <div className='w-3/4 h-1/5 flex items-center justify-evenly'>
         <button className='w-1/2 p-3 bg-pink-500 text-white rounded-xl border-none outline-none cursor-pointer transition-colors hover:bg-pink-600 mb-2'>
           Realizar Emprestimos
+        </button>
+
+        <button
+          className='w-1/4 p-3 bg-red-500 text-white rounded-xl border-none outline-none cursor-pointer transition-colors hover:bg-red-600 mb-2'
+          onClick={clearBag}
+        >
+          Limpar Bolsa
         </button>
       </div>
     </div>
