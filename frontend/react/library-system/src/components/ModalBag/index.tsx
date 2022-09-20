@@ -17,28 +17,37 @@ export const ModalBag = () => {
   }
 
   return (
-    <div className='flex flex-col items-center h-full w-full gap-4 overflow-x-hidden overflow-y-auto'>
+    <div className='flex flex-col items-center justify-between h-full w-full overflow-x-hidden overflow-y-auto'>
       {bag.map((book) => (
-        <div
-          className='w-[95%] px-2 h-2/5 flex gap-20 items-center rounded-xl shadow-3xl border-pink-400 my-3'
-          key={book.id}
-        >
-          <img className='w-[12%]' src={bookIcon} alt='Book Icon' />
+        <>
+          <div
+            className='w-[95%] px-2 h-24 flex gap-20 items-center rounded-xl shadow-3xl my-3'
+            key={book.id}
+          >
+            <img className='w-16' src={bookIcon} alt='Book Icon' />
 
-          <span className='h-4/5 w-3/5 flex flex-col gap-3'>
-            <p className='text-xl font-semibold text-pink-400'>{book.title}</p>
-            <p className='text-base text-gray-400'>{book.author.name}</p>
-            <p className='text-base text-gray-400'>{book.category.name}</p>
-          </span>
+            <span className='h-4/5 w-3/5 flex flex-col gap-1'>
+              <p className='text-base font-semibold text-pink-400'>
+                {book.title}
+              </p>
+              <p className='text-base text-gray-400'>{book.author.name}</p>
+              <p className='text-base text-gray-400'>{book.category.name}</p>
+            </span>
 
-          <img
-            className='w-[5%] opacity-60 cursor-pointer transition-all hover:opacity-100'
-            src={trashIcon}
-            alt='Icon Delete'
-            onClick={() => deleteBookBag(book.id)}
-          />
-        </div>
+            <img
+              className='w-8 opacity-60 cursor-pointer transition-all hover:opacity-100'
+              src={trashIcon}
+              alt='Icon Delete'
+              onClick={() => deleteBookBag(book.id)}
+            />
+          </div>
+        </>
       ))}
+      <div className='w-3/4 h-1/5 flex items-center justify-center'>
+        <button className='w-1/2 p-3 bg-pink-500 text-white rounded-xl border-none outline-none cursor-pointer transition-colors hover:bg-pink-600 mb-2'>
+          Realizar Emprestimos
+        </button>
+      </div>
     </div>
   );
 };

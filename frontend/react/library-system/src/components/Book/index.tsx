@@ -23,7 +23,7 @@ export const Book = ({ isLoan, book }: IBookComponent) => {
           </p>
         ) : (
           <p className='text-gray-400 text-xs font-semibold mb-[2px] cursor-pointer'>
-            Nina LaCour
+            {book.author.name}
           </p>
         )}
       </section>
