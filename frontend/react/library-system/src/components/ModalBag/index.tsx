@@ -21,12 +21,12 @@ export const ModalBag = () => {
       {bag.map((book) => (
         <>
           <div
-            className='w-[95%] px-2 h-24 flex gap-20 items-center rounded-xl shadow-3xl my-3'
+            className='w-[95%] px-2 h-24 flex gap-10 items-center rounded-xl shadow-3xl my-3'
             key={book.id}
           >
-            <img className='w-16' src={bookIcon} alt='Book Icon' />
+            <img className='w-16 ml-4' src={bookIcon} alt='Book Icon' />
 
-            <span className='h-4/5 w-3/5 flex flex-col gap-1'>
+            <span className='h-4/5 w-3/4 flex flex-col gap-1'>
               <p className='text-base font-semibold text-pink-400'>
                 {book.title}
               </p>

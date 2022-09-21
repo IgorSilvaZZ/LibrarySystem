@@ -60,6 +60,13 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
   }
 
   function handleBag(book: IBook) {
+    const bookExists = bag.find((bookBag) => bookBag.id === book.id);
+
+    if (bookExists) {
+      toast.info("Livro já adicionado na bolsa!");
+      return;
+    }
+
     const updateBag = [...bag, book];
 
     localStorage.setItem("bag", JSON.stringify(updateBag));
