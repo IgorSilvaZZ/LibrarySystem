@@ -2,12 +2,15 @@ import { IBook } from "../../pages/Explore";
 
 import bookImage from "../../assets/book-item.png";
 import addBagIcon from "../../assets/add-bag.png";
+import { useAuth } from "../../hooks/useAuth";
 
 export interface IModalBook {
   book?: IBook;
 }
 
 export const ModalBook = ({ book }: IModalBook) => {
+  const { handleBag } = useAuth();
+
   return (
     <>
       <div className='flex flex-col justify-evenly items-center w-[30%] h-[95%] m-2'>
@@ -26,6 +29,7 @@ export const ModalBook = ({ book }: IModalBook) => {
             src={addBagIcon}
             alt='Add Bag Icon'
             title='Adicionar a bolsa'
+            onClick={() => handleBag(book as IBook)}
           />
         </span>
 
