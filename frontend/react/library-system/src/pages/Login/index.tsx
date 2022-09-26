@@ -8,20 +8,20 @@ const Login = () => {
 
   return (
     <div className='flex items-center justify-center h-screen w-screen bg-white-container'>
-      <div className='flex h-4/5 w-[70%] bg-white rounded-2xl'>
+      <div className='flex h-4/5 w-[70%] bg-white rounded-xl'>
         <div className='flex items-center justify-center w-[70%] h-full'>
           <div className='flex flex-col h-4/5 w-4/5'>
             <ArrowLeft
               onClick={() => navigate("/")}
               size={25}
               color='#fea6b5'
-              className='cursor-pointer'
+              className='mb-2 cursor-pointer font-semibold'
             />
 
-            <span className='text-pink-300 text-3xl font-semibold'>
+            <span className='text-pink-300 text-3xl font-semibold mb-3'>
               Slibrary
             </span>
-            <p className='text-zinc-400 text-2xl font-semibold mb-10'>
+            <p className='text-zinc-500 text-2xl font-semibold mb-10'>
               Entrar na Conta
             </p>
 

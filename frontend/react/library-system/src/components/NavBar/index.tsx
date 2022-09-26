@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { Link, useNavigate } from "react-router-dom";
 
 import { InputSearch } from "../InputSearch";
 
@@ -13,6 +14,8 @@ interface INavBar {
 }
 
 const NavBar = ({ isSearch, onClickBag }: INavBar) => {
+  const navigate = useNavigate();
+
   return (
     <div
       className={classNames(
@@ -49,7 +52,11 @@ const NavBar = ({ isSearch, onClickBag }: INavBar) => {
         </div>
       )}
       <div className='flex items-center w-[10%] h-1/2'>
-        <img className='w-4 m-2 cursor-pointer' src={userIcon} />
+        <img
+          className='w-4 m-2 cursor-pointer'
+          src={userIcon}
+          onClick={() => navigate("/login")}
+        />
         <img
           onClick={onClickBag}
           className='w-4 m-2 cursor-pointer'
