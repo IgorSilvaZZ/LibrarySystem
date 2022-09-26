@@ -39,7 +39,7 @@ const Login = () => {
               Entrar
             </button>
 
-            <p className='text-pink-300 font-medium text-xs mt-5 transition-colors cursor-pointer hover:text-pink-400'>
+            <p className='text-pink-300 font-medium text-xs mt-5 transition-colors cursor-pointer hover:text-pink-400' onClick={() => navigate("/register")}>
               Nao tem conta? Registre-se
             </p>
           </div>
