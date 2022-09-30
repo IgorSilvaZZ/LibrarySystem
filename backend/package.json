@@ -18,7 +18,8 @@
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.8",
     "typeorm": "0.2.41",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

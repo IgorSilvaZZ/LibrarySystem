@@ -1,8 +1,11 @@
+import { z } from "zod";
 import { hash } from "bcryptjs";
 
 import { ICreateUserDTO } from "@modules/users/dtos/ICreateUserDTO";
 import { User } from "@modules/users/infra/typeorm/entities/User";
 import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
+import { ValidationErrors } from "@shared/errors/ValidationErrors";
+import { TypeErrorValidation } from "@shared/types/TypeErrorValidation";
 
 export class CreateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
@@ -16,6 +19,39 @@ export class CreateUserUseCase {
     identification,
     isAdmin,
   }: ICreateUserDTO): Promise<User> {
+    const UserValidation = z.object({
+      name: z.string().min(4, { message: "Nome com menos de 4 caracteres" }),
+      email: z.string().email({ message: "Email invalido!" }),
+      cpf: z.string().max(11, { message: "Cpf invalido!" }),
+      password: z
+        .string()
+        .min(4, { message: "Senha com menos de 4 caracteres!" }),
+      identification: z
+        .string()
+        .min(5, { message: "Identificação com menos de 5 caracteres!" }),
+      isAdmin: z.boolean(),
+    });
+
+    const { success, error } = UserValidation.safeParse({
+      name,
+      email,
+      cpf,
+      rg,
+      password,
+      identification,
+      isAdmin,
+    }) as TypeErrorValidation;
+
+    if (!success) {
+      const issues = error.issues.map((issue) => {
+        return {
+          message: issue.message,
+        };
+      });
+
+      throw new ValidationErrors(issues);
+    }
+
     const userAlreadyExists = await this.usersRepository.findByEmailOrCpf(
       email,
       cpf
