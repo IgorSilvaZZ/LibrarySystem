@@ -4,11 +4,11 @@ import { ArrowLeft } from "phosphor-react";
 
 import { Background } from "../../components/Background";
 import { LibrarianForm } from "../../components/Register/LibrarianForm";
+import { UserForm } from "../../components/Register/UserForm";
 
 import openBookImage from "../../assets/open-book.png";
 import librarianImage from "../../assets/librarian.png";
 import bannerImage from "../../assets/footer-img2.png";
-
 export interface IRegisterTypeProps {
   setChoiceType: (type: string) => void;
 }
@@ -49,7 +49,10 @@ const Register = () => {
 
             {typeChoice === "default" && (
               <div className='flex justify-center items-center h-3/5 w-full'>
-                <div className='flex flex-col justify-evenly items-center w-2/5 h-3/5 m-2 rounded-3xl text-white text-2xl font-bold cursor-pointer bg-pink-400 transition-all hover:w-[45%] hover:h-[65%]' onClick={() => handleChoice("user")}>
+                <div
+                  className='flex flex-col justify-evenly items-center w-2/5 h-3/5 m-2 rounded-3xl text-white text-2xl font-bold cursor-pointer bg-pink-400 transition-all hover:w-[45%] hover:h-[65%]'
+                  onClick={() => handleChoice("user")}
+                >
                   <img
                     className='w-2/6'
                     src={openBookImage}
@@ -58,7 +61,10 @@ const Register = () => {
                   <span>Leitor</span>
                 </div>
 
-                <div className='flex flex-col justify-evenly items-center w-2/5 h-3/5 m-2 rounded-3xl text-white text-2xl font-bold cursor-pointer bg-pink-300 transition-all hover:w-[45%] hover:h-[65%]' onClick={() => handleChoice("librarian")}>
+                <div
+                  className='flex flex-col justify-evenly items-center w-2/5 h-3/5 m-2 rounded-3xl text-white text-2xl font-bold cursor-pointer bg-pink-300 transition-all hover:w-[45%] hover:h-[65%]'
+                  onClick={() => handleChoice("librarian")}
+                >
                   <img
                     className='w-2/6'
                     src={librarianImage}
@@ -69,10 +75,9 @@ const Register = () => {
               </div>
             )}
 
-            {typeChoice === "librarian" && (
-              <LibrarianForm />
-            )}
+            {typeChoice === "librarian" && <LibrarianForm />}
 
+            {typeChoice === "user" && <UserForm />}
           </div>
         </div>
 

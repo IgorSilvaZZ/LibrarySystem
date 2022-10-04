@@ -1,6 +1,6 @@
-export const LibrarianForm = () => {
+export const UserForm = () => {
   return (
-    <div className='flex flex-col mx-10 h-[85%] gap-1'>
+    <div className='flex flex-col mx-10 h-4/5 gap-1'>
       <div className='flex flex-col gap-2 h-20 w-3/5'>
         <label className='text-sm text-pink-300 font-medium'>
           Nome Completo
@@ -11,23 +11,9 @@ export const LibrarianForm = () => {
       <div className='flex flex-col gap-2 h-20 w-3/5'>
         <label className='text-sm text-pink-300 font-medium'>Email</label>
         <input
-          className='border border-zinc-300 p-3 rounded outline-none text-zinc-400'
           type='email'
+          className='border border-zinc-300 p-3 rounded outline-none text-zinc-400'
         />
-      </div>
-
-      <div className='flex gap-1 item-center w-3/5 h-20'>
-        <div className='flex flex-col gap-2 h-20 w-2/5'>
-          <label className='text-sm text-pink-300 font-medium'>
-            Identificação
-          </label>
-          <input className='border border-zinc-300 p-3 rounded outline-none text-zinc-400' />
-        </div>
-
-        <div className='flex flex-col gap-2 h-20 w-7/12'>
-          <label className='text-sm text-pink-300 font-medium'>RG</label>
-          <input className='border border-zinc-300 p-3 rounded outline-none text-zinc-400' />
-        </div>
       </div>
 
       <div className='flex flex-col gap-2 h-20 w-3/5'>
@@ -36,10 +22,15 @@ export const LibrarianForm = () => {
       </div>
 
       <div className='flex flex-col gap-2 h-20 w-3/5'>
+        <label className='text-sm text-pink-300 font-medium'>RG</label>
+        <input className='border border-zinc-300 p-3 rounded outline-none text-zinc-400' />
+      </div>
+
+      <div className='flex flex-col gap-2 h-20 w-3/5'>
         <label className='text-sm text-pink-300 font-medium'>Senha</label>
         <input
-          className='border border-zinc-300 p-3 rounded outline-none text-zinc-400'
           type='password'
+          className='border border-zinc-300 p-3 rounded outline-none text-zinc-400'
         />
       </div>
 
