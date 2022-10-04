@@ -6,6 +6,7 @@ import { User } from "@modules/users/infra/typeorm/entities/User";
 import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
 import { ValidationErrors } from "@shared/errors/ValidationErrors";
 import { TypeErrorValidation } from "@shared/types/TypeErrorValidation";
+import { createIssuesErros } from "utils/createIssuesErros";
 
 export class CreateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
@@ -22,7 +23,8 @@ export class CreateUserUseCase {
     const UserValidation = z.object({
       name: z.string().min(4, { message: "Nome com menos de 4 caracteres" }),
       email: z.string().email({ message: "Email invalido!" }),
-      cpf: z.string().max(11, { message: "Cpf invalido!" }),
+      rg: z.string().max(13, { message: "RG Invalido!" }),
+      cpf: z.string().max(11, { message: "CPF invalido!" }),
       password: z
         .string()
         .min(4, { message: "Senha com menos de 4 caracteres!" }),
@@ -43,13 +45,9 @@ export class CreateUserUseCase {
     }) as TypeErrorValidation;
 
     if (!success) {
-      const issues = error.issues.map((issue) => {
-        return {
-          message: issue.message,
-        };
-      });
+      const issuesErrors = createIssuesErros(error.issues);
 
-      throw new ValidationErrors(issues);
+      throw new ValidationErrors(issuesErrors);
     }
 
     const userAlreadyExists = await this.usersRepository.findByEmailOrCpf(
