@@ -6,6 +6,7 @@ import { join } from "path";
 
 import createConnection from "@shared/infra/typeorm";
 import { router } from "./routes";
+import { ValidationErrors } from "@shared/errors/ValidationErrors";
 
 createConnection();
 
@@ -21,6 +22,13 @@ app.use(
 );
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  if (err instanceof ValidationErrors) {
+    return res.status(err.statusCode).json({
+      message: "Campos Invalidos!",
+      issues: err.issues,
+    });
+  }
+
   if (err instanceof Error) {
     return res.status(400).json({ error: err.message });
   }
