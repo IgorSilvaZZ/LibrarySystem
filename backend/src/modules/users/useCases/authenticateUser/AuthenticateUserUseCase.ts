@@ -1,9 +1,13 @@
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
+import { z } from "zod";
 
 import { IRequestAuthenticateDTO } from "@modules/users/dtos/IRequestAuthenticateDTO";
 import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
 import { IResponseAuthenticateDTO } from "@modules/users/dtos/IResponseAuthenticateDTO";
+import { ValidationErrors } from "@shared/errors/ValidationErrors";
+import { TypeErrorValidation } from "@shared/types/TypeErrorValidation";
+import { createIssuesErros } from "utils/createIssuesErros";
 
 export class AuthenticateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
@@ -12,6 +16,24 @@ export class AuthenticateUserUseCase {
     email,
     password,
   }: IRequestAuthenticateDTO): Promise<IResponseAuthenticateDTO> {
+    const UserValidation = z.object({
+      email: z.string().email({ message: "Email Invalido!" }),
+      password: z
+        .string()
+        .min(4, { message: "Senha com menos de 4 caracteres!" }),
+    });
+
+    const { error, success } = UserValidation.safeParse({
+      email,
+      password,
+    }) as TypeErrorValidation;
+
+    if (!success) {
+      const issuesErrors = createIssuesErros(error.issues);
+
+      throw new ValidationErrors(issuesErrors);
+    }
+
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
@@ -22,9 +44,9 @@ export class AuthenticateUserUseCase {
       throw new Error("Email/Senha incorretos!");
     }
 
-    const token = sign({}, "0e8a93adb74c0c7b034082c474391874", {
+    const token = sign({}, process.env.TOKEN_SECRET, {
       subject: user.id,
-      expiresIn: "1d",
+      expiresIn: "4h",
     });
 
     const returnAuth: IResponseAuthenticateDTO = {
