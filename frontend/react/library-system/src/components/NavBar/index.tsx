@@ -10,7 +10,7 @@ import bagIcon from "../../assets/shopping-cart.png";
 
 interface INavBar {
   isSearch: boolean;
-  onClickBag: () => void;
+  onClickBag?: () => void;
 }
 
 const NavBar = ({ isSearch, onClickBag }: INavBar) => {
@@ -37,7 +37,23 @@ const NavBar = ({ isSearch, onClickBag }: INavBar) => {
         </span>
       </div>
       {isSearch ? (
-        <InputSearch widthContainer='50%' />
+        <>
+          <InputSearch widthContainer='50%' />
+
+          <div className='flex items-center w-[10%] h-1/2'>
+            <img
+              className='w-4 m-2 cursor-pointer'
+              src={userIcon}
+              onClick={() => navigate("/login")}
+            />
+            <img
+              onClick={onClickBag}
+              className='w-4 m-2 cursor-pointer'
+              src={bagIcon}
+            />
+            <img className='w-4 m-2 cursor-pointer' src={logoutIcon} />
+          </div>
+        </>
       ) : (
         <div className='flex justify-evenly items-center w-[70%]'>
           <a className='font-medium text-gray-400 decoration-0 cursor-pointer p-1 hover:text-pink-300 transition-colors'>
@@ -51,19 +67,6 @@ const NavBar = ({ isSearch, onClickBag }: INavBar) => {
           </a>
         </div>
       )}
-      <div className='flex items-center w-[10%] h-1/2'>
-        <img
-          className='w-4 m-2 cursor-pointer'
-          src={userIcon}
-          onClick={() => navigate("/login")}
-        />
-        <img
-          onClick={onClickBag}
-          className='w-4 m-2 cursor-pointer'
-          src={bagIcon}
-        />
-        <img className='w-4 m-2 cursor-pointer' src={logoutIcon} />
-      </div>
     </div>
   );
 };
