@@ -1,4 +1,5 @@
 import { NavBar } from "../../components/NavBar";
+import { CreateBookProfile } from "../../components/Profile/CreateBook";
 import { GeneralProfile } from "../../components/Profile/General";
 
 const Profile = () => {
@@ -31,7 +32,8 @@ const Profile = () => {
           </section>
         </div>
 
-        <GeneralProfile />
+        {/* <GeneralProfile /> */}
+        <CreateBookProfile />
       </div>
     </>
   );
