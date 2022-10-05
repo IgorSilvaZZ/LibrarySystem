@@ -1,4 +1,5 @@
 import { NavBar } from "../../components/NavBar";
+import { GeneralProfile } from "../../components/Profile/General";
 
 const Profile = () => {
   return (
@@ -30,13 +31,7 @@ const Profile = () => {
           </section>
         </div>
 
-        <div className='flex flex-col gap-2 w-3/4'>
-          <span className='text-2xl text-pink-300 font-semibold'>
-            Meu Perfil
-          </span>
-
-          <p className='text-zinc-400 font-medium'>Altere suas informações!</p>
-        </div>
+        <GeneralProfile />
       </div>
     </>
   );
