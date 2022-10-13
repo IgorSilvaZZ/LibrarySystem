@@ -1,4 +1,3 @@
-import { ChangeEvent, InputHTMLAttributes } from "react";
 import avatarImg from "../../../assets/user-icon-image.png";
 
 export const GeneralProfile = () => {
