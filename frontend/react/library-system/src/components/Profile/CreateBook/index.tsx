@@ -79,6 +79,12 @@ export const CreateBookProfile = () => {
             </select>
           </div>
         </div>
+
+        <div className='h-16 w-4/5 flex items-center justify-center'>
+          <button className='w-1/2 p-3 rounded text-white font-semibold bg-pink-300 cursor-pointer transition-colors hover:bg-pink-400'>
+            Salvar
+          </button>
+        </div>
       </div>
     </div>
   );

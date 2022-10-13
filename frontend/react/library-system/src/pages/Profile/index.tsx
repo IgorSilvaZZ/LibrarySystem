@@ -1,8 +1,12 @@
+import { useState } from "react";
+
 import { NavBar } from "../../components/NavBar";
 import { CreateBookProfile } from "../../components/Profile/CreateBook";
 import { GeneralProfile } from "../../components/Profile/General";
 
 const Profile = () => {
+  const [optionProfile, setOptionProfile] = useState<string>("general");
+
   return (
     <>
       <NavBar isSearch={false} />
@@ -12,7 +16,10 @@ const Profile = () => {
           <span className='text-xl text-pink-400 font-semibold'>Pessoal</span>
 
           <section className='w-full flex flex-col gap-2 h-16 mx-2 mb-2'>
-            <p className='text-sm text-zinc-400 font-semibold cursor-pointer transition-colors hover:text-pink-300'>
+            <p
+              className='text-sm text-zinc-400 font-semibold cursor-pointer transition-colors hover:text-pink-300'
+              onClick={() => setOptionProfile("general")}
+            >
               Geral
             </p>
             <p className='text-sm text-zinc-400 font-semibold cursor-pointer transition-colors hover:text-pink-300'>
@@ -23,7 +30,10 @@ const Profile = () => {
           <span className='text-xl text-pink-400 font-semibold'>Livros</span>
 
           <section className='w-full flex flex-col gap-2 h-16 mx-2'>
-            <p className='text-sm text-zinc-400 font-semibold cursor-pointer transition-colors hover:text-pink-300'>
+            <p
+              className='text-sm text-zinc-400 font-semibold cursor-pointer transition-colors hover:text-pink-300'
+              onClick={() => setOptionProfile("create-book")}
+            >
               Criar Novo Livro
             </p>
             <p className='text-sm text-zinc-400 font-semibold cursor-pointer transition-colors hover:text-pink-300'>
@@ -32,8 +42,8 @@ const Profile = () => {
           </section>
         </div>
 
-        {/* <GeneralProfile /> */}
-        <CreateBookProfile />
+        {optionProfile === "general" && <GeneralProfile />}
+        {optionProfile === "create-book" && <CreateBookProfile />}
       </div>
     </>
   );
