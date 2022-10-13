@@ -2,7 +2,9 @@ import { useState } from "react";
 
 import { NavBar } from "../../components/NavBar";
 import { CreateBookProfile } from "../../components/Profile/CreateBook";
+import { EditBook } from "../../components/Profile/EditBook";
 import { GeneralProfile } from "../../components/Profile/General";
+import { MyBooks } from "../../components/Profile/MyBooks";
 
 const Profile = () => {
   const [optionProfile, setOptionProfile] = useState<string>("general");
@@ -22,7 +24,10 @@ const Profile = () => {
             >
               Geral
             </p>
-            <p className='text-sm text-zinc-400 font-semibold cursor-pointer transition-colors hover:text-pink-300'>
+            <p
+              className='text-sm text-zinc-400 font-semibold cursor-pointer transition-colors hover:text-pink-300'
+              onClick={() => setOptionProfile("my-books")}
+            >
               Todos Emprestimos Realizados
             </p>
           </section>
@@ -36,7 +41,10 @@ const Profile = () => {
             >
               Criar Novo Livro
             </p>
-            <p className='text-sm text-zinc-400 font-semibold cursor-pointer transition-colors hover:text-pink-300'>
+            <p
+              className='text-sm text-zinc-400 font-semibold cursor-pointer transition-colors hover:text-pink-300'
+              onClick={() => setOptionProfile("edit-books")}
+            >
               Editar & Deletar Livro
             </p>
           </section>
@@ -44,6 +52,8 @@ const Profile = () => {
 
         {optionProfile === "general" && <GeneralProfile />}
         {optionProfile === "create-book" && <CreateBookProfile />}
+        {optionProfile === "my-books" && <MyBooks />}
+        {optionProfile === "edit-books" && <EditBook />}
       </div>
     </>
   );

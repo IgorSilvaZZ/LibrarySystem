@@ -16,6 +16,9 @@ module.exports = {
       backgroundColor: {
         "white-container": "#f9e9e8",
       },
+      translate: {
+        "translate-modal": "-50%",
+      },
     },
   },
   plugins: [],
