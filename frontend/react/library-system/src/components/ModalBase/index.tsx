@@ -10,8 +10,8 @@ export const ModalBase = ({ isOpen, onClickClose, children }: IModalBase) => {
   }
 
   return (
-    <div className='flex items-center justify-center w-screen h-screen fixed transition-all'>
-      <div className='flex flex-col w-[70%] h-[70%] bg-white rounded-xl border-2 border-pink-400'>
+    <div className='flex items-center justify-center top-1/2 left-1/2 translate-x-translate-modal translate-y-translate-modal fixed transition-all'>
+      <div className='flex flex-col w-[70vw] h-[75vh] bg-white rounded-xl border-2 border-pink-400'>
         <div className='flex items-center justify-end my-1 mx-2'>
           <span
             className='text-4xl text-pink-400 cursor-pointer transition-colors hover:text-pink-500'
