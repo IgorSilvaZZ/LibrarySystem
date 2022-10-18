@@ -1,15 +1,13 @@
 import { ArrowLeft } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 
-import { Background } from "../../components/Background";
-
 import bannerImage from "../../assets/login-img.png";
 
 const Login = () => {
   const navigate = useNavigate();
 
   return (
-    <Background>
+    <div className='flex justify-center items-center w-screen h-screen bg-white-container'>
       <div className='flex h-4/5 w-[70%] bg-white rounded-xl'>
         <div className='flex items-center justify-center w-[70%] h-full'>
           <div className='flex flex-col h-4/5 w-4/5'>
@@ -57,7 +55,7 @@ const Login = () => {
           />
         </div>
       </div>
-    </Background>
+    </div>
   );
 };
 

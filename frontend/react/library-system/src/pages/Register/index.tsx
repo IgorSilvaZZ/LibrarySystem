@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "phosphor-react";
 
-import { Background } from "../../components/Background";
 import { LibrarianForm } from "../../components/Register/LibrarianForm";
 import { UserForm } from "../../components/Register/UserForm";
 
@@ -30,7 +29,7 @@ const Register = () => {
   }
 
   return (
-    <Background>
+    <div className='flex justify-center items-center w-screen h-screen bg-white-container'>
       <div className='flex h-[90%] w-[70%] bg-white rounded-xl'>
         <div className='flex items-center justify-center h-full w-[70%]'>
           <div className='flex justify-evenly flex-col w-full h-full'>
@@ -88,7 +87,7 @@ const Register = () => {
           />
         </div>
       </div>
-    </Background>
+    </div>
   );
 };
 
