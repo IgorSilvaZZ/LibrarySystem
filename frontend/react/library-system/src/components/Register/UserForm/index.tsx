@@ -1,9 +1,13 @@
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { SubmitHandler, FormHandles } from "@unform/core";
 import { Form } from "@unform/web";
+import { toast } from "react-toastify";
 
 import { Input } from "../../Form/Input";
 import { InputMask } from "../../Form/InputMask";
+
+import { api } from "../../../services/api";
 
 export interface UserFormData {
   name: string;
@@ -14,11 +18,27 @@ export interface UserFormData {
 }
 
 export const UserForm = () => {
+  const navigate = useNavigate();
+
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit: SubmitHandler<UserFormData> = (data) => {
+  const handleSubmit: SubmitHandler<UserFormData> = async (data) => {
     // Enviar para Api os dados do usuario
-    console.log(data);
+
+    const userRegister = {
+      ...data,
+      isAdmin: false,
+    };
+
+    try {
+      await api.post("/users", userRegister);
+
+      toast.success("Usuario cadastrado com sucesso!");
+
+      navigate("/login");
+    } catch (error) {
+      toast.error("Erro ao cadastrar!");
+    }
   };
 
   return (

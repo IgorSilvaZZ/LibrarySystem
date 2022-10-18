@@ -1,6 +1,10 @@
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { SubmitHandler, FormHandles } from "@unform/core";
 import { Form } from "@unform/web";
+import { toast } from "react-toastify";
+
+import { api } from "../../../services/api";
 
 import { Input } from "../../Form/Input";
 import { InputMask } from "../../Form/InputMask";
@@ -11,11 +15,27 @@ interface LibrarianForm extends UserFormData {
 }
 
 export const LibrarianForm = () => {
+  const navigate = useNavigate();
+
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit: SubmitHandler<LibrarianForm> = (data) => {
+  const handleSubmit: SubmitHandler<LibrarianForm> = async (data) => {
     // Enviar para Api os dados do usuario
-    console.log(data);
+
+    const librarianRegister = {
+      ...data,
+      isAdmin: true,
+    };
+
+    try {
+      await api.post("/users", librarianRegister);
+
+      toast.success("Usuario cadastrado com sucesso!");
+
+      navigate("/login");
+    } catch (error) {
+      toast.error("Erro ao cadastrar!");
+    }
   };
 
   return (
