@@ -1,8 +1,11 @@
 import { createContext, useEffect, useState } from "react";
-import { IAuthContextType } from "../types/IAuthContextType";
-import { IBook } from "../pages/Explore";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import { api } from "../services/api";
+
+import { IAuthContextType } from "../types/IAuthContextType";
+import { IBook } from "../pages/Explore";
 export interface IAuthProvider {
   children: JSX.Element | JSX.Element[];
 }
@@ -27,11 +30,13 @@ export interface IUser {
 export const AuthContext = createContext<IAuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: IAuthProvider) => {
+  const navigate = useNavigate();
+
   // Bag with books for user!
   const [bag, setBag] = useState<IBook[]>([]);
 
   //Iniital user for authentication
-  const [user, setUser] = useState<IUser>();
+  const [user, setUser] = useState<IUser | {}>();
 
   //Iniital function for loadStorage user, and more informations in localStorage
   function loadStorage() {
@@ -57,6 +62,28 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     } else {
       localStorage.setItem("bag", JSON.stringify([]));
     }
+  }
+
+  async function handleLogin(formData: IRequestAuth) {
+    try {
+      const { data } = await api.post("/users/auth", formData);
+
+      setUser(data);
+
+      localStorage.setItem("user", JSON.stringify(data));
+
+      navigate("/");
+    } catch (error) {
+      toast.error("E-mail ou Senha incorretos!");
+    }
+  }
+
+  function handleLogout() {
+    setUser({});
+    setBag([]);
+    localStorage.setItem("bag", JSON.stringify([]));
+    localStorage.setItem("user", JSON.stringify({}));
+    navigate("/");
   }
 
   function handleBag(book: IBook) {
@@ -102,6 +129,9 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     <AuthContext.Provider
       value={{
         signed: !!user,
+        user,
+        handleLogin,
+        handleLogout,
         bag,
         handleBag,
         deleteBookBag,
