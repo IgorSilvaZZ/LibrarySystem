@@ -1,13 +1,9 @@
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
-import { z } from "zod";
 
 import { IRequestAuthenticateDTO } from "@modules/users/dtos/IRequestAuthenticateDTO";
 import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
 import { IResponseAuthenticateDTO } from "@modules/users/dtos/IResponseAuthenticateDTO";
-import { ValidationErrors } from "@shared/errors/ValidationErrors";
-import { TypeErrorValidation } from "@shared/types/TypeErrorValidation";
-import { createIssuesErros } from "utils/createIssuesErros";
 
 export class AuthenticateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
@@ -16,24 +12,6 @@ export class AuthenticateUserUseCase {
     email,
     password,
   }: IRequestAuthenticateDTO): Promise<IResponseAuthenticateDTO> {
-    const UserValidation = z.object({
-      email: z.string().email({ message: "Email Invalido!" }),
-      password: z
-        .string()
-        .min(4, { message: "Senha com menos de 4 caracteres!" }),
-    });
-
-    const { error, success } = UserValidation.safeParse({
-      email,
-      password,
-    }) as TypeErrorValidation;
-
-    if (!success) {
-      const issuesErrors = createIssuesErros(error.issues);
-
-      throw new ValidationErrors(issuesErrors);
-    }
-
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {

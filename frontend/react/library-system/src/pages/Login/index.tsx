@@ -1,15 +1,23 @@
-import { ArrowLeft } from "phosphor-react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { Background } from "../../components/Background";
+import { ArrowLeft } from "phosphor-react";
 
 import bannerImage from "../../assets/login-img.png";
 
 const Login = () => {
   const navigate = useNavigate();
 
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const handleSubmit = () => {
+    // Mandar Informações API
+    console.log(email);
+    console.log(password);
+  };
+
   return (
-    <Background>
+    <div className='flex justify-center items-center w-screen h-screen bg-white-container'>
       <div className='flex h-4/5 w-[70%] bg-white rounded-xl'>
         <div className='flex items-center justify-center w-[70%] h-full'>
           <div className='flex flex-col h-4/5 w-4/5'>
@@ -30,11 +38,13 @@ const Login = () => {
             <input
               className='w-3/5 p-3 text-base bg-none outline-none rounded mb-5 text-zinc-300 border border-solid border-zinc-300'
               placeholder='Email'
+              onChange={(e) => setEmail(e.target.value)}
             />
 
             <input
               className='w-3/5 p-3 text-base bg-none outline-none rounded mb-5 text-zinc-300 border border-solid border-zinc-300'
               placeholder='Senha'
+              onChange={(e) => setPassword(e.target.value)}
             />
 
             <button className='w-3/5 mt-5 p-3 border-none outline-none bg-pink-300 text-white font-semibold rounded transition-colors cursor-pointer hover:bg-pink-400'>
@@ -57,7 +67,7 @@ const Login = () => {
           />
         </div>
       </div>
-    </Background>
+    </div>
   );
 };
 
