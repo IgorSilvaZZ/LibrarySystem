@@ -3,17 +3,25 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "phosphor-react";
 
 import bannerImage from "../../assets/login-img.png";
+import { useAuth } from "../../hooks/useAuth";
 
 const Login = () => {
   const navigate = useNavigate();
+
+  const { handleLogin } = useAuth();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleSubmit = () => {
     // Mandar Informações API
-    console.log(email);
-    console.log(password);
+
+    const formData = {
+      email,
+      password,
+    };
+
+    handleLogin(formData);
   };
 
   return (
@@ -47,7 +55,10 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button className='w-3/5 mt-5 p-3 border-none outline-none bg-pink-300 text-white font-semibold rounded transition-colors cursor-pointer hover:bg-pink-400'>
+            <button
+              className='w-3/5 mt-5 p-3 border-none outline-none bg-pink-300 text-white font-semibold rounded transition-colors cursor-pointer hover:bg-pink-400'
+              onClick={handleSubmit}
+            >
               Entrar
             </button>
 

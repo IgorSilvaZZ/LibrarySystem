@@ -7,6 +7,7 @@ import logo from "../../assets/book-logo.png";
 import userIcon from "../../assets/user.png";
 import logoutIcon from "../../assets/logout.png";
 import bagIcon from "../../assets/shopping-cart.png";
+import { useAuth } from "../../hooks/useAuth";
 
 interface INavBar {
   isSearch: boolean;
@@ -15,6 +16,16 @@ interface INavBar {
 
 const NavBar = ({ isSearch, onClickBag }: INavBar) => {
   const navigate = useNavigate();
+
+  const { signed, handleLogout } = useAuth();
+
+  const goToPerfil = () => {
+    if (signed) {
+      navigate("/profile");
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
     <div
@@ -44,14 +55,23 @@ const NavBar = ({ isSearch, onClickBag }: INavBar) => {
             <img
               className='w-4 m-2 cursor-pointer'
               src={userIcon}
-              onClick={() => navigate("/login")}
+              onClick={goToPerfil}
+              title='Perfil'
             />
             <img
               onClick={onClickBag}
               className='w-4 m-2 cursor-pointer'
               src={bagIcon}
+              title='Bolsa'
             />
-            <img className='w-4 m-2 cursor-pointer' src={logoutIcon} />
+            {signed && (
+              <img
+                className='w-4 m-2 cursor-pointer'
+                src={logoutIcon}
+                title='Desconectar'
+                onClick={handleLogout}
+              />
+            )}
           </div>
         </>
       ) : (

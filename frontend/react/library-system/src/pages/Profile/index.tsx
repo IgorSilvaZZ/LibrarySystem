@@ -1,13 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { NavBar } from "../../components/NavBar";
 import { CreateBookProfile } from "../../components/Profile/CreateBook";
 import { EditBook } from "../../components/Profile/EditBook";
 import { GeneralProfile } from "../../components/Profile/General";
 import { MyBooks } from "../../components/Profile/MyBooks";
+import { useAuth } from "../../hooks/useAuth";
 
 const Profile = () => {
+  const { signed } = useAuth();
+  const navigate = useNavigate();
+
   const [optionProfile, setOptionProfile] = useState<string>("general");
+
+  useEffect(() => {
+    if (!signed) {
+      toast.error("Precisa se logar para acessar essa pagina!");
+
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>

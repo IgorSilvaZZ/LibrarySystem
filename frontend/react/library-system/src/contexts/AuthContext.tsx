@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
   const [bag, setBag] = useState<IBook[]>([]);
 
   //Iniital user for authentication
-  const [user, setUser] = useState<IUser | {}>();
+  const [user, setUser] = useState<IUser | null>();
 
   //Iniital function for loadStorage user, and more informations in localStorage
   function loadStorage() {
@@ -79,11 +79,10 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
   }
 
   function handleLogout() {
-    setUser({});
+    setUser(null);
     setBag([]);
-    localStorage.setItem("bag", JSON.stringify([]));
-    localStorage.setItem("user", JSON.stringify({}));
-    navigate("/");
+    localStorage.clear();
+    navigate("/login");
   }
 
   function handleBag(book: IBook) {
