@@ -128,7 +128,12 @@ const Explore = () => {
           <section className='flex flex-wrap gap-0 h-full w-full my-2'>
             {books.map((book) => (
               <span key={book.id} onClick={() => handleBook(book)}>
-                <Book book={book} isLoan={false} />
+                <Book
+                  width='[300px]'
+                  height='[300px]'
+                  book={book}
+                  isLoan={false}
+                />
               </span>
             ))}
           </section>

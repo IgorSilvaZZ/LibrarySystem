@@ -4,6 +4,7 @@ import Explore from "../pages/Explore";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Profile from "../pages/Profile";
+import Book from "../pages/Book";
 
 import { AuthProvider } from "../contexts/AuthContext";
 
@@ -16,6 +17,7 @@ const RoutesApp = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path='/book' element={<Book />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
