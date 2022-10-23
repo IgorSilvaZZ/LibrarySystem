@@ -58,8 +58,8 @@ export const MyBooks = () => {
           {myBooks.map((book) => (
             <span key={book.id} onClick={() => handleBook(book)}>
               <Book
-                width='[300px]'
-                height='[300px]'
+                width='w-[300px]'
+                height='h-[300px]'
                 book={book}
                 isLoan={false}
               />

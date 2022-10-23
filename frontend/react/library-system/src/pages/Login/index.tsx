@@ -44,14 +44,15 @@ const Login = () => {
             </p>
 
             <input
-              className='w-3/5 p-3 text-base bg-none outline-none rounded mb-5 text-zinc-300 border border-solid border-zinc-300'
+              className='w-3/5 p-3 text-base bg-none outline-none rounded mb-5 text-zinc-400 border border-solid border-zinc-300'
               placeholder='Email'
               onChange={(e) => setEmail(e.target.value)}
             />
 
             <input
-              className='w-3/5 p-3 text-base bg-none outline-none rounded mb-5 text-zinc-300 border border-solid border-zinc-300'
+              className='w-3/5 p-3 text-base bg-none outline-none rounded mb-5 text-zinc-400 border border-solid border-zinc-300'
               placeholder='Senha'
+              type='password'
               onChange={(e) => setPassword(e.target.value)}
             />
 

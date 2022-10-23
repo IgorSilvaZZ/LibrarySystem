@@ -11,7 +11,6 @@ export interface IModalBook {
 }
 
 export const ModalBook = ({ book }: IModalBook) => {
-
   const navigate = useNavigate();
 
   const { handleBag } = useAuth();
@@ -20,7 +19,10 @@ export const ModalBook = ({ book }: IModalBook) => {
     <>
       <div className='flex flex-col justify-evenly items-center w-[30%] h-[95%] m-2'>
         <img className='w-1/2' src={bookImage} alt='Book Image' />
-        <button className='w-[70%] p-3 bg-pink-500 text-white rounded-xl border-none outline-none cursor-pointer transition-colors hover:bg-pink-600' onClick={() => navigate(`/book/${book.id}`)}>
+        <button
+          className='w-[70%] p-3 bg-pink-500 text-white rounded-xl border-none outline-none cursor-pointer transition-colors hover:bg-pink-600'
+          onClick={() => navigate(`/book/${book?.id}`)}
+        >
           Ver mais
         </button>
       </div>

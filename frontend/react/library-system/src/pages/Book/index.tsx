@@ -1,6 +1,8 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft } from "phosphor-react";
+
+import { api } from "../../services/api";
 
 import { NavBar } from "../../components/NavBar";
 import { Book as BookItem } from "../../components/Book";
@@ -11,27 +13,30 @@ import bookImg from "../../assets/book-item.png";
 
 const Book = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
 
-  const [book, setBook] = useState<IBook>({
-    id: "97f975b5-8577-48df-8365-7f79afb884bf",
-    title: "Harry Potter e o prisioneiro de Azkaban",
-    description:
-      "As aulas estão de volta à Hogwarts e Harry Potter não vê a hora de embarcar no expresso a vapor que o levará de volta à escola de bruxaria. Mais uma vez suas férias na rua dos Alfeneiros foi triste e solitária. Com muita ação humor e magia 'Harry Potter e o prisioneiro de Azkaban' traz de volta o gigante atrapalhado Rúbeo Hagrid o sábio diretor Alvo Dumbledor a exigente professora de transformação Minerva MacGonagall e o novo mestre Lupin que guarda grandes surpresas para Harry.",
-    numberPages: 288,
-    language: "Português",
-    code: "910261244",
-    quantity: 0,
-    category_id: "b218b565-612d-49c5-be19-ba1e9744e400",
-    author_id: "1f332f98-d02c-47f3-b79b-41af2e1ee1aa",
-    author: {
-      id: "1f332f98-d02c-47f3-b79b-41af2e1ee1aa",
-      name: "J.K. Rowling",
-    },
-    category: {
-      id: "b218b565-612d-49c5-be19-ba1e9744e400",
-      name: "Aventura",
-    },
-  });
+  const [book, setBook] = useState<IBook>();
+  const [booksCategory, setBooksCategory] = useState<IBook[]>([]);
+
+  async function loadBook() {
+    const { data } = await api.get(`/books/${id}`);
+    const { data: categoriesResponse } = await api.get("/books/categories", {
+      params: {
+        name: data.category.name,
+      },
+    });
+
+    const filterBooks = categoriesResponse.filter(
+      (item: IBook) => item.id !== data.id
+    );
+
+    setBook(data);
+    setBooksCategory(filterBooks);
+  }
+
+  useEffect(() => {
+    loadBook();
+  }, []);
 
   return (
     <>
@@ -51,20 +56,16 @@ const Book = () => {
           />
 
           <span className='text-2xl font-bold text-pink-300'>
-            Eleanor & Park
+            {book?.title}
           </span>
 
           <span className='text-base font-bold text-zinc-500'>
-            Rainbow Rowell
+            {book?.author.name}
           </span>
 
           <div className='w-11/12 h-30 overflow-y-auto my-1'>
             <p className='text-[15px] leading-relaxed text-zinc-400'>
-              Eleanor é nova na cidade. Com roupas inusitadas, cachos ruivos
-              indomáveis e uma família problemática, ela sente que nunca vai
-              conseguir se encaixar. Park senta sozinho no ônibus da escola.
-              Sempre de camiseta preta, fones de ouvido e a cabeça enfiada num
-              livro, acha que consegue passar despercebido.
+              {book?.description}
             </p>
           </div>
 
@@ -73,14 +74,18 @@ const Book = () => {
               <span className='text-base font-bold text-pink-300'>
                 Números de Paginas
               </span>
-              <span className='text-sm font-bold text-zinc-400'>360</span>
+              <span className='text-sm font-bold text-zinc-400'>
+                {book?.numberPages}
+              </span>
             </div>
 
             <div className='w-2/5 flex flex-col gap-2'>
               <span className='text-base font-bold text-pink-300'>
                 Categoria
               </span>
-              <span className='text-sm font-bold text-zinc-400'>Romance</span>
+              <span className='text-sm font-bold text-zinc-400'>
+                {book?.category.name}
+              </span>
             </div>
           </div>
 
@@ -90,22 +95,27 @@ const Book = () => {
         </div>
       </div>
 
-      <div className='w-full flex item-center justify-center'>
-        <div className='w-4/5 flex flex-col gap-2'>
-          <span className='text-2xl font-bold text-pink-300'>
-            Outros livros da mesma categoria
-          </span>
+      {booksCategory.length > 0 && (
+        <div className='w-full flex item-center justify-center'>
+          <div className='w-4/5 flex flex-col gap-2'>
+            <span className='text-2xl font-bold text-pink-300'>
+              Outros livros da mesma categoria
+            </span>
 
-          <div className='w-full flex items-center gap-2'>
-            <BookItem
-              book={book}
-              isLoan={false}
-              height='[250px]'
-              width='[250px]'
-            />
+            <div className='w-full flex items-center gap-2'>
+              {booksCategory.map((itemBook) => (
+                <BookItem
+                  key={itemBook.id}
+                  book={itemBook}
+                  isLoan={false}
+                  height='w-[250px]'
+                  width='h-[250px]'
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

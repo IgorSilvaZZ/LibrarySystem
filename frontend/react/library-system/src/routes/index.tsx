@@ -17,7 +17,7 @@ const RoutesApp = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/book' element={<Book />} />
+          <Route path='/book/:id' element={<Book />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
