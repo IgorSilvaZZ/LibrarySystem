@@ -76,13 +76,16 @@ const NavBar = ({ isSearch, onClickBag }: INavBar) => {
         </>
       ) : (
         <div className='flex justify-evenly items-center w-[70%]'>
-          <a className='font-medium text-gray-400 decoration-0 cursor-pointer p-1 hover:text-pink-300 transition-colors'>
-            Inicio
-          </a>
-          <a className='font-medium text-gray-400 decoration-0 cursor-pointer p-1 hover:text-pink-300 transition-colors'>
+          <Link
+            to='/'
+            className='font-medium text-gray-400 decoration-0 cursor-pointer p-1 hover:text-pink-300 transition-colors'
+          >
             Explorar
-          </a>
-          <a className='font-medium text-gray-400 decoration-0 cursor-pointer p-1 hover:text-pink-300 transition-colors'>
+          </Link>
+          <a
+            className='font-medium text-gray-400 decoration-0 cursor-pointer p-1 hover:text-pink-300 transition-colors'
+            onClick={goToPerfil}
+          >
             Meu Perfil
           </a>
         </div>

@@ -57,7 +57,12 @@ export const MyBooks = () => {
         <section className='flex flex-wrap gap-0 h-full w-full my-2'>
           {myBooks.map((book) => (
             <span key={book.id} onClick={() => handleBook(book)}>
-              <Book book={book} isLoan={false} />
+              <Book
+                width='w-[300px]'
+                height='h-[300px]'
+                book={book}
+                isLoan={false}
+              />
             </span>
           ))}
         </section>
